@@ -104,6 +104,12 @@
   .nav-link:hover::after { transform: scaleX(1); transform-origin: left; }
   header[data-nav] nav { transition: padding 0.3s ease; }
   header[data-nav].nav-scrolled nav { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+  header[data-nav] { transition: transform 0.4s cubic-bezier(0.22,1,0.36,1); }
+  header[data-nav].nav-hidden { transform: translateY(-140%); }
+
+  /* Frosted/near-transparent nav needs adaptive text color for legibility over the dark Contact section */
+  header[data-nav] [data-nav-text] { color: #2b241f !important; transition: color 0.3s ease; }
+  header[data-nav].nav-on-dark [data-nav-text] { color: #e3e0d9 !important; }
 
   /* Section seam divider (About → Contact) */
   .seam-dot { width: 4px; height: 4px; border-radius: 9999px; background: currentColor; }
@@ -141,37 +147,30 @@
 <div class="cursor-ring is-dark" data-cursor-ring></div>
 <div class="cursor-dot" data-cursor-dot></div>
 
-<!-- Nav -->
+<!-- Nav: logo + single menu toggle, nothing else — hides on scroll down, reappears on scroll up -->
 <header data-nav class="fixed top-4 left-4 right-4 z-50">
-  <nav class="max-w-7xl mx-auto flex items-center justify-between bg-bone/90 backdrop-blur-sm border border-ink/10 rounded-full px-4 md:px-6 py-3">
-    <a href="#top" class="text-lg font-semibold tracking-wide text-ink cursor-pointer px-2">YRSA</a>
-    <div class="hidden md:flex items-center gap-8 text-sm">
-      <a href="#work" class="nav-link text-ink/80 hover:text-oxide transition-colors duration-200 cursor-pointer">Work</a>
-      <a href="#about" class="nav-link text-ink/80 hover:text-oxide transition-colors duration-200 cursor-pointer">About</a>
-      <a href="#contact" class="nav-link text-ink/80 hover:text-oxide transition-colors duration-200 cursor-pointer">Contact</a>
-    </div>
-    <div class="flex items-center gap-2">
-      <button
-        type="button" data-menu-toggle aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu"
-        class="md:hidden flex items-center justify-center w-11 h-11 rounded-full text-ink cursor-pointer"
-      >
-        <svg data-menu-icon-open class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
-        <svg data-menu-icon-close class="hidden w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
-      </button>
-      <a href="#contact" data-magnetic data-cursor-hover class="magnetic text-sm font-medium bg-ink text-bone px-5 py-2.5 rounded-full hover:bg-oxide transition-colors duration-200 cursor-pointer">Inquire</a>
-    </div>
+  <nav class="max-w-7xl mx-auto flex items-center justify-between bg-bone/15 backdrop-blur-xl rounded-full px-5 py-2.5">
+    <a href="#top" data-nav-text class="text-lg font-semibold tracking-wide cursor-pointer">YRSA</a>
+    <button
+      type="button" data-menu-toggle data-nav-text aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu"
+      class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer"
+    >
+      <svg data-menu-icon-open class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      <svg data-menu-icon-close class="hidden w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
   </nav>
 </header>
 
-<!-- Mobile menu overlay -->
+<!-- Menu overlay (all breakpoints) -->
 <div
   id="mobile-menu" data-mobile-menu aria-hidden="true"
-  class="fixed inset-0 z-40 bg-bone flex flex-col items-center justify-center gap-8 opacity-0 pointer-events-none transition-opacity duration-300 md:hidden"
+  class="fixed inset-0 z-40 bg-bone flex flex-col items-center justify-center gap-6 opacity-0 pointer-events-none transition-opacity duration-300"
 >
-  <a href="#work" data-menu-link class="logline text-ink/40 text-xs absolute top-8">SELECTED WORK &middot; SHOT LOG</a>
-  <a href="#work" data-menu-link class="text-4xl font-medium text-ink cursor-pointer py-2">Work</a>
-  <a href="#about" data-menu-link class="text-4xl font-medium text-ink cursor-pointer py-2">About</a>
-  <a href="#contact" data-menu-link class="text-4xl font-medium text-ink cursor-pointer py-2">Contact</a>
+  <p class="logline text-ink/40 text-xs absolute top-8">SELECTED WORK &middot; SHOT LOG</p>
+  <a href="#work" data-menu-link class="text-4xl md:text-5xl font-medium text-ink hover:text-oxide transition-colors duration-200 cursor-pointer py-2">Work</a>
+  <a href="#about" data-menu-link class="text-4xl md:text-5xl font-medium text-ink hover:text-oxide transition-colors duration-200 cursor-pointer py-2">About</a>
+  <a href="#contact" data-menu-link class="text-4xl md:text-5xl font-medium text-ink hover:text-oxide transition-colors duration-200 cursor-pointer py-2">Contact</a>
+  <a href="#contact" data-menu-link data-cursor-hover class="mt-4 text-sm font-medium bg-ink text-bone px-6 py-3 rounded-full hover:bg-oxide transition-colors duration-200 cursor-pointer">Inquire</a>
 </div>
 
 <!-- Hero -->
@@ -419,6 +418,7 @@
     mobileMenu.classList.add('opacity-0', 'pointer-events-none');
     mobileMenu.setAttribute('aria-hidden', 'true');
     menuToggle.setAttribute('aria-expanded', 'false');
+    menuToggle.setAttribute('aria-label', 'Open menu');
     if (iconOpen) iconOpen.classList.remove('hidden');
     if (iconClose) iconClose.classList.add('hidden');
     document.body.style.overflow = '';
@@ -428,6 +428,7 @@
     mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
     mobileMenu.setAttribute('aria-hidden', 'false');
     menuToggle.setAttribute('aria-expanded', 'true');
+    menuToggle.setAttribute('aria-label', 'Close menu');
     if (iconOpen) iconOpen.classList.add('hidden');
     if (iconClose) iconClose.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
@@ -442,9 +443,9 @@
     link.addEventListener('click', closeMenu);
   });
 
-  // Close on resize past the mobile breakpoint so it can't get stuck open behind a desktop layout
-  window.matchMedia('(min-width: 768px)').addEventListener('change', function (e) {
-    if (e.matches) closeMenu();
+  // Esc closes the menu too
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && menuToggle.getAttribute('aria-expanded') === 'true') closeMenu();
   });
 })();
 
@@ -473,13 +474,33 @@
     gsap.ticker.lagSmoothing(0);
   }
 
-  // ---- Nav scroll-aware shrink ----
+  // ---- Nav: scroll-aware shrink + hide-on-scroll-down/reveal-on-scroll-up ----
   var navHeader = document.querySelector('[data-nav]');
   if (navHeader) {
     ScrollTrigger.create({
       start: 'top -80',
       end: 99999,
       toggleClass: { targets: navHeader, className: 'nav-scrolled' },
+    });
+    var contactSection = document.getElementById('contact');
+    ScrollTrigger.create({
+      start: 0,
+      end: 99999,
+      onUpdate: function (self) {
+        var menuOpen = document.querySelector('[data-mobile-menu]').getAttribute('aria-hidden') === 'false';
+        if (menuOpen) return;
+        if (self.direction === 1 && self.scroll() > 120) {
+          navHeader.classList.add('nav-hidden');
+        } else {
+          navHeader.classList.remove('nav-hidden');
+        }
+        // Live check (not a cached ScrollTrigger start/end) so it stays correct even though the
+        // horizontal gallery's dynamic pin spacer shifts every other section's absolute position.
+        if (contactSection) {
+          var overDark = contactSection.getBoundingClientRect().top <= 0;
+          navHeader.classList.toggle('nav-on-dark', overDark);
+        }
+      },
     });
   }
 
