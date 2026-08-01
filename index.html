@@ -143,16 +143,36 @@
 
 <!-- Nav -->
 <header data-nav class="fixed top-4 left-4 right-4 z-50">
-  <nav class="max-w-7xl mx-auto flex items-center justify-between bg-bone/90 backdrop-blur-sm border border-ink/10 rounded-full px-6 py-3">
-    <a href="#top" class="text-lg font-semibold tracking-wide text-ink cursor-pointer">YRSA</a>
+  <nav class="max-w-7xl mx-auto flex items-center justify-between bg-bone/90 backdrop-blur-sm border border-ink/10 rounded-full px-4 md:px-6 py-3">
+    <a href="#top" class="text-lg font-semibold tracking-wide text-ink cursor-pointer px-2">YRSA</a>
     <div class="hidden md:flex items-center gap-8 text-sm">
       <a href="#work" class="nav-link text-ink/80 hover:text-oxide transition-colors duration-200 cursor-pointer">Work</a>
       <a href="#about" class="nav-link text-ink/80 hover:text-oxide transition-colors duration-200 cursor-pointer">About</a>
       <a href="#contact" class="nav-link text-ink/80 hover:text-oxide transition-colors duration-200 cursor-pointer">Contact</a>
     </div>
-    <a href="#contact" data-magnetic data-cursor-hover class="magnetic text-sm font-medium bg-ink text-bone px-5 py-2 rounded-full hover:bg-oxide transition-colors duration-200 cursor-pointer">Inquire</a>
+    <div class="flex items-center gap-2">
+      <button
+        type="button" data-menu-toggle aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu"
+        class="md:hidden flex items-center justify-center w-11 h-11 rounded-full text-ink cursor-pointer"
+      >
+        <svg data-menu-icon-open class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        <svg data-menu-icon-close class="hidden w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <a href="#contact" data-magnetic data-cursor-hover class="magnetic text-sm font-medium bg-ink text-bone px-5 py-2.5 rounded-full hover:bg-oxide transition-colors duration-200 cursor-pointer">Inquire</a>
+    </div>
   </nav>
 </header>
+
+<!-- Mobile menu overlay -->
+<div
+  id="mobile-menu" data-mobile-menu aria-hidden="true"
+  class="fixed inset-0 z-40 bg-bone flex flex-col items-center justify-center gap-8 opacity-0 pointer-events-none transition-opacity duration-300 md:hidden"
+>
+  <a href="#work" data-menu-link class="logline text-ink/40 text-xs absolute top-8">SELECTED WORK &middot; SHOT LOG</a>
+  <a href="#work" data-menu-link class="text-4xl font-medium text-ink cursor-pointer py-2">Work</a>
+  <a href="#about" data-menu-link class="text-4xl font-medium text-ink cursor-pointer py-2">About</a>
+  <a href="#contact" data-menu-link class="text-4xl font-medium text-ink cursor-pointer py-2">Contact</a>
+</div>
 
 <!-- Hero -->
 <section id="top" class="relative h-screen min-h-[600px] w-full overflow-hidden">
@@ -358,15 +378,15 @@
         <form class="space-y-5">
           <div class="group">
             <label for="name" class="logline text-xs text-bone/60 group-focus-within:text-brass block mb-2 transition-colors duration-300">NAME</label>
-            <input id="name" name="name" type="text" required class="w-full bg-transparent border-b border-bone/30 focus:border-brass outline-none py-2 text-bone placeholder-bone/40 transition-colors duration-300" placeholder="Your name" />
+            <input id="name" name="name" type="text" required class="w-full bg-transparent border-b border-bone/30 focus:border-brass outline-none py-2 text-base text-bone placeholder-bone/40 transition-colors duration-300" placeholder="Your name" />
           </div>
           <div class="group">
             <label for="email" class="logline text-xs text-bone/60 group-focus-within:text-brass block mb-2 transition-colors duration-300">EMAIL</label>
-            <input id="email" name="email" type="email" required class="w-full bg-transparent border-b border-bone/30 focus:border-brass outline-none py-2 text-bone placeholder-bone/40 transition-colors duration-300" placeholder="you@email.com" />
+            <input id="email" name="email" type="email" required class="w-full bg-transparent border-b border-bone/30 focus:border-brass outline-none py-2 text-base text-bone placeholder-bone/40 transition-colors duration-300" placeholder="you@email.com" />
           </div>
           <div class="group">
             <label for="message" class="logline text-xs text-bone/60 group-focus-within:text-brass block mb-2 transition-colors duration-300">MESSAGE</label>
-            <textarea id="message" name="message" rows="3" required class="w-full bg-transparent border-b border-bone/30 focus:border-brass outline-none py-2 text-bone placeholder-bone/40 transition-colors duration-300 resize-none" placeholder="Tell me about your project"></textarea>
+            <textarea id="message" name="message" rows="3" required class="w-full bg-transparent border-b border-bone/30 focus:border-brass outline-none py-2 text-base text-bone placeholder-bone/40 transition-colors duration-300 resize-none" placeholder="Tell me about your project"></textarea>
           </div>
           <button type="submit" data-magnetic data-cursor-hover class="magnetic mt-2 bg-brass text-ink font-medium px-9 py-3.5 rounded-full shadow-lg shadow-ink/30 hover:bg-bone transition-colors duration-200 cursor-pointer">
             Send message
@@ -377,16 +397,57 @@
 
     <div class="border-t border-bone/15 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
       <p class="logline text-xs text-bone/60">&copy; 2026 YRSA &middot; FIELD PHOTOGRAPHY</p>
-      <div class="flex gap-6 text-sm text-bone/60">
-        <a href="#" class="hover:text-brass transition-colors duration-200 cursor-pointer">Instagram</a>
-        <a href="#" class="hover:text-brass transition-colors duration-200 cursor-pointer">Prints</a>
-        <a href="#top" class="hover:text-brass transition-colors duration-200 cursor-pointer">Back to top</a>
+      <div class="flex gap-4 text-sm text-bone/60">
+        <a href="#" class="hover:text-brass transition-colors duration-200 cursor-pointer py-2 px-1">Instagram</a>
+        <a href="#" class="hover:text-brass transition-colors duration-200 cursor-pointer py-2 px-1">Prints</a>
+        <a href="#top" class="hover:text-brass transition-colors duration-200 cursor-pointer py-2 px-1">Back to top</a>
       </div>
     </div>
   </div>
 </section>
 
 <script>
+// ---- Mobile menu (always active — must work regardless of reduced motion or GSAP availability) ----
+(function () {
+  var menuToggle = document.querySelector('[data-menu-toggle]');
+  var mobileMenu = document.querySelector('[data-mobile-menu]');
+  var iconOpen = document.querySelector('[data-menu-icon-open]');
+  var iconClose = document.querySelector('[data-menu-icon-close]');
+  if (!menuToggle || !mobileMenu) return;
+
+  function closeMenu() {
+    mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+    mobileMenu.setAttribute('aria-hidden', 'true');
+    menuToggle.setAttribute('aria-expanded', 'false');
+    if (iconOpen) iconOpen.classList.remove('hidden');
+    if (iconClose) iconClose.classList.add('hidden');
+    document.body.style.overflow = '';
+  }
+
+  function openMenu() {
+    mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
+    mobileMenu.setAttribute('aria-hidden', 'false');
+    menuToggle.setAttribute('aria-expanded', 'true');
+    if (iconOpen) iconOpen.classList.add('hidden');
+    if (iconClose) iconClose.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  }
+
+  menuToggle.addEventListener('click', function () {
+    var isOpen = menuToggle.getAttribute('aria-expanded') === 'true';
+    if (isOpen) { closeMenu(); } else { openMenu(); }
+  });
+
+  mobileMenu.querySelectorAll('[data-menu-link]').forEach(function (link) {
+    link.addEventListener('click', closeMenu);
+  });
+
+  // Close on resize past the mobile breakpoint so it can't get stuck open behind a desktop layout
+  window.matchMedia('(min-width: 768px)').addEventListener('change', function (e) {
+    if (e.matches) closeMenu();
+  });
+})();
+
 (function () {
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
