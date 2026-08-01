@@ -73,6 +73,41 @@
 
   .magnetic { display: inline-flex; will-change: transform; }
 
+  /* Layered Depth: shared card shell for overlapping "stacked print" elements */
+  .depth-card {
+    border: 1px solid rgba(151,149,145,0.35);
+    box-shadow: 0 8px 20px -6px rgba(43,36,31,0.35), 0 30px 60px -20px rgba(43,36,31,0.3);
+    transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s ease;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .depth-card:hover {
+      --tw-rotate: 0deg;
+      --tw-scale-x: 1.03;
+      --tw-scale-y: 1.03;
+      box-shadow: 0 12px 28px -6px rgba(43,36,31,0.4), 0 40px 80px -20px rgba(43,36,31,0.35);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .depth-card { transition: none; }
+  }
+
+  /* Unifying photo grade — evens out mixed professional/phone photo sources */
+  .photo-grade { filter: contrast(1.05) saturate(0.92) brightness(0.98); }
+
+  /* Nav */
+  .nav-link { position: relative; }
+  .nav-link::after {
+    content: ''; position: absolute; left: 0; bottom: -3px; width: 100%; height: 1px;
+    background: currentColor; transform: scaleX(0); transform-origin: right;
+    transition: transform 0.3s ease;
+  }
+  .nav-link:hover::after { transform: scaleX(1); transform-origin: left; }
+  header[data-nav] nav { transition: padding 0.3s ease; }
+  header[data-nav].nav-scrolled nav { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+
+  /* Section seam divider (About → Contact) */
+  .seam-dot { width: 4px; height: 4px; border-radius: 9999px; background: currentColor; }
+
   /* Horizontal gallery: native swipe on mobile, JS-pinned scroll on desktop */
   .h-track { will-change: transform; }
   .h-panel { scroll-snap-align: start; }
@@ -107,13 +142,13 @@
 <div class="cursor-dot" data-cursor-dot></div>
 
 <!-- Nav -->
-<header class="fixed top-4 left-4 right-4 z-50">
+<header data-nav class="fixed top-4 left-4 right-4 z-50">
   <nav class="max-w-7xl mx-auto flex items-center justify-between bg-bone/90 backdrop-blur-sm border border-ink/10 rounded-full px-6 py-3">
     <a href="#top" class="text-lg font-semibold tracking-wide text-ink cursor-pointer">YRSA</a>
     <div class="hidden md:flex items-center gap-8 text-sm">
-      <a href="#work" class="text-ink/80 hover:text-oxide transition-colors duration-200 cursor-pointer">Work</a>
-      <a href="#about" class="text-ink/80 hover:text-oxide transition-colors duration-200 cursor-pointer">About</a>
-      <a href="#contact" class="text-ink/80 hover:text-oxide transition-colors duration-200 cursor-pointer">Contact</a>
+      <a href="#work" class="nav-link text-ink/80 hover:text-oxide transition-colors duration-200 cursor-pointer">Work</a>
+      <a href="#about" class="nav-link text-ink/80 hover:text-oxide transition-colors duration-200 cursor-pointer">About</a>
+      <a href="#contact" class="nav-link text-ink/80 hover:text-oxide transition-colors duration-200 cursor-pointer">Contact</a>
     </div>
     <a href="#contact" data-magnetic data-cursor-hover class="magnetic text-sm font-medium bg-ink text-bone px-5 py-2 rounded-full hover:bg-oxide transition-colors duration-200 cursor-pointer">Inquire</a>
   </nav>
@@ -123,7 +158,7 @@
 <section id="top" class="relative h-screen min-h-[600px] w-full overflow-hidden">
   <div data-hero-media class="absolute inset-0 w-[100%] h-[112%] -top-[6%]">
     <video
-      class="w-full h-full object-cover"
+      class="photo-grade w-full h-full object-cover"
       autoplay muted loop playsinline
       poster="assets/video/loop-poster.jpg"
     >
@@ -147,6 +182,8 @@
     <span class="logline text-xs">SCROLL</span>
     <svg data-scroll-arrow class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
   </a>
+
+  <div class="absolute bottom-0 left-0 right-0 h-24 md:h-32 bg-gradient-to-b from-transparent to-bone pointer-events-none z-10"></div>
 </section>
 
 <!-- Gallery: pinned horizontal scroll on desktop, native swipe on mobile -->
@@ -156,15 +193,15 @@
     <!-- Panel 0: intro / manifesto -->
     <div data-h-panel class="h-panel relative flex-shrink-0 w-screen h-screen flex items-center bg-bone px-6 md:px-16">
       <div class="max-w-xl">
-        <p class="logline text-oxide text-xs mb-4">SELECTED WORK &middot; SHOT LOG</p>
-        <h2 class="text-4xl md:text-6xl font-medium tracking-tight leading-tight mb-6">
+        <p data-reveal class="reveal-up logline text-oxide text-xs mb-4">SELECTED WORK &middot; SHOT LOG</p>
+        <h2 data-reveal class="reveal-up text-4xl md:text-7xl font-medium tracking-tight leading-tight mb-6">
           Every frame carries its log line — date, place, lens.
         </h2>
-        <p class="text-ink/70 font-light leading-relaxed text-lg mb-10 max-w-md">
+        <p data-reveal class="reveal-up text-ink/70 font-light leading-relaxed text-lg mb-10 max-w-md">
           Bone, oxide, brass — the palette the land hands you. Overcast lavender skies, dry-grass grey
           scrub, and leather-ink shadow define the tonal range of this archive.
         </p>
-        <div class="flex gap-3">
+        <div data-reveal class="reveal-up flex gap-3">
           <div class="w-14 h-14 rounded-lg bg-bone border border-ink/15"></div>
           <div class="w-14 h-14 rounded-lg bg-lavender"></div>
           <div class="w-14 h-14 rounded-lg bg-grey"></div>
@@ -176,8 +213,8 @@
     </div>
 
     <!-- Panel 1 -->
-    <figure data-h-panel data-cursor-hover class="h-panel relative flex-shrink-0 w-screen h-screen md:w-[52vw] md:h-[74vh] md:mt-[6vh] md:ml-0 md:z-10 md:rounded-2xl md:shadow-2xl overflow-hidden cursor-pointer">
-      <img data-h-parallax src="assets/img/arizona.jpg" alt="Wide desert landscape under a pale sky in Southern Arizona" class="w-[122%] h-full object-cover -ml-[11%]" loading="lazy" />
+    <figure data-h-panel data-cursor-hover class="depth-card h-panel relative flex-shrink-0 w-screen h-screen md:w-[52vw] md:h-[74vh] md:mt-[6vh] md:ml-0 md:z-10 md:rounded-2xl overflow-hidden cursor-pointer">
+      <img data-h-parallax src="assets/img/arizona.jpg" alt="Wide desert landscape under a pale sky in Southern Arizona" class="photo-grade w-[122%] h-full object-cover -ml-[11%]" loading="lazy" />
       <div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"></div>
       <figcaption data-h-caption class="absolute bottom-12 left-6 md:left-16">
         <p class="logline text-bone/80 text-xs mb-2">04&#8209;16 &middot; SOUTHERN ARIZONA &middot; 300MM</p>
@@ -186,8 +223,8 @@
     </figure>
 
     <!-- Panel 2 -->
-    <figure data-h-panel data-cursor-hover class="h-panel relative flex-shrink-0 w-screen h-screen md:w-[34vw] md:h-[52vh] md:mt-[26vh] md:-ml-[9vw] md:-rotate-2 md:z-20 md:rounded-2xl md:shadow-2xl overflow-hidden cursor-pointer">
-      <img data-h-parallax src="assets/img/bisbee.jpg" alt="Weathered oxide-toned car in Bisbee, Arizona" class="w-[122%] h-full object-cover -ml-[11%]" loading="lazy" />
+    <figure data-h-panel data-cursor-hover class="depth-card h-panel relative flex-shrink-0 w-screen h-screen md:w-[34vw] md:h-[52vh] md:mt-[26vh] md:-ml-[9vw] md:-rotate-2 md:z-20 md:rounded-2xl overflow-hidden cursor-pointer">
+      <img data-h-parallax src="assets/img/bisbee.jpg" alt="Weathered oxide-toned car in Bisbee, Arizona" class="photo-grade w-[122%] h-full object-cover -ml-[11%]" loading="lazy" />
       <div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"></div>
       <figcaption data-h-caption class="absolute bottom-12 left-6 md:left-16">
         <p class="logline text-bone/80 text-xs mb-2">04&#8209;16 &middot; BISBEE, AZ &middot; 90MM</p>
@@ -196,8 +233,8 @@
     </figure>
 
     <!-- Panel 2b: behind the lens, Bisbee -->
-    <figure data-h-panel data-cursor-hover class="h-panel relative flex-shrink-0 w-screen h-screen md:w-[26vw] md:h-[40vh] md:mt-[4vh] md:-ml-[10vw] md:rotate-3 md:z-30 md:rounded-2xl md:shadow-2xl overflow-hidden cursor-pointer">
-      <img data-h-parallax src="assets/img/bisbee-portrait.jpg" alt="Yrsa holding a camera outside a weathered building in Bisbee, Arizona" class="w-[122%] h-full object-cover -ml-[11%] object-top" loading="lazy" />
+    <figure data-h-panel data-cursor-hover class="depth-card h-panel relative flex-shrink-0 w-screen h-screen md:w-[26vw] md:h-[40vh] md:mt-[4vh] md:-ml-[10vw] md:rotate-3 md:z-30 md:rounded-2xl overflow-hidden cursor-pointer">
+      <img data-h-parallax src="assets/img/bisbee-portrait.jpg" alt="Yrsa holding a camera outside a weathered building in Bisbee, Arizona" class="photo-grade w-[122%] h-full object-cover -ml-[11%] object-top" loading="lazy" />
       <div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"></div>
       <figcaption data-h-caption class="absolute bottom-8 left-5 md:left-8">
         <p class="logline text-bone/80 text-xs mb-2">04&#8209;16 &middot; BISBEE, AZ &middot; 50MM</p>
@@ -206,8 +243,8 @@
     </figure>
 
     <!-- Panel 3 -->
-    <figure data-h-panel data-cursor-hover class="h-panel relative flex-shrink-0 w-screen h-screen md:w-[46vw] md:h-[68vh] md:mt-[2vh] md:-ml-[7vw] md:rotate-1 md:z-10 md:rounded-2xl md:shadow-2xl overflow-hidden cursor-pointer">
-      <img data-h-parallax src="assets/img/cabot-trail-1.jpg" alt="Coastal cliffs along the Cabot Trail in Nova Scotia" class="w-[122%] h-full object-cover -ml-[11%]" loading="lazy" />
+    <figure data-h-panel data-cursor-hover class="depth-card h-panel relative flex-shrink-0 w-screen h-screen md:w-[46vw] md:h-[68vh] md:mt-[2vh] md:-ml-[7vw] md:rotate-1 md:z-10 md:rounded-2xl overflow-hidden cursor-pointer">
+      <img data-h-parallax src="assets/img/cabot-trail-1.jpg" alt="Coastal cliffs along the Cabot Trail in Nova Scotia" class="photo-grade w-[122%] h-full object-cover -ml-[11%]" loading="lazy" />
       <div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"></div>
       <figcaption data-h-caption class="absolute bottom-12 left-6 md:left-16">
         <p class="logline text-bone/80 text-xs mb-2">07&#8209;18 &middot; CABOT TRAIL, NS &middot; 35MM</p>
@@ -216,8 +253,8 @@
     </figure>
 
     <!-- Panel 4 -->
-    <figure data-h-panel data-cursor-hover class="h-panel relative flex-shrink-0 w-screen h-screen md:w-[30vw] md:h-[46vh] md:mt-[32vh] md:-ml-[8vw] md:rotate-2 md:z-20 md:rounded-2xl md:shadow-2xl overflow-hidden cursor-pointer">
-      <img data-h-parallax src="assets/img/cabot-trail-2.jpg" alt="Winding coastal road through the Cabot Trail highlands" class="w-[122%] h-full object-cover -ml-[11%]" loading="lazy" />
+    <figure data-h-panel data-cursor-hover class="depth-card h-panel relative flex-shrink-0 w-screen h-screen md:w-[30vw] md:h-[46vh] md:mt-[32vh] md:-ml-[8vw] md:rotate-2 md:z-20 md:rounded-2xl overflow-hidden cursor-pointer">
+      <img data-h-parallax src="assets/img/cabot-trail-2.jpg" alt="Winding coastal road through the Cabot Trail highlands" class="photo-grade w-[122%] h-full object-cover -ml-[11%]" loading="lazy" />
       <div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"></div>
       <figcaption data-h-caption class="absolute bottom-12 left-6 md:left-16">
         <p class="logline text-bone/80 text-xs mb-2">07&#8209;18 &middot; CABOT TRAIL, NS &middot; 50MM</p>
@@ -226,8 +263,8 @@
     </figure>
 
     <!-- Panel 4b: new region, Florida hammock -->
-    <figure data-h-panel data-cursor-hover class="h-panel relative flex-shrink-0 w-screen h-screen md:w-[38vw] md:h-[64vh] md:mt-[10vh] md:-ml-[7vw] md:-rotate-1 md:z-10 md:rounded-2xl md:shadow-2xl overflow-hidden cursor-pointer">
-      <img data-h-parallax src="assets/img/florida-hammock.jpg" alt="Yrsa walking a boardwalk through a palm hammock in Florida" class="w-[122%] h-full object-cover -ml-[11%]" loading="lazy" />
+    <figure data-h-panel data-cursor-hover class="depth-card h-panel relative flex-shrink-0 w-screen h-screen md:w-[38vw] md:h-[64vh] md:mt-[10vh] md:-ml-[7vw] md:-rotate-1 md:z-10 md:rounded-2xl overflow-hidden cursor-pointer">
+      <img data-h-parallax src="assets/img/florida-hammock.jpg" alt="Yrsa walking a boardwalk through a palm hammock in Florida" class="photo-grade w-[122%] h-full object-cover -ml-[11%]" loading="lazy" />
       <div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"></div>
       <figcaption data-h-caption class="absolute bottom-10 left-6 md:left-10">
         <p class="logline text-bone/80 text-xs mb-2">07&#8209;02 &middot; FLORIDA HAMMOCK &middot; 35MM</p>
@@ -236,8 +273,8 @@
     </figure>
 
     <!-- Panel 5 -->
-    <figure data-h-panel data-cursor-hover class="h-panel relative flex-shrink-0 w-screen h-screen md:w-[54vw] md:h-[76vh] md:mt-[8vh] md:-ml-[8vw] md:-rotate-1 md:z-10 md:rounded-2xl md:shadow-2xl overflow-hidden cursor-pointer">
-      <img data-h-parallax src="assets/img/peggys-cove.jpg" alt="Rocky coastline at Peggy's Cove, Nova Scotia" class="w-[122%] h-full object-cover -ml-[11%]" loading="lazy" />
+    <figure data-h-panel data-cursor-hover class="depth-card h-panel relative flex-shrink-0 w-screen h-screen md:w-[54vw] md:h-[76vh] md:mt-[8vh] md:-ml-[8vw] md:-rotate-1 md:z-10 md:rounded-2xl overflow-hidden cursor-pointer">
+      <img data-h-parallax src="assets/img/peggys-cove.jpg" alt="Rocky coastline at Peggy's Cove, Nova Scotia" class="photo-grade w-[122%] h-full object-cover -ml-[11%]" loading="lazy" />
       <div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"></div>
       <figcaption data-h-caption class="absolute bottom-12 left-6 md:left-16">
         <p class="logline text-bone/80 text-xs mb-2">07&#8209;22 &middot; PEGGY'S COVE, NS &middot; 24MM</p>
@@ -247,8 +284,8 @@
     </figure>
 
     <!-- Panel 6: closer, Gulf coast -->
-    <figure data-h-panel data-cursor-hover class="h-panel relative flex-shrink-0 w-screen h-screen md:w-[56vw] md:h-[72vh] md:mt-[4vh] md:-ml-[9vw] md:rotate-2 md:z-20 md:rounded-2xl md:shadow-2xl overflow-hidden cursor-pointer">
-      <img data-h-parallax src="assets/img/beach.jpg" alt="Yrsa raising an arm to the sky on a white sand Gulf Coast beach, camera in hand" class="w-[122%] h-full object-cover -ml-[11%]" loading="lazy" />
+    <figure data-h-panel data-cursor-hover class="depth-card h-panel relative flex-shrink-0 w-screen h-screen md:w-[56vw] md:h-[72vh] md:mt-[4vh] md:-ml-[9vw] md:rotate-2 md:z-20 md:rounded-2xl overflow-hidden cursor-pointer">
+      <img data-h-parallax src="assets/img/beach.jpg" alt="Yrsa raising an arm to the sky on a white sand Gulf Coast beach, camera in hand" class="photo-grade w-[122%] h-full object-cover -ml-[11%]" loading="lazy" />
       <div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"></div>
       <figcaption data-h-caption class="absolute bottom-12 left-6 md:left-16">
         <p class="logline text-bone/80 text-xs mb-2">07&#8209;03 &middot; GULF COAST, FL &middot; 50MM</p>
@@ -260,20 +297,25 @@
 </section>
 
 <!-- About -->
-<section id="about" class="max-w-7xl mx-auto px-6 md:px-12 py-24">
+<section id="about" class="max-w-7xl mx-auto px-6 md:px-12 py-24 md:py-32">
   <div class="grid md:grid-cols-12 gap-10 items-center">
-    <div class="md:col-span-5 reveal-mask rounded-2xl">
-      <img data-parallax-img src="assets/img/camera-portrait.jpg" alt="Yrsa holding a vintage box camera at a wooden table" class="w-full h-[420px] object-cover object-top" loading="lazy" />
+    <div class="md:col-span-5 relative pb-8 pr-6 md:pb-10 md:pr-10">
+      <div data-cursor-hover class="reveal-mask depth-card rounded-2xl cursor-pointer">
+        <img data-parallax-img src="assets/img/camera-portrait.jpg" alt="Yrsa holding a vintage box camera at a wooden table" class="photo-grade w-full h-[420px] object-cover object-top" loading="lazy" />
+      </div>
+      <div data-reveal data-cursor-hover class="reveal-up depth-card absolute bottom-0 right-0 w-28 h-28 md:w-36 md:h-36 rounded-xl overflow-hidden border-2 border-lavender rotate-3 z-20 cursor-pointer">
+        <img src="assets/img/camera-portrait.jpg" alt="Detail: Yrsa's hands on the vintage camera" style="object-position: 30% 68%;" class="photo-grade w-full h-full object-cover scale-[1.8]" loading="lazy" />
+      </div>
     </div>
     <div class="md:col-span-7">
       <p data-reveal class="reveal-up logline text-oxide text-xs mb-3">ABOUT</p>
-      <h2 data-reveal class="reveal-up text-3xl md:text-4xl font-medium tracking-tight mb-6">Yrsa shoots the in-between hours.</h2>
-      <p data-reveal class="reveal-up text-ink/75 font-light leading-relaxed mb-4">
+      <h2 data-reveal class="reveal-up text-3xl md:text-5xl font-medium tracking-tight mb-6">Yrsa shoots the in-between hours.</h2>
+      <p data-reveal class="reveal-up text-ink/75 font-light leading-relaxed mb-4 max-w-md">
         Working between the Sonoran desert and the Atlantic coast, Yrsa keeps a running shot log of wild
         places and the weather that passes over them — bone-dry afternoons, overcast lavender skies, and
         the last oxide light before dark.
       </p>
-      <p data-reveal class="reveal-up text-ink/75 font-light leading-relaxed mb-8">
+      <p data-reveal class="reveal-up text-ink/75 font-light leading-relaxed mb-8 max-w-md">
         Every image is logged with its date, place, and lens, treating the archive less like a portfolio
         and more like a field journal.
       </p>
@@ -291,33 +333,42 @@
   </div>
 </section>
 
+<!-- Seam: About → Contact -->
+<div class="relative h-20 md:h-28 bg-gradient-to-b from-bone to-ink" aria-hidden="true">
+  <div class="absolute inset-0 flex items-center justify-center gap-3 text-grey">
+    <span class="seam-dot"></span>
+    <span class="seam-dot"></span>
+    <span class="seam-dot"></span>
+  </div>
+</div>
+
 <!-- Contact -->
 <section id="contact" class="bg-ink text-bone">
-  <div class="max-w-7xl mx-auto px-6 md:px-12 py-24">
+  <div class="max-w-7xl mx-auto px-6 md:px-12 pt-20 md:pt-24 pb-24 md:pb-32">
     <div class="grid md:grid-cols-12 gap-10">
       <div class="md:col-span-6">
         <p class="logline text-brass text-xs mb-3">GET IN TOUCH</p>
         <h2 class="text-3xl md:text-5xl font-medium tracking-tight mb-6">Let's log the next frame.</h2>
-        <p class="text-bone/70 font-light leading-relaxed max-w-md">
+        <p class="text-bone/75 font-light leading-relaxed max-w-md">
           Prints, licensing, and travel commissions welcome. Reach out with your project and I'll follow up
           within a few days.
         </p>
       </div>
       <div class="md:col-span-6">
         <form class="space-y-5">
-          <div>
-            <label for="name" class="logline text-xs text-bone/60 block mb-2">NAME</label>
-            <input id="name" name="name" type="text" required class="w-full bg-transparent border-b border-bone/30 focus:border-brass outline-none py-2 text-bone placeholder-bone/40 transition-colors duration-200" placeholder="Your name" />
+          <div class="group">
+            <label for="name" class="logline text-xs text-bone/60 group-focus-within:text-brass block mb-2 transition-colors duration-300">NAME</label>
+            <input id="name" name="name" type="text" required class="w-full bg-transparent border-b border-bone/30 focus:border-brass outline-none py-2 text-bone placeholder-bone/40 transition-colors duration-300" placeholder="Your name" />
           </div>
-          <div>
-            <label for="email" class="logline text-xs text-bone/60 block mb-2">EMAIL</label>
-            <input id="email" name="email" type="email" required class="w-full bg-transparent border-b border-bone/30 focus:border-brass outline-none py-2 text-bone placeholder-bone/40 transition-colors duration-200" placeholder="you@email.com" />
+          <div class="group">
+            <label for="email" class="logline text-xs text-bone/60 group-focus-within:text-brass block mb-2 transition-colors duration-300">EMAIL</label>
+            <input id="email" name="email" type="email" required class="w-full bg-transparent border-b border-bone/30 focus:border-brass outline-none py-2 text-bone placeholder-bone/40 transition-colors duration-300" placeholder="you@email.com" />
           </div>
-          <div>
-            <label for="message" class="logline text-xs text-bone/60 block mb-2">MESSAGE</label>
-            <textarea id="message" name="message" rows="3" required class="w-full bg-transparent border-b border-bone/30 focus:border-brass outline-none py-2 text-bone placeholder-bone/40 transition-colors duration-200 resize-none" placeholder="Tell me about your project"></textarea>
+          <div class="group">
+            <label for="message" class="logline text-xs text-bone/60 group-focus-within:text-brass block mb-2 transition-colors duration-300">MESSAGE</label>
+            <textarea id="message" name="message" rows="3" required class="w-full bg-transparent border-b border-bone/30 focus:border-brass outline-none py-2 text-bone placeholder-bone/40 transition-colors duration-300 resize-none" placeholder="Tell me about your project"></textarea>
           </div>
-          <button type="submit" data-magnetic data-cursor-hover class="magnetic mt-2 bg-brass text-ink font-medium px-8 py-3 rounded-full hover:bg-bone transition-colors duration-200 cursor-pointer">
+          <button type="submit" data-magnetic data-cursor-hover class="magnetic mt-2 bg-brass text-ink font-medium px-9 py-3.5 rounded-full shadow-lg shadow-ink/30 hover:bg-bone transition-colors duration-200 cursor-pointer">
             Send message
           </button>
         </form>
@@ -325,7 +376,7 @@
     </div>
 
     <div class="border-t border-bone/15 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-      <p class="logline text-xs text-bone/50">&copy; 2026 YRSA &middot; FIELD PHOTOGRAPHY</p>
+      <p class="logline text-xs text-bone/60">&copy; 2026 YRSA &middot; FIELD PHOTOGRAPHY</p>
       <div class="flex gap-6 text-sm text-bone/60">
         <a href="#" class="hover:text-brass transition-colors duration-200 cursor-pointer">Instagram</a>
         <a href="#" class="hover:text-brass transition-colors duration-200 cursor-pointer">Prints</a>
@@ -344,6 +395,14 @@
 
   gsap.registerPlugin(ScrollTrigger);
 
+  // ---- Motion tokens (Layered Depth polish pass) ----
+  var EASE_REVEAL = 'power3.out';   // content fade/rise-in
+  var DUR_REVEAL = 0.85;
+  var EASE_MASK = 'power4.inOut';   // clip-path / mask wipes
+  var DUR_MASK = 1.1;
+  var EASE_HOVER = 'power2.out';    // hover / micro-interactions
+  var DUR_HOVER = 0.3;
+
   // ---- Smooth (inertia) scrolling ----
   var lenis = null;
   if (typeof Lenis !== 'undefined') {
@@ -351,6 +410,16 @@
     lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add(function (time) { lenis.raf(time * 1000); });
     gsap.ticker.lagSmoothing(0);
+  }
+
+  // ---- Nav scroll-aware shrink ----
+  var navHeader = document.querySelector('[data-nav]');
+  if (navHeader) {
+    ScrollTrigger.create({
+      start: 'top -80',
+      end: 99999,
+      toggleClass: { targets: navHeader, className: 'nav-scrolled' },
+    });
   }
 
   // ---- Custom cursor ----
@@ -391,7 +460,7 @@
         var rect = el.getBoundingClientRect();
         var relX = e.clientX - (rect.left + rect.width / 2);
         var relY = e.clientY - (rect.top + rect.height / 2);
-        gsap.to(el, { x: relX * strength, y: relY * strength, duration: 0.4, ease: 'power3.out' });
+        gsap.to(el, { x: relX * strength, y: relY * strength, duration: DUR_HOVER, ease: EASE_HOVER });
       });
       el.addEventListener('mouseleave', function () {
         gsap.to(el, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1, 0.4)' });
@@ -402,13 +471,13 @@
   // ---- Hero entrance ----
   var heroTl = gsap.timeline({ delay: 0.15 });
   heroTl
-    .to('[data-hero-line]', { opacity: 1, y: 0, duration: 1, ease: 'power4.out', stagger: 0.12 })
-    .to('[data-hero-reveal]', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', stagger: 0.1 }, '-=0.6');
+    .to('[data-hero-line]', { opacity: 1, y: 0, duration: DUR_REVEAL, ease: EASE_REVEAL, stagger: 0.12 })
+    .to('[data-hero-reveal]', { opacity: 1, y: 0, duration: DUR_REVEAL, ease: EASE_REVEAL, stagger: 0.1 }, '-=0.55');
 
   // ---- Scroll reveals ----
   gsap.utils.toArray('[data-reveal]').forEach(function (el) {
     gsap.to(el, {
-      opacity: 1, y: 0, duration: 0.9, ease: 'power3.out',
+      opacity: 1, y: 0, duration: DUR_REVEAL, ease: EASE_REVEAL,
       scrollTrigger: { trigger: el, start: 'top 85%' },
     });
   });
@@ -416,12 +485,12 @@
   gsap.utils.toArray('.reveal-mask').forEach(function (el) {
     var img = el.querySelector('[data-parallax-img], img');
     gsap.to(el, {
-      clipPath: 'inset(0% 0 0% 0)', duration: 1.1, ease: 'power4.inOut',
+      clipPath: 'inset(0% 0 0% 0)', duration: DUR_MASK, ease: EASE_MASK,
       scrollTrigger: { trigger: el, start: 'top 85%' },
     });
     if (img) {
       gsap.to(img, {
-        scale: 1, duration: 1.3, ease: 'power3.out',
+        scale: 1, duration: DUR_MASK, ease: EASE_MASK,
         scrollTrigger: { trigger: el, start: 'top 85%' },
       });
     }
@@ -462,7 +531,7 @@
 
       gsap.utils.toArray('[data-h-caption]').forEach(function (caption) {
         gsap.to(caption, {
-          opacity: 1, x: 0, duration: 0.6, ease: 'power2.out',
+          opacity: 1, x: 0, duration: DUR_REVEAL, ease: EASE_REVEAL,
           scrollTrigger: {
             trigger: caption.closest('[data-h-panel]'),
             containerAnimation: hTween,
