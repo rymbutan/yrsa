@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script>document.documentElement.classList.add('js');</script>
+<title>Journal — Yrsa</title>
+<meta name="description" content="Field notes from the road — trip write-ups from Yrsa's travel and adventure archive." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          bone: '#e3e0d9',
+          lavender: '#c5c3cb',
+          grey: '#979591',
+          ink: '#2b241f',
+          oxide: '#6c3423',
+          brass: '#876330',
+          pine: '#3f4a3d',
+          'pine-light': '#9caf88',
+        },
+        fontFamily: {
+          sans: ['Montserrat', 'sans-serif'],
+          mono: ['"IBM Plex Mono"', 'monospace'],
+          headline: ['Fraunces', 'serif'],
+        },
+      },
+    },
+  };
+</script>
+<style>
+  .font-headline { font-optical-sizing: auto; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Montserrat', sans-serif; background: #e3e0d9; color: #2b241f; }
+  .logline { font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.18em; }
+
+  .js .reveal-up { opacity: 0; transform: translateY(28px); }
+  .js .reveal-mask { position: relative; overflow: hidden; clip-path: inset(0 0 100% 0); }
+  .js .reveal-mask img { transform: scale(1.12); }
+
+  .depth-card {
+    border: 1px solid rgba(151,149,145,0.35);
+    box-shadow: 0 8px 20px -6px rgba(43,36,31,0.35), 0 30px 60px -20px rgba(43,36,31,0.3);
+    transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s ease;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .depth-card:hover {
+      --tw-rotate: 0deg;
+      --tw-scale-x: 1.02;
+      --tw-scale-y: 1.02;
+      box-shadow: 0 12px 28px -6px rgba(43,36,31,0.4), 0 40px 80px -20px rgba(43,36,31,0.35);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .depth-card { transition: none; }
+  }
+
+  .photo-grade { filter: contrast(1.05) saturate(0.92) brightness(0.98); }
+
+  header[data-nav] [data-nav-text] { color: #2b241f !important; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .js .reveal-up { opacity: 1; transform: none; }
+    .js .reveal-mask { clip-path: none; }
+    .js .reveal-mask img { transform: none; }
+  }
+</style>
+</head>
+<body class="antialiased">
+
+<!-- Nav: same minimal logo + menu toggle as the landing page -->
+<header data-nav class="fixed top-4 left-4 right-4 z-50">
+  <nav class="max-w-7xl mx-auto flex items-center justify-between bg-bone/15 backdrop-blur-xl rounded-full px-5 py-2.5">
+    <a href="index-fraunces.html#top" data-nav-text class="text-lg font-semibold tracking-wide cursor-pointer">YRSA</a>
+    <button
+      type="button" data-menu-toggle data-nav-text aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu"
+      class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer"
+    >
+      <svg data-menu-icon-open class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      <svg data-menu-icon-close class="hidden w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </nav>
+</header>
+
+<div
+  id="mobile-menu" data-mobile-menu aria-hidden="true"
+  class="fixed inset-0 z-40 bg-bone flex flex-col items-center justify-center gap-6 opacity-0 pointer-events-none transition-opacity duration-300"
+>
+  <p class="logline text-ink/40 text-xs absolute top-8">SELECTED WORK &middot; SHOT LOG</p>
+  <a href="index-fraunces.html#work" data-menu-link class="text-4xl md:text-5xl font-medium text-ink hover:text-pine transition-colors duration-200 cursor-pointer py-2">Work</a>
+  <a href="journal-fraunces.html" data-menu-link class="text-4xl md:text-5xl font-medium text-pine transition-colors duration-200 cursor-pointer py-2">Journal</a>
+  <a href="index-fraunces.html#about" data-menu-link class="text-4xl md:text-5xl font-medium text-ink hover:text-pine transition-colors duration-200 cursor-pointer py-2">About</a>
+  <a href="archive-fraunces.html" data-menu-link class="text-4xl md:text-5xl font-medium text-ink hover:text-pine transition-colors duration-200 cursor-pointer py-2">Private Archive</a>
+  <a href="index-fraunces.html#contact" data-menu-link class="text-4xl md:text-5xl font-medium text-ink hover:text-pine transition-colors duration-200 cursor-pointer py-2">Contact</a>
+  <a href="index-fraunces.html#contact" data-menu-link class="mt-4 text-sm font-medium bg-ink text-bone px-6 py-3 rounded-full hover:bg-pine transition-colors duration-200 cursor-pointer">Inquire</a>
+</div>
+
+<!-- Page intro -->
+<section class="max-w-3xl mx-auto px-6 md:px-0 pt-40 pb-16 md:pt-48 md:pb-20">
+  <p data-reveal class="reveal-up logline text-pine text-xs mb-4">FROM THE JOURNAL</p>
+  <h1 data-reveal class="font-headline reveal-up text-4xl md:text-6xl font-medium tracking-tight leading-tight mb-6">Field notes, not just frames.</h1>
+  <p data-reveal class="reveal-up text-ink/70 font-light leading-relaxed text-lg">
+    The stories behind the shot log — where Yrsa was standing, what the weather was doing, and what
+    almost didn't make the frame.
+  </p>
+</section>
+
+<!-- Entries -->
+<div class="max-w-3xl mx-auto px-6 md:px-0 pb-24 md:pb-32 space-y-20 md:space-y-28">
+
+  <article id="desert-nights">
+    <div data-reveal class="reveal-up reveal-mask depth-card rounded-2xl overflow-hidden mb-8">
+      <img src="assets/img/arizona.jpg" alt="Wide desert landscape under a pale sky in Southern Arizona" class="photo-grade w-full h-[320px] md:h-[420px] object-cover" loading="lazy" />
+    </div>
+    <p data-reveal class="reveal-up logline text-pine text-xs mb-3">04&#8209;16 &middot; SOUTHERN ARIZONA &middot; 300MM</p>
+    <h2 data-reveal class="font-headline reveal-up text-2xl md:text-4xl font-medium tracking-tight mb-4">Desert nights run cold</h2>
+    <p data-reveal class="reveal-up text-ink/75 font-light leading-relaxed mb-4">
+      Nobody warns you how fast the desert gives up its heat once the sun drops. By the time the sky went
+      from oxide to ink, I was shooting in two jackets and wishing for a third.
+    </p>
+    <p data-reveal class="reveal-up text-ink/75 font-light leading-relaxed">
+      Patience is the whole job out here — waiting for the wind to drop, the dust to settle, the last strip
+      of light to catch the ridge line. Three hours for four frames. Worth it for the one that logged clean.
+    </p>
+  </article>
+
+  <article id="bisbee-backroads">
+    <div data-reveal class="reveal-up reveal-mask depth-card rounded-2xl overflow-hidden mb-8">
+      <img src="assets/img/bisbee.jpg" alt="Weathered oxide-toned car in Bisbee, Arizona" class="photo-grade w-full h-[320px] md:h-[420px] object-cover" loading="lazy" />
+    </div>
+    <p data-reveal class="reveal-up logline text-pine text-xs mb-3">04&#8209;16 &middot; BISBEE, AZ &middot; 90MM</p>
+    <h2 data-reveal class="font-headline reveal-up text-2xl md:text-4xl font-medium tracking-tight mb-4">Bisbee's backroads</h2>
+    <p data-reveal class="reveal-up text-ink/75 font-light leading-relaxed mb-4">
+      An old copper town built into a canyon, with backroads that switch from pavement to gravel without
+      warning. Borrowed a truck with no AC and drove them anyway.
+    </p>
+    <p data-reveal class="reveal-up text-ink/75 font-light leading-relaxed">
+      The rust and oxide tones that show up across this whole archive started here — mining-town color,
+      baked into every wall and fender in town.
+    </p>
+  </article>
+
+  <article id="cabot-trail">
+    <div data-reveal class="reveal-up reveal-mask depth-card rounded-2xl overflow-hidden mb-8">
+      <img src="assets/img/cabot-trail-1.jpg" alt="Coastal cliffs along the Cabot Trail in Nova Scotia" class="photo-grade w-full h-[320px] md:h-[420px] object-cover" loading="lazy" />
+    </div>
+    <p data-reveal class="reveal-up logline text-pine text-xs mb-3">07&#8209;18 &middot; CABOT TRAIL, NS &middot; 35MM</p>
+    <h2 data-reveal class="font-headline reveal-up text-2xl md:text-4xl font-medium tracking-tight mb-4">Fog on the Cabot Trail</h2>
+    <p data-reveal class="reveal-up text-ink/75 font-light leading-relaxed mb-4">
+      Three days on the highlands, and the fog only broke twice. Learned to keep the camera dry-bagged and
+      ready rather than packed away — the gap never lasts more than a few minutes.
+    </p>
+    <p data-reveal class="reveal-up text-ink/75 font-light leading-relaxed">
+      Green cliff, grey sea, one clean frame. Everything else in the log from that trip is fog.
+    </p>
+  </article>
+
+</div>
+
+<!-- Footer -->
+<section class="bg-ink text-bone">
+  <div class="max-w-7xl mx-auto px-6 md:px-12 py-12 md:py-16">
+    <div class="border-t border-bone/15 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+      <p class="logline text-xs text-bone/60">&copy; 2026 YRSA &middot; FIELD PHOTOGRAPHY</p>
+      <div class="flex gap-4 text-sm text-bone/60">
+        <a href="index-fraunces.html#contact" class="hover:text-pine-light transition-colors duration-200 cursor-pointer py-2 px-1">Get in touch</a>
+        <a href="index-fraunces.html#top" class="hover:text-pine-light transition-colors duration-200 cursor-pointer py-2 px-1">Back to home</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  var menuToggle = document.querySelector('[data-menu-toggle]');
+  var mobileMenu = document.querySelector('[data-mobile-menu]');
+  var iconOpen = document.querySelector('[data-menu-icon-open]');
+  var iconClose = document.querySelector('[data-menu-icon-close]');
+  if (!menuToggle || !mobileMenu) return;
+
+  function closeMenu() {
+    mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+    mobileMenu.setAttribute('aria-hidden', 'true');
+    menuToggle.setAttribute('aria-expanded', 'false');
+    menuToggle.setAttribute('aria-label', 'Open menu');
+    if (iconOpen) iconOpen.classList.remove('hidden');
+    if (iconClose) iconClose.classList.add('hidden');
+    document.body.style.overflow = '';
+  }
+
+  function openMenu() {
+    mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
+    mobileMenu.setAttribute('aria-hidden', 'false');
+    menuToggle.setAttribute('aria-expanded', 'true');
+    menuToggle.setAttribute('aria-label', 'Close menu');
+    if (iconOpen) iconOpen.classList.add('hidden');
+    if (iconClose) iconClose.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  }
+
+  menuToggle.addEventListener('click', function () {
+    var isOpen = menuToggle.getAttribute('aria-expanded') === 'true';
+    if (isOpen) { closeMenu(); } else { openMenu(); }
+  });
+
+  mobileMenu.querySelectorAll('[data-menu-link]').forEach(function (link) {
+    link.addEventListener('click', closeMenu);
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && menuToggle.getAttribute('aria-expanded') === 'true') closeMenu();
+  });
+})();
+
+(function () {
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion || typeof gsap === 'undefined') return;
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.utils.toArray('[data-reveal]').forEach(function (el) {
+    gsap.to(el, {
+      opacity: 1, y: 0, duration: 0.85, ease: 'power3.out',
+      scrollTrigger: { trigger: el, start: 'top 88%' },
+    });
+  });
+
+  gsap.utils.toArray('.reveal-mask').forEach(function (el) {
+    var img = el.querySelector('img');
+    gsap.to(el, {
+      clipPath: 'inset(0% 0 0% 0)', duration: 1.1, ease: 'power4.inOut',
+      scrollTrigger: { trigger: el, start: 'top 88%' },
+    });
+    if (img) {
+      gsap.to(img, {
+        scale: 1, duration: 1.1, ease: 'power4.inOut',
+        scrollTrigger: { trigger: el, start: 'top 88%' },
+      });
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

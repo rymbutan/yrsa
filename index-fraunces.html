@@ -8,7 +8,7 @@
 <meta name="description" content="Yrsa is a landscape and travel photographer working in Southern Arizona, Bisbee, Nova Scotia and beyond. Wild places, patient light." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
@@ -30,13 +30,14 @@
         fontFamily: {
           sans: ['Montserrat', 'sans-serif'],
           mono: ['"IBM Plex Mono"', 'monospace'],
-          headline: ['Montserrat', 'sans-serif'],
+          headline: ['Fraunces', 'serif'],
         },
       },
     },
   };
 </script>
 <style>
+  .font-headline { font-optical-sizing: auto; }
   html { scroll-behavior: smooth; }
   html.lenis, html.lenis body { height: auto; }
   body { font-family: 'Montserrat', sans-serif; background: #e3e0d9; color: #2b241f; }
@@ -171,9 +172,9 @@
 >
   <p class="logline text-ink/40 text-xs absolute top-8">SELECTED WORK &middot; SHOT LOG</p>
   <a href="#work" data-menu-link class="text-4xl md:text-5xl font-medium text-ink hover:text-pine transition-colors duration-200 cursor-pointer py-2">Work</a>
-  <a href="journal.html" data-menu-link class="text-4xl md:text-5xl font-medium text-ink hover:text-pine transition-colors duration-200 cursor-pointer py-2">Journal</a>
+  <a href="journal-fraunces.html" data-menu-link class="text-4xl md:text-5xl font-medium text-ink hover:text-pine transition-colors duration-200 cursor-pointer py-2">Journal</a>
   <a href="#about" data-menu-link class="text-4xl md:text-5xl font-medium text-ink hover:text-pine transition-colors duration-200 cursor-pointer py-2">About</a>
-  <a href="archive.html" data-menu-link class="text-4xl md:text-5xl font-medium text-ink hover:text-pine transition-colors duration-200 cursor-pointer py-2">Private Archive</a>
+  <a href="archive-fraunces.html" data-menu-link class="text-4xl md:text-5xl font-medium text-ink hover:text-pine transition-colors duration-200 cursor-pointer py-2">Private Archive</a>
   <a href="#contact" data-menu-link class="text-4xl md:text-5xl font-medium text-ink hover:text-pine transition-colors duration-200 cursor-pointer py-2">Contact</a>
   <a href="#contact" data-menu-link data-cursor-hover class="mt-4 text-sm font-medium bg-ink text-bone px-6 py-3 rounded-full hover:bg-pine transition-colors duration-200 cursor-pointer">Inquire</a>
 </div>
@@ -386,20 +387,20 @@
         <p data-reveal class="reveal-up logline text-pine text-xs mb-4">FROM THE JOURNAL</p>
         <h2 data-reveal class="font-headline reveal-up text-3xl md:text-5xl font-medium tracking-tight max-w-2xl">Field notes, not just frames.</h2>
       </div>
-      <a href="journal.html" data-reveal data-cursor-hover class="reveal-up logline text-xs text-ink/60 hover:text-pine transition-colors duration-200 cursor-pointer whitespace-nowrap">READ THE JOURNAL &rarr;</a>
+      <a href="journal-fraunces.html" data-reveal data-cursor-hover class="reveal-up logline text-xs text-ink/60 hover:text-pine transition-colors duration-200 cursor-pointer whitespace-nowrap">READ THE JOURNAL &rarr;</a>
     </div>
     <div class="grid md:grid-cols-3 gap-6">
-      <a href="journal.html#desert-nights" data-reveal data-cursor-hover class="reveal-up depth-card rounded-2xl block cursor-pointer bg-bone border border-ink/15 p-6">
+      <a href="journal-fraunces.html#desert-nights" data-reveal data-cursor-hover class="reveal-up depth-card rounded-2xl block cursor-pointer bg-bone border border-ink/15 p-6">
         <p class="logline text-pine text-xs mb-3">04&#8209;16 &middot; SOUTHERN ARIZONA</p>
         <h3 class="text-xl font-medium mb-2">Desert nights run cold</h3>
         <p class="text-ink/70 font-light text-sm leading-relaxed">A short field note on shooting the desert after dark, and what the cold teaches you about patience.</p>
       </a>
-      <a href="journal.html#bisbee-backroads" data-reveal data-cursor-hover class="reveal-up depth-card rounded-2xl block cursor-pointer bg-bone border border-ink/15 p-6">
+      <a href="journal-fraunces.html#bisbee-backroads" data-reveal data-cursor-hover class="reveal-up depth-card rounded-2xl block cursor-pointer bg-bone border border-ink/15 p-6">
         <p class="logline text-pine text-xs mb-3">04&#8209;16 &middot; BISBEE, AZ</p>
         <h3 class="text-xl font-medium mb-2">Bisbee's backroads</h3>
         <p class="text-ink/70 font-light text-sm leading-relaxed">Copper-town streets, a borrowed truck, and the kind of light that only shows up once a shoot.</p>
       </a>
-      <a href="journal.html#cabot-trail" data-reveal data-cursor-hover class="reveal-up depth-card rounded-2xl block cursor-pointer bg-bone border border-ink/15 p-6">
+      <a href="journal-fraunces.html#cabot-trail" data-reveal data-cursor-hover class="reveal-up depth-card rounded-2xl block cursor-pointer bg-bone border border-ink/15 p-6">
         <p class="logline text-pine text-xs mb-3">07&#8209;18 &middot; CABOT TRAIL, NS</p>
         <h3 class="text-xl font-medium mb-2">Fog on the Cabot Trail</h3>
         <p class="text-ink/70 font-light text-sm leading-relaxed">Three days chasing gaps in the coastal fog for one clean shot of the highlands.</p>

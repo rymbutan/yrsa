@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script>document.documentElement.classList.add('js');</script>
+<title>Private Archive — Yrsa</title>
+<meta name="description" content="Yrsa's Private Archive — a members-only collection, coming soon." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          bone: '#e3e0d9',
+          lavender: '#c5c3cb',
+          grey: '#979591',
+          ink: '#2b241f',
+          oxide: '#6c3423',
+          brass: '#876330',
+          pine: '#3f4a3d',
+          'pine-light': '#9caf88',
+        },
+        fontFamily: {
+          sans: ['Montserrat', 'sans-serif'],
+          mono: ['"IBM Plex Mono"', 'monospace'],
+          headline: ['Fraunces', 'serif'],
+        },
+      },
+    },
+  };
+</script>
+<style>
+  .font-headline { font-optical-sizing: auto; }
+  body { font-family: 'Montserrat', sans-serif; background: #2b241f; color: #e3e0d9; }
+  .logline { font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.18em; }
+  @media (prefers-reduced-motion: reduce) {
+    .js .reveal-up { opacity: 1 !important; transform: none !important; }
+  }
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<header class="px-6 md:px-12 py-6">
+  <a href="index-fraunces.html#top" class="text-lg font-semibold tracking-wide text-bone cursor-pointer">YRSA</a>
+</header>
+
+<main class="flex-1 flex items-center justify-center px-6">
+  <div class="max-w-lg text-center">
+    <p class="logline text-pine-light text-xs mb-5">PRIVATE ARCHIVE</p>
+    <h1 class="font-headline text-3xl md:text-5xl font-medium tracking-tight mb-5">Member access is coming soon.</h1>
+    <p class="text-bone/70 font-light leading-relaxed mb-8">
+      The Private Archive will hold the unlogged frames, longer trip cuts, and early access to new
+      regions before they reach the public journal. Not open yet — check back soon.
+    </p>
+    <a href="index-fraunces.html#contact" class="inline-block bg-pine text-bone font-medium px-8 py-3.5 rounded-full hover:bg-bone hover:text-ink transition-colors duration-200 cursor-pointer">
+      Get notified
+    </a>
+  </div>
+</main>
+
+<footer class="px-6 md:px-12 py-8 text-center">
+  <a href="index-fraunces.html#top" class="logline text-xs text-bone/50 hover:text-pine-light transition-colors duration-200 cursor-pointer">&larr; BACK TO HOME</a>
+</footer>
+
+</body>
+</html>
