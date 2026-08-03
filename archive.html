@@ -39,6 +39,9 @@
   @media (prefers-reduced-motion: reduce) {
     .js .reveal-up { opacity: 1 !important; transform: none !important; }
   }
+  @supports (height: 100dvh) {
+    .min-h-screen { min-height: 100dvh !important; }
+  }
 </style>
 </head>
 <body class="antialiased min-h-screen flex flex-col">

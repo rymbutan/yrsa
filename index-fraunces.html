@@ -128,9 +128,20 @@
       scroll-snap-type: x mandatory;
       -webkit-overflow-scrolling: touch;
     }
+    /* Force each panel to the scroll container's true content width rather than
+       100vw, which can render narrower than the visible viewport in some mobile
+       browser chrome (leaving a sliver of the next panel/background peeking in). */
+    .h-panel { width: 100% !important; min-width: 100% !important; }
   }
   @media (min-width: 768px) {
     .h-track { overflow: visible; }
+  }
+  /* Dynamic viewport height: keeps full-height sections filling the actual
+     visible area as mobile browser chrome (address bar, in-app browser UI)
+     shows/hides, instead of the fixed 100vh Tailwind default. */
+  @supports (height: 100dvh) {
+    .h-screen { height: 100dvh !important; }
+    .min-h-screen { min-height: 100dvh !important; }
   }
   .js [data-h-caption] { opacity: 0; transform: translateX(-40px); }
   @media (prefers-reduced-motion: reduce) {
