@@ -14,6 +14,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script>
   tailwind.config = {
+    darkMode: 'class',
     theme: {
       extend: {
         colors: {
@@ -35,10 +36,24 @@
     },
   };
 </script>
+<script>
+  (function () {
+    var stored = localStorage.getItem('yrsa-theme');
+    var media = window.matchMedia('(prefers-color-scheme: dark)');
+    function apply(isDark) { document.documentElement.classList.toggle('dark', isDark); }
+    apply(stored ? stored === 'dark' : media.matches);
+    if (!stored) {
+      media.addEventListener('change', function (e) {
+        if (!localStorage.getItem('yrsa-theme')) apply(e.matches);
+      });
+    }
+  })();
+</script>
 <style>
   .font-headline { font-optical-sizing: auto; }
   html { scroll-behavior: smooth; }
-  body { font-family: 'Montserrat', sans-serif; background: #e3e0d9; color: #2b241f; }
+  body { font-family: 'Montserrat', sans-serif; background: #e3e0d9; color: #2b241f; transition: background-color 0.3s ease, color 0.3s ease; }
+  html.dark body { background: #3f4a3d; color: #e3e0d9; }
   .logline { font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.18em; }
 
   .js .reveal-up { opacity: 0; transform: translateY(28px); }
@@ -64,7 +79,8 @@
 
   .photo-grade { filter: contrast(1.05) saturate(0.92) brightness(0.98); }
 
-  header[data-nav] [data-nav-text] { color: #2b241f !important; }
+  header[data-nav] [data-nav-text] { color: #2b241f !important; text-shadow: 0 1px 6px rgba(43,36,31,0.12); }
+  html.dark header[data-nav] [data-nav-text] { color: #e3e0d9 !important; text-shadow: 0 1px 8px rgba(43,36,31,0.4); }
 
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
@@ -76,38 +92,48 @@
 </head>
 <body class="antialiased">
 
-<!-- Nav: same minimal logo + menu toggle as the landing page -->
+<!-- Nav: bare wordmark + icon buttons, no bar/background -->
 <header data-nav class="fixed top-4 left-4 right-4 z-50">
-  <nav class="max-w-7xl mx-auto flex items-center justify-between bg-bone/15 backdrop-blur-xl rounded-full px-5 py-2.5">
-    <a href="index-fraunces.html#top" data-nav-text class="text-lg font-semibold tracking-wide cursor-pointer">YRSA</a>
-    <button
-      type="button" data-menu-toggle data-nav-text aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu"
-      class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer"
-    >
-      <svg data-menu-icon-open class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
-      <svg data-menu-icon-close class="hidden w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
-    </button>
+  <nav class="max-w-7xl mx-auto flex items-center justify-between px-2 py-1">
+    <a href="index-fraunces.html#top" data-nav-text class="text-xl font-bold tracking-wide cursor-pointer">YRSA</a>
+    <div class="flex items-center gap-2">
+      <button
+        type="button" data-theme-toggle data-nav-text aria-label="Switch to dark mode"
+        class="flex items-center justify-center w-9 h-9 rounded-full cursor-pointer"
+      >
+        <svg data-theme-icon-light class="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        <svg data-theme-icon-dark class="hidden w-[18px] h-[18px]" viewBox="0 0 24 24" fill="currentColor"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 1020.354 15.354z"/></svg>
+      </button>
+      <a href="archive-fraunces.html" data-cursor-hover class="text-xs font-medium bg-pine text-bone dark:bg-bone dark:text-ink px-4 py-2.5 rounded-full hover:bg-ink dark:hover:bg-lavender transition-colors duration-200 cursor-pointer whitespace-nowrap">Members</a>
+      <button
+        type="button" data-menu-toggle data-nav-text aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu"
+        class="flex items-center justify-center w-9 h-9 rounded-full cursor-pointer"
+      >
+        <svg data-menu-icon-open class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        <svg data-menu-icon-close class="hidden w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
   </nav>
 </header>
 
 <div
   id="mobile-menu" data-mobile-menu aria-hidden="true"
-  class="fixed inset-0 z-40 bg-bone flex flex-col items-center justify-center gap-6 opacity-0 pointer-events-none transition-opacity duration-300"
+  class="fixed inset-0 z-40 bg-bone dark:bg-pine flex flex-col items-center justify-center gap-6 opacity-0 pointer-events-none transition-opacity duration-300"
 >
-  <p class="logline text-ink/40 text-xs absolute top-8">SELECTED WORK &middot; SHOT LOG</p>
-  <a href="index-fraunces.html#work" data-menu-link class="text-4xl md:text-5xl font-medium text-ink hover:text-pine transition-colors duration-200 cursor-pointer py-2">Work</a>
-  <a href="journal-fraunces.html" data-menu-link class="text-4xl md:text-5xl font-medium text-pine transition-colors duration-200 cursor-pointer py-2">Journal</a>
-  <a href="index-fraunces.html#about" data-menu-link class="text-4xl md:text-5xl font-medium text-ink hover:text-pine transition-colors duration-200 cursor-pointer py-2">About</a>
-  <a href="archive-fraunces.html" data-menu-link class="text-4xl md:text-5xl font-medium text-ink hover:text-pine transition-colors duration-200 cursor-pointer py-2">Private Archive</a>
-  <a href="index-fraunces.html#contact" data-menu-link class="text-4xl md:text-5xl font-medium text-ink hover:text-pine transition-colors duration-200 cursor-pointer py-2">Contact</a>
-  <a href="index-fraunces.html#contact" data-menu-link class="mt-4 text-sm font-medium bg-ink text-bone px-6 py-3 rounded-full hover:bg-pine transition-colors duration-200 cursor-pointer">Inquire</a>
+  <p class="logline text-ink/40 dark:text-bone/40 text-xs absolute top-8">SELECTED WORK &middot; SHOT LOG</p>
+  <a href="index-fraunces.html#work" data-menu-link class="text-4xl md:text-5xl font-medium text-ink dark:text-bone hover:text-pine dark:hover:text-lavender transition-colors duration-200 cursor-pointer py-2">Work</a>
+  <a href="journal-fraunces.html" data-menu-link class="text-4xl md:text-5xl font-medium text-pine dark:text-lavender transition-colors duration-200 cursor-pointer py-2">Journal</a>
+  <a href="index-fraunces.html#about" data-menu-link class="text-4xl md:text-5xl font-medium text-ink dark:text-bone hover:text-pine dark:hover:text-lavender transition-colors duration-200 cursor-pointer py-2">About</a>
+  <a href="archive-fraunces.html" data-menu-link class="text-4xl md:text-5xl font-medium text-ink dark:text-bone hover:text-pine dark:hover:text-lavender transition-colors duration-200 cursor-pointer py-2">Private Archive</a>
+  <a href="index-fraunces.html#contact" data-menu-link class="text-4xl md:text-5xl font-medium text-ink dark:text-bone hover:text-pine dark:hover:text-lavender transition-colors duration-200 cursor-pointer py-2">Contact</a>
+  <a href="index-fraunces.html#contact" data-menu-link class="mt-4 text-sm font-medium bg-ink text-bone dark:bg-bone dark:text-ink px-6 py-3 rounded-full hover:bg-pine dark:hover:bg-lavender transition-colors duration-200 cursor-pointer">Inquire</a>
 </div>
 
 <!-- Page intro -->
 <section class="max-w-3xl mx-auto px-6 md:px-0 pt-40 pb-16 md:pt-48 md:pb-20">
-  <p data-reveal class="reveal-up logline text-pine text-xs mb-4">FROM THE JOURNAL</p>
+  <p data-reveal class="reveal-up logline text-pine dark:text-lavender text-xs mb-4">FROM THE JOURNAL</p>
   <h1 data-reveal class="font-headline reveal-up text-4xl md:text-6xl font-medium tracking-tight leading-tight mb-6">Field notes, not just frames.</h1>
-  <p data-reveal class="reveal-up text-ink/70 font-light leading-relaxed text-lg">
+  <p data-reveal class="reveal-up text-ink/70 dark:text-bone/70 font-light leading-relaxed text-lg">
     The stories behind the shot log — where Yrsa was standing, what the weather was doing, and what
     almost didn't make the frame.
   </p>
@@ -120,13 +146,13 @@
     <div data-reveal class="reveal-up reveal-mask depth-card rounded-2xl overflow-hidden mb-8">
       <img src="assets/img/arizona.jpg" alt="Wide desert landscape under a pale sky in Southern Arizona" class="photo-grade w-full h-[320px] md:h-[420px] object-cover" loading="lazy" />
     </div>
-    <p data-reveal class="reveal-up logline text-pine text-xs mb-3">04&#8209;16 &middot; SOUTHERN ARIZONA &middot; 300MM</p>
+    <p data-reveal class="reveal-up logline text-pine dark:text-lavender text-xs mb-3">04&#8209;16 &middot; SOUTHERN ARIZONA &middot; 300MM</p>
     <h2 data-reveal class="font-headline reveal-up text-2xl md:text-4xl font-medium tracking-tight mb-4">Desert nights run cold</h2>
-    <p data-reveal class="reveal-up text-ink/75 font-light leading-relaxed mb-4">
+    <p data-reveal class="reveal-up text-ink/75 dark:text-bone/75 font-light leading-relaxed mb-4">
       Nobody warns you how fast the desert gives up its heat once the sun drops. By the time the sky went
       from oxide to ink, I was shooting in two jackets and wishing for a third.
     </p>
-    <p data-reveal class="reveal-up text-ink/75 font-light leading-relaxed">
+    <p data-reveal class="reveal-up text-ink/75 dark:text-bone/75 font-light leading-relaxed">
       Patience is the whole job out here — waiting for the wind to drop, the dust to settle, the last strip
       of light to catch the ridge line. Three hours for four frames. Worth it for the one that logged clean.
     </p>
@@ -136,13 +162,13 @@
     <div data-reveal class="reveal-up reveal-mask depth-card rounded-2xl overflow-hidden mb-8">
       <img src="assets/img/bisbee.jpg" alt="Weathered oxide-toned car in Bisbee, Arizona" class="photo-grade w-full h-[320px] md:h-[420px] object-cover" loading="lazy" />
     </div>
-    <p data-reveal class="reveal-up logline text-pine text-xs mb-3">04&#8209;16 &middot; BISBEE, AZ &middot; 90MM</p>
+    <p data-reveal class="reveal-up logline text-pine dark:text-lavender text-xs mb-3">04&#8209;16 &middot; BISBEE, AZ &middot; 90MM</p>
     <h2 data-reveal class="font-headline reveal-up text-2xl md:text-4xl font-medium tracking-tight mb-4">Bisbee's backroads</h2>
-    <p data-reveal class="reveal-up text-ink/75 font-light leading-relaxed mb-4">
+    <p data-reveal class="reveal-up text-ink/75 dark:text-bone/75 font-light leading-relaxed mb-4">
       An old copper town built into a canyon, with backroads that switch from pavement to gravel without
       warning. Borrowed a truck with no AC and drove them anyway.
     </p>
-    <p data-reveal class="reveal-up text-ink/75 font-light leading-relaxed">
+    <p data-reveal class="reveal-up text-ink/75 dark:text-bone/75 font-light leading-relaxed">
       The rust and oxide tones that show up across this whole archive started here — mining-town color,
       baked into every wall and fender in town.
     </p>
@@ -152,13 +178,13 @@
     <div data-reveal class="reveal-up reveal-mask depth-card rounded-2xl overflow-hidden mb-8">
       <img src="assets/img/cabot-trail-1.jpg" alt="Coastal cliffs along the Cabot Trail in Nova Scotia" class="photo-grade w-full h-[320px] md:h-[420px] object-cover" loading="lazy" />
     </div>
-    <p data-reveal class="reveal-up logline text-pine text-xs mb-3">07&#8209;18 &middot; CABOT TRAIL, NS &middot; 35MM</p>
+    <p data-reveal class="reveal-up logline text-pine dark:text-lavender text-xs mb-3">07&#8209;18 &middot; CABOT TRAIL, NS &middot; 35MM</p>
     <h2 data-reveal class="font-headline reveal-up text-2xl md:text-4xl font-medium tracking-tight mb-4">Fog on the Cabot Trail</h2>
-    <p data-reveal class="reveal-up text-ink/75 font-light leading-relaxed mb-4">
+    <p data-reveal class="reveal-up text-ink/75 dark:text-bone/75 font-light leading-relaxed mb-4">
       Three days on the highlands, and the fog only broke twice. Learned to keep the camera dry-bagged and
       ready rather than packed away — the gap never lasts more than a few minutes.
     </p>
-    <p data-reveal class="reveal-up text-ink/75 font-light leading-relaxed">
+    <p data-reveal class="reveal-up text-ink/75 dark:text-bone/75 font-light leading-relaxed">
       Green cliff, grey sea, one clean frame. Everything else in the log from that trip is fog.
     </p>
   </article>
@@ -217,6 +243,28 @@
 
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && menuToggle.getAttribute('aria-expanded') === 'true') closeMenu();
+  });
+})();
+
+(function () {
+  var toggle = document.querySelector('[data-theme-toggle]');
+  var iconLight = document.querySelector('[data-theme-icon-light]');
+  var iconDark = document.querySelector('[data-theme-icon-dark]');
+  if (!toggle) return;
+
+  function sync() {
+    var isDark = document.documentElement.classList.contains('dark');
+    if (iconLight) iconLight.classList.toggle('hidden', isDark);
+    if (iconDark) iconDark.classList.toggle('hidden', !isDark);
+    toggle.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+  }
+  sync();
+
+  toggle.addEventListener('click', function () {
+    var isDark = !document.documentElement.classList.contains('dark');
+    document.documentElement.classList.toggle('dark', isDark);
+    localStorage.setItem('yrsa-theme', isDark ? 'dark' : 'light');
+    sync();
   });
 })();
 
