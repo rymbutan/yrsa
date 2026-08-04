@@ -27,6 +27,7 @@
           brass: '#876330',
           pine: '#3f4a3d',
           'pine-light': '#9caf88',
+          'pine-deep': '#0f2c09',
         },
         fontFamily: {
           sans: ['Montserrat', 'sans-serif'],
@@ -59,7 +60,7 @@
   html { scroll-behavior: smooth; }
   html.lenis, html.lenis body { height: auto; }
   body { font-family: 'Montserrat', sans-serif; background: #e3e0d9; color: #2b241f; transition: background-color 0.3s ease, color 0.3s ease; }
-  html.dark body { background: #3f4a3d; color: #e3e0d9; }
+  html.dark body { background: #0f2c09; color: #e3e0d9; }
   .logline { font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.18em; }
 
   /* Reveal primitives — GSAP sets final state; this is only the pre-animation hide,
@@ -136,6 +137,10 @@
   header[data-nav].nav-on-dark [data-nav-text] { color: #e3e0d9 !important; text-shadow: 0 1px 8px rgba(43,36,31,0.4); }
   html.dark header[data-nav] [data-nav-text] { color: #e3e0d9 !important; text-shadow: 0 1px 8px rgba(43,36,31,0.4); }
 
+  /* Members CTA: the header's one focal point, given a soft glow so it pops off any background */
+  .members-glow { box-shadow: 0 2px 10px rgba(43,36,31,0.2), 0 0 16px rgba(63,74,61,0.45); }
+  html.dark .members-glow { box-shadow: 0 2px 10px rgba(0,0,0,0.35), 0 0 18px rgba(156,175,136,0.5); }
+
   /* Section seam divider (About → Contact) */
   .seam-dot { width: 4px; height: 4px; border-radius: 9999px; background: currentColor; }
 
@@ -160,43 +165,14 @@
 <div class="cursor-ring is-dark" data-cursor-ring></div>
 <div class="cursor-dot" data-cursor-dot></div>
 
-<!-- Nav: bare wordmark + icon buttons, no bar/background — hides on scroll down, reappears on scroll up -->
+<!-- Nav: bare wordmark + a single Members CTA — no hamburger, no theme icon (dark mode is
+     purely automatic now). Hides on scroll down, reappears on scroll up. -->
 <header data-nav class="fixed top-4 left-4 right-4 z-50">
   <nav class="max-w-7xl mx-auto flex items-center justify-between px-2 py-1">
     <a href="#top" data-nav-text class="text-xl font-bold tracking-wide cursor-pointer">YRSA</a>
-    <div class="flex items-center gap-2">
-      <button
-        type="button" data-theme-toggle data-nav-text aria-label="Switch to dark mode"
-        class="flex items-center justify-center w-9 h-9 rounded-full cursor-pointer"
-      >
-        <svg data-theme-icon-light class="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
-        <svg data-theme-icon-dark class="hidden w-[18px] h-[18px]" viewBox="0 0 24 24" fill="currentColor"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 1020.354 15.354z"/></svg>
-      </button>
-      <a href="archive-fraunces.html" data-cursor-hover class="text-xs font-medium bg-pine text-bone dark:bg-bone dark:text-ink px-4 py-2.5 rounded-full hover:bg-ink dark:hover:bg-lavender transition-colors duration-200 cursor-pointer whitespace-nowrap">Members</a>
-      <button
-        type="button" data-menu-toggle data-nav-text aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu"
-        class="flex items-center justify-center w-9 h-9 rounded-full cursor-pointer"
-      >
-        <svg data-menu-icon-open class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
-        <svg data-menu-icon-close class="hidden w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
-      </button>
-    </div>
+    <a href="archive-fraunces.html" data-cursor-hover class="members-glow text-xs font-medium bg-pine text-bone dark:bg-pine-light dark:text-ink px-5 py-2.5 rounded-full hover:bg-ink dark:hover:bg-bone transition-colors duration-200 cursor-pointer whitespace-nowrap">Members</a>
   </nav>
 </header>
-
-<!-- Menu overlay (all breakpoints) -->
-<div
-  id="mobile-menu" data-mobile-menu aria-hidden="true"
-  class="fixed inset-0 z-40 bg-bone dark:bg-pine flex flex-col items-center justify-center gap-6 opacity-0 pointer-events-none transition-opacity duration-300"
->
-  <p class="logline text-ink/40 dark:text-bone/40 text-xs absolute top-8">SELECTED WORK &middot; SHOT LOG</p>
-  <a href="#work" data-menu-link class="text-4xl md:text-5xl font-medium text-ink dark:text-bone hover:text-pine dark:hover:text-lavender transition-colors duration-200 cursor-pointer py-2">Work</a>
-  <a href="journal-fraunces.html" data-menu-link class="text-4xl md:text-5xl font-medium text-ink dark:text-bone hover:text-pine dark:hover:text-lavender transition-colors duration-200 cursor-pointer py-2">Journal</a>
-  <a href="#about" data-menu-link class="text-4xl md:text-5xl font-medium text-ink dark:text-bone hover:text-pine dark:hover:text-lavender transition-colors duration-200 cursor-pointer py-2">About</a>
-  <a href="archive-fraunces.html" data-menu-link class="text-4xl md:text-5xl font-medium text-ink dark:text-bone hover:text-pine dark:hover:text-lavender transition-colors duration-200 cursor-pointer py-2">Private Archive</a>
-  <a href="#contact" data-menu-link class="text-4xl md:text-5xl font-medium text-ink dark:text-bone hover:text-pine dark:hover:text-lavender transition-colors duration-200 cursor-pointer py-2">Contact</a>
-  <a href="#contact" data-menu-link data-cursor-hover class="mt-4 text-sm font-medium bg-ink text-bone dark:bg-bone dark:text-ink px-6 py-3 rounded-full hover:bg-pine dark:hover:bg-lavender transition-colors duration-200 cursor-pointer">Inquire</a>
-</div>
 
 <!-- Hero -->
 <section id="top" class="relative h-screen min-h-[600px] w-full overflow-hidden">
@@ -227,11 +203,11 @@
     <svg data-scroll-arrow class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
   </a>
 
-  <div class="absolute bottom-0 left-0 right-0 h-24 md:h-32 bg-gradient-to-b from-transparent to-bone dark:to-pine pointer-events-none z-10"></div>
+  <div class="absolute bottom-0 left-0 right-0 h-24 md:h-32 bg-gradient-to-b from-transparent to-bone dark:to-pine-deep pointer-events-none z-10"></div>
 </section>
 
 <!-- Social proof: flat/functional trust bar, no depth treatment -->
-<section class="bg-bone dark:bg-pine border-t border-b border-ink/10 dark:border-bone/10 px-6 md:px-12 py-10 md:py-12">
+<section class="bg-bone dark:bg-pine-deep border-t border-b border-ink/10 dark:border-bone/10 px-6 md:px-12 py-10 md:py-12">
   <div class="max-w-7xl mx-auto">
     <p data-reveal class="reveal-up logline text-pine dark:text-lavender text-xs mb-6 text-center md:text-left">FOLLOWED BY FELLOW WANDERERS &middot; TRUSTED BY BRANDS</p>
     <div data-reveal class="reveal-up flex flex-wrap items-center justify-center md:justify-between gap-x-12 gap-y-6">
@@ -261,7 +237,7 @@
 
 <!-- Gallery: vertical stacked "shot log" — was a pinned horizontal scroll, changed to vertical
      (friction, especially on mobile) while keeping the tilted, overlapping Layered Depth language. -->
-<section id="work" class="relative bg-bone dark:bg-pine px-6 md:px-16 py-24 md:py-32">
+<section id="work" class="relative bg-bone dark:bg-pine-deep px-6 md:px-16 py-24 md:py-32">
   <div class="max-w-xl mb-16 md:mb-24">
     <p data-reveal class="reveal-up logline text-oxide dark:text-lavender text-xs mb-4">SELECTED WORK &middot; SHOT LOG</p>
     <h2 data-reveal class="font-headline reveal-up text-4xl md:text-6xl font-medium tracking-tight leading-tight mb-6">
@@ -277,8 +253,8 @@
     </div>
   </div>
 
-  <div class="max-w-5xl mx-auto">
-    <figure data-reveal data-cursor-hover class="reveal-up depth-card relative block w-full md:w-[62%] aspect-[4/5] md:aspect-auto md:h-[64vh] md:mr-auto md:-rotate-2 md:z-10 rounded-2xl overflow-hidden cursor-pointer">
+  <div class="max-w-4xl mx-auto space-y-10 md:space-y-14">
+    <figure data-reveal data-cursor-hover class="reveal-up depth-card relative block w-full md:w-[72%] aspect-[4/5] md:aspect-auto md:h-[58vh] md:mr-auto md:-rotate-1 rounded-2xl overflow-hidden cursor-pointer">
       <img data-parallax-img src="assets/img/arizona.jpg" alt="Wide desert landscape under a pale sky in Southern Arizona" class="photo-grade w-full h-full object-cover" loading="lazy" />
       <div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"></div>
       <figcaption class="absolute bottom-8 left-6 md:left-10">
@@ -287,7 +263,7 @@
       </figcaption>
     </figure>
 
-    <figure data-reveal data-cursor-hover class="reveal-up depth-card relative block w-full md:w-[48%] aspect-[4/5] md:aspect-auto md:h-[50vh] md:ml-auto md:-mt-10 md:rotate-2 md:z-20 rounded-2xl overflow-hidden cursor-pointer mt-8 md:mt-[-2.5rem]">
+    <figure data-reveal data-cursor-hover class="reveal-up depth-card relative block w-full md:w-[72%] aspect-[4/5] md:aspect-auto md:h-[58vh] md:ml-auto md:rotate-1 rounded-2xl overflow-hidden cursor-pointer">
       <img data-parallax-img src="assets/img/bisbee.jpg" alt="Weathered oxide-toned car in Bisbee, Arizona" class="photo-grade w-full h-full object-cover" loading="lazy" />
       <div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"></div>
       <figcaption class="absolute bottom-8 left-6 md:left-10">
@@ -296,7 +272,7 @@
       </figcaption>
     </figure>
 
-    <figure data-reveal data-cursor-hover class="reveal-up depth-card relative block w-full md:w-[40%] aspect-[4/5] md:aspect-auto md:h-[40vh] md:mr-auto md:-mt-10 md:rotate-3 md:z-30 rounded-2xl overflow-hidden cursor-pointer mt-8 md:mt-[-2.5rem]">
+    <figure data-reveal data-cursor-hover class="reveal-up depth-card relative block w-full md:w-[54%] aspect-[4/5] md:aspect-auto md:h-[46vh] md:mr-auto md:-rotate-1 rounded-2xl overflow-hidden cursor-pointer">
       <img src="assets/img/bisbee-portrait.jpg" alt="Yrsa holding a camera outside a weathered building in Bisbee, Arizona" class="photo-grade w-full h-full object-cover object-top" loading="lazy" />
       <div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"></div>
       <figcaption class="absolute bottom-6 left-5 md:left-8">
@@ -305,7 +281,7 @@
       </figcaption>
     </figure>
 
-    <figure data-reveal data-cursor-hover class="reveal-up depth-card relative block w-full md:w-[58%] aspect-[4/5] md:aspect-auto md:h-[58vh] md:ml-auto md:-mt-10 md:-rotate-1 md:z-10 rounded-2xl overflow-hidden cursor-pointer mt-8 md:mt-[-2.5rem]">
+    <figure data-reveal data-cursor-hover class="reveal-up depth-card relative block w-full md:w-[72%] aspect-[4/5] md:aspect-auto md:h-[58vh] md:ml-auto md:rotate-1 rounded-2xl overflow-hidden cursor-pointer">
       <img data-parallax-img src="assets/img/cabot-trail-1.jpg" alt="Coastal cliffs along the Cabot Trail in Nova Scotia" class="photo-grade w-full h-full object-cover" loading="lazy" />
       <div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"></div>
       <figcaption class="absolute bottom-8 left-6 md:left-10">
@@ -314,7 +290,7 @@
       </figcaption>
     </figure>
 
-    <figure data-reveal data-cursor-hover class="reveal-up depth-card relative block w-full md:w-[44%] aspect-[4/5] md:aspect-auto md:h-[42vh] md:mr-auto md:-mt-10 md:rotate-2 md:z-20 rounded-2xl overflow-hidden cursor-pointer mt-8 md:mt-[-2.5rem]">
+    <figure data-reveal data-cursor-hover class="reveal-up depth-card relative block w-full md:w-[54%] aspect-[4/5] md:aspect-auto md:h-[46vh] md:mr-auto md:-rotate-1 rounded-2xl overflow-hidden cursor-pointer">
       <img data-parallax-img src="assets/img/cabot-trail-2.jpg" alt="Winding coastal road through the Cabot Trail highlands" class="photo-grade w-full h-full object-cover" loading="lazy" />
       <div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"></div>
       <figcaption class="absolute bottom-8 left-6 md:left-10">
@@ -323,7 +299,7 @@
       </figcaption>
     </figure>
 
-    <figure data-reveal data-cursor-hover class="reveal-up depth-card relative block w-full md:w-[54%] aspect-[4/5] md:aspect-auto md:h-[56vh] md:ml-auto md:-mt-10 md:-rotate-2 md:z-10 rounded-2xl overflow-hidden cursor-pointer mt-8 md:mt-[-2.5rem]">
+    <figure data-reveal data-cursor-hover class="reveal-up depth-card relative block w-full md:w-[72%] aspect-[4/5] md:aspect-auto md:h-[58vh] md:ml-auto md:rotate-1 rounded-2xl overflow-hidden cursor-pointer">
       <img data-parallax-img src="assets/img/florida-hammock.jpg" alt="Yrsa walking a boardwalk through a palm hammock in Florida" class="photo-grade w-full h-full object-cover" loading="lazy" />
       <div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"></div>
       <figcaption class="absolute bottom-8 left-6 md:left-10">
@@ -332,7 +308,7 @@
       </figcaption>
     </figure>
 
-    <figure data-reveal data-cursor-hover class="reveal-up depth-card relative block w-full md:w-[64%] aspect-[4/5] md:aspect-auto md:h-[64vh] md:mr-auto md:-mt-10 md:rotate-1 md:z-20 rounded-2xl overflow-hidden cursor-pointer mt-8 md:mt-[-2.5rem]">
+    <figure data-reveal data-cursor-hover class="reveal-up depth-card relative block w-full md:w-[72%] aspect-[4/5] md:aspect-auto md:h-[58vh] md:mr-auto md:-rotate-1 rounded-2xl overflow-hidden cursor-pointer">
       <img data-parallax-img src="assets/img/peggys-cove.jpg" alt="Rocky coastline at Peggy's Cove, Nova Scotia" class="photo-grade w-full h-full object-cover" loading="lazy" />
       <div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"></div>
       <figcaption class="absolute bottom-8 left-6 md:left-10">
@@ -341,7 +317,7 @@
       </figcaption>
     </figure>
 
-    <figure data-reveal data-cursor-hover class="reveal-up depth-card relative block w-full md:w-[46%] aspect-[4/5] md:aspect-auto md:h-[46vh] md:ml-auto md:-mt-10 md:-rotate-2 md:z-30 rounded-2xl overflow-hidden cursor-pointer mt-8 md:mt-[-2.5rem]">
+    <figure data-reveal data-cursor-hover class="reveal-up depth-card relative block w-full md:w-[54%] aspect-[4/5] md:aspect-auto md:h-[46vh] md:ml-auto md:rotate-1 rounded-2xl overflow-hidden cursor-pointer">
       <img data-parallax-img src="assets/img/beach.jpg" alt="Yrsa raising an arm to the sky on a white sand Gulf Coast beach, camera in hand" class="photo-grade w-full h-full object-cover" loading="lazy" />
       <div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"></div>
       <figcaption class="absolute bottom-8 left-6 md:left-10">
@@ -381,7 +357,7 @@
 </section>
 
 <!-- Journal teaser -->
-<section class="bg-bone dark:bg-pine px-6 md:px-16 py-24 md:py-32">
+<section class="bg-bone dark:bg-pine-deep px-6 md:px-16 py-24 md:py-32">
   <div class="max-w-7xl mx-auto">
     <div class="flex items-end justify-between flex-wrap gap-4 mb-10">
       <div>
@@ -511,72 +487,6 @@
 </section>
 
 <script>
-// ---- Mobile menu (always active — must work regardless of reduced motion or GSAP availability) ----
-(function () {
-  var menuToggle = document.querySelector('[data-menu-toggle]');
-  var mobileMenu = document.querySelector('[data-mobile-menu]');
-  var iconOpen = document.querySelector('[data-menu-icon-open]');
-  var iconClose = document.querySelector('[data-menu-icon-close]');
-  if (!menuToggle || !mobileMenu) return;
-
-  function closeMenu() {
-    mobileMenu.classList.add('opacity-0', 'pointer-events-none');
-    mobileMenu.setAttribute('aria-hidden', 'true');
-    menuToggle.setAttribute('aria-expanded', 'false');
-    menuToggle.setAttribute('aria-label', 'Open menu');
-    if (iconOpen) iconOpen.classList.remove('hidden');
-    if (iconClose) iconClose.classList.add('hidden');
-    document.body.style.overflow = '';
-  }
-
-  function openMenu() {
-    mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
-    mobileMenu.setAttribute('aria-hidden', 'false');
-    menuToggle.setAttribute('aria-expanded', 'true');
-    menuToggle.setAttribute('aria-label', 'Close menu');
-    if (iconOpen) iconOpen.classList.add('hidden');
-    if (iconClose) iconClose.classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
-  }
-
-  menuToggle.addEventListener('click', function () {
-    var isOpen = menuToggle.getAttribute('aria-expanded') === 'true';
-    if (isOpen) { closeMenu(); } else { openMenu(); }
-  });
-
-  mobileMenu.querySelectorAll('[data-menu-link]').forEach(function (link) {
-    link.addEventListener('click', closeMenu);
-  });
-
-  // Esc closes the menu too
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && menuToggle.getAttribute('aria-expanded') === 'true') closeMenu();
-  });
-})();
-
-// ---- Theme toggle (dark mode) — manual choice overrides the OS/browser preference ----
-(function () {
-  var toggle = document.querySelector('[data-theme-toggle]');
-  var iconLight = document.querySelector('[data-theme-icon-light]');
-  var iconDark = document.querySelector('[data-theme-icon-dark]');
-  if (!toggle) return;
-
-  function sync() {
-    var isDark = document.documentElement.classList.contains('dark');
-    if (iconLight) iconLight.classList.toggle('hidden', isDark);
-    if (iconDark) iconDark.classList.toggle('hidden', !isDark);
-    toggle.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
-  }
-  sync();
-
-  toggle.addEventListener('click', function () {
-    var isDark = !document.documentElement.classList.contains('dark');
-    document.documentElement.classList.toggle('dark', isDark);
-    localStorage.setItem('yrsa-theme', isDark ? 'dark' : 'light');
-    sync();
-  });
-})();
-
 // ---- Nav contrast: light text over the hero video and dark Contact section, dark text
 // elsewhere. Runs independent of GSAP/reduced-motion since it's legibility, not decoration. ----
 (function () {
@@ -663,8 +573,6 @@
       start: 0,
       end: 99999,
       onUpdate: function (self) {
-        var menuOpen = document.querySelector('[data-mobile-menu]').getAttribute('aria-hidden') === 'false';
-        if (menuOpen) return;
         if (self.direction === 1 && self.scroll() > 120) {
           navHeader.classList.add('nav-hidden');
         } else {
