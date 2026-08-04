@@ -14,7 +14,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script>
   tailwind.config = {
-    darkMode: 'class',
     theme: {
       extend: {
         colors: {
@@ -26,7 +25,6 @@
           brass: '#876330',
           pine: '#3f4a3d',
           'pine-light': '#9caf88',
-          'pine-deep': '#0a1f14',
         },
         fontFamily: {
           sans: ['Montserrat', 'sans-serif'],
@@ -37,25 +35,10 @@
     },
   };
 </script>
-<script>
-  (function () {
-    var stored = localStorage.getItem('yrsa-theme');
-    var media = window.matchMedia('(prefers-color-scheme: dark)');
-    function apply(isDark) { document.documentElement.classList.toggle('dark', isDark); }
-    apply(stored ? stored === 'dark' : media.matches);
-    if (!stored) {
-      media.addEventListener('change', function (e) {
-        if (!localStorage.getItem('yrsa-theme')) apply(e.matches);
-      });
-    }
-  })();
-</script>
 <style>
   .font-headline { font-optical-sizing: auto; }
   html { scroll-behavior: smooth; }
-  body { font-family: 'Montserrat', sans-serif; background: #e3e0d9; color: #2b241f; transition: background-color 0.3s ease, color 0.3s ease; }
-  html.dark { background: #0a1f14; }
-  html.dark body { background: rgba(10,31,20,0.95); color: #e3e0d9; }
+  body { font-family: 'Montserrat', sans-serif; background: #e3e0d9; color: #2b241f; }
   .logline { font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.18em; }
 
   .js .reveal-up { opacity: 0; transform: translateY(28px); }
@@ -82,10 +65,8 @@
   .photo-grade { filter: contrast(1.05) saturate(0.92) brightness(0.98); }
 
   header[data-nav] [data-nav-text] { color: #2b241f !important; text-shadow: 0 1px 6px rgba(43,36,31,0.12); }
-  html.dark header[data-nav] [data-nav-text] { color: #e3e0d9 !important; text-shadow: 0 1px 8px rgba(43,36,31,0.4); }
 
   .members-glow { box-shadow: 0 2px 10px rgba(43,36,31,0.2), 0 0 16px rgba(63,74,61,0.45); }
-  html.dark .members-glow { box-shadow: 0 2px 10px rgba(0,0,0,0.35), 0 0 18px rgba(156,175,136,0.5); }
 
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
@@ -101,15 +82,15 @@
 <header data-nav class="fixed top-4 left-4 right-4 z-50">
   <nav class="max-w-7xl mx-auto flex items-center justify-between px-2 py-1">
     <a href="index-fraunces.html#top" data-nav-text class="text-xl font-bold tracking-wide cursor-pointer">YRSA</a>
-    <a href="archive-fraunces.html" class="members-glow text-xs font-medium bg-pine text-bone dark:bg-pine-light dark:text-ink px-5 py-2.5 rounded-full hover:bg-ink dark:hover:bg-bone transition-colors duration-200 cursor-pointer whitespace-nowrap">Members</a>
+    <a href="archive-fraunces.html" class="members-glow text-xs font-medium bg-pine text-bone px-5 py-2.5 rounded-full hover:bg-ink transition-colors duration-200 cursor-pointer whitespace-nowrap">Members</a>
   </nav>
 </header>
 
 <!-- Page intro -->
 <section class="max-w-3xl mx-auto px-6 md:px-0 pt-40 pb-16 md:pt-48 md:pb-20">
-  <p data-reveal class="reveal-up logline text-pine dark:text-lavender text-xs mb-4">FROM THE JOURNAL</p>
+  <p data-reveal class="reveal-up logline text-pine text-xs mb-4">FROM THE JOURNAL</p>
   <h1 data-reveal class="font-headline reveal-up text-4xl md:text-6xl font-medium tracking-tight leading-tight mb-6">Field notes, not just frames.</h1>
-  <p data-reveal class="reveal-up text-ink/70 dark:text-bone/70 font-light leading-relaxed text-lg">
+  <p data-reveal class="reveal-up text-ink/70 font-light leading-relaxed text-lg">
     The stories behind the shot log — where Yrsa was standing, what the weather was doing, and what
     almost didn't make the frame.
   </p>
@@ -122,13 +103,13 @@
     <div data-reveal class="reveal-up reveal-mask depth-card rounded-2xl overflow-hidden mb-8">
       <img src="assets/img/arizona.jpg" alt="Wide desert landscape under a pale sky in Southern Arizona" class="photo-grade w-full h-[320px] md:h-[420px] object-cover" loading="lazy" />
     </div>
-    <p data-reveal class="reveal-up logline text-pine dark:text-lavender text-xs mb-3">04&#8209;16 &middot; SOUTHERN ARIZONA &middot; 300MM</p>
+    <p data-reveal class="reveal-up logline text-pine text-xs mb-3">04&#8209;16 &middot; SOUTHERN ARIZONA &middot; 300MM</p>
     <h2 data-reveal class="font-headline reveal-up text-2xl md:text-4xl font-medium tracking-tight mb-4">Desert nights run cold</h2>
-    <p data-reveal class="reveal-up text-ink/75 dark:text-bone/75 font-light leading-relaxed mb-4">
+    <p data-reveal class="reveal-up text-ink/75 font-light leading-relaxed mb-4">
       Nobody warns you how fast the desert gives up its heat once the sun drops. By the time the sky went
       from oxide to ink, I was shooting in two jackets and wishing for a third.
     </p>
-    <p data-reveal class="reveal-up text-ink/75 dark:text-bone/75 font-light leading-relaxed">
+    <p data-reveal class="reveal-up text-ink/75 font-light leading-relaxed">
       Patience is the whole job out here — waiting for the wind to drop, the dust to settle, the last strip
       of light to catch the ridge line. Three hours for four frames. Worth it for the one that logged clean.
     </p>
@@ -138,13 +119,13 @@
     <div data-reveal class="reveal-up reveal-mask depth-card rounded-2xl overflow-hidden mb-8">
       <img src="assets/img/bisbee.jpg" alt="Weathered oxide-toned car in Bisbee, Arizona" class="photo-grade w-full h-[320px] md:h-[420px] object-cover" loading="lazy" />
     </div>
-    <p data-reveal class="reveal-up logline text-pine dark:text-lavender text-xs mb-3">04&#8209;16 &middot; BISBEE, AZ &middot; 90MM</p>
+    <p data-reveal class="reveal-up logline text-pine text-xs mb-3">04&#8209;16 &middot; BISBEE, AZ &middot; 90MM</p>
     <h2 data-reveal class="font-headline reveal-up text-2xl md:text-4xl font-medium tracking-tight mb-4">Bisbee's backroads</h2>
-    <p data-reveal class="reveal-up text-ink/75 dark:text-bone/75 font-light leading-relaxed mb-4">
+    <p data-reveal class="reveal-up text-ink/75 font-light leading-relaxed mb-4">
       An old copper town built into a canyon, with backroads that switch from pavement to gravel without
       warning. Borrowed a truck with no AC and drove them anyway.
     </p>
-    <p data-reveal class="reveal-up text-ink/75 dark:text-bone/75 font-light leading-relaxed">
+    <p data-reveal class="reveal-up text-ink/75 font-light leading-relaxed">
       The rust and oxide tones that show up across this whole archive started here — mining-town color,
       baked into every wall and fender in town.
     </p>
@@ -154,13 +135,13 @@
     <div data-reveal class="reveal-up reveal-mask depth-card rounded-2xl overflow-hidden mb-8">
       <img src="assets/img/cabot-trail-1.jpg" alt="Coastal cliffs along the Cabot Trail in Nova Scotia" class="photo-grade w-full h-[320px] md:h-[420px] object-cover" loading="lazy" />
     </div>
-    <p data-reveal class="reveal-up logline text-pine dark:text-lavender text-xs mb-3">07&#8209;18 &middot; CABOT TRAIL, NS &middot; 35MM</p>
+    <p data-reveal class="reveal-up logline text-pine text-xs mb-3">07&#8209;18 &middot; CABOT TRAIL, NS &middot; 35MM</p>
     <h2 data-reveal class="font-headline reveal-up text-2xl md:text-4xl font-medium tracking-tight mb-4">Fog on the Cabot Trail</h2>
-    <p data-reveal class="reveal-up text-ink/75 dark:text-bone/75 font-light leading-relaxed mb-4">
+    <p data-reveal class="reveal-up text-ink/75 font-light leading-relaxed mb-4">
       Three days on the highlands, and the fog only broke twice. Learned to keep the camera dry-bagged and
       ready rather than packed away — the gap never lasts more than a few minutes.
     </p>
-    <p data-reveal class="reveal-up text-ink/75 dark:text-bone/75 font-light leading-relaxed">
+    <p data-reveal class="reveal-up text-ink/75 font-light leading-relaxed">
       Green cliff, grey sea, one clean frame. Everything else in the log from that trip is fog.
     </p>
   </article>
