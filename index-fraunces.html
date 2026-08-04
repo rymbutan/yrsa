@@ -73,29 +73,6 @@
 
   .reveal-line-wrap { overflow: hidden; display: block; }
 
-  /* Custom cursor */
-  .cursor-dot, .cursor-ring {
-    position: fixed; top: 0; left: 0; z-index: 100;
-    pointer-events: none; border-radius: 9999px;
-    transform: translate(-50%, -50%);
-    will-change: transform;
-  }
-  .cursor-dot { width: 6px; height: 6px; background: #3f4a3d; }
-  .cursor-ring {
-    width: 40px; height: 40px; border: 1px solid rgba(43,36,31,0.4);
-    transition: width 0.25s ease, height 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
-  }
-  .cursor-ring.is-hovering {
-    width: 72px; height: 72px;
-    border-color: transparent;
-    background: rgba(63,74,61,0.18);
-  }
-  .cursor-ring.is-dark { border-color: rgba(227,224,217,0.5); }
-  .cursor-ring.is-dark.is-hovering { background: rgba(227,224,217,0.15); }
-  @media (hover: none), (pointer: coarse) {
-    .cursor-dot, .cursor-ring { display: none; }
-  }
-
   .magnetic { display: inline-flex; will-change: transform; }
 
   /* Layered Depth: shared card shell for overlapping "stacked print" elements */
@@ -157,21 +134,17 @@
     .js .reveal-line, .js .reveal-up { opacity: 1; transform: none; }
     .js .reveal-mask { clip-path: none; }
     .js .reveal-mask img { transform: none; }
-    .cursor-dot, .cursor-ring { display: none; }
   }
 </style>
 </head>
 <body class="antialiased">
-
-<div class="cursor-ring is-dark" data-cursor-ring></div>
-<div class="cursor-dot" data-cursor-dot></div>
 
 <!-- Nav: bare wordmark + a single Members CTA — no hamburger, no theme icon (dark mode is
      purely automatic now). Hides on scroll down, reappears on scroll up. -->
 <header data-nav class="fixed top-4 left-4 right-4 z-50">
   <nav class="max-w-7xl mx-auto flex items-center justify-between px-2 py-1">
     <a href="#top" data-nav-text class="text-xl font-bold tracking-wide cursor-pointer">YRSA</a>
-    <a href="archive-fraunces.html" data-cursor-hover class="members-glow text-xs font-medium bg-pine text-bone dark:bg-pine-light dark:text-ink px-5 py-2.5 rounded-full hover:bg-ink dark:hover:bg-bone transition-colors duration-200 cursor-pointer whitespace-nowrap">Members</a>
+    <a href="archive-fraunces.html" class="members-glow text-xs font-medium bg-pine text-bone dark:bg-pine-light dark:text-ink px-5 py-2.5 rounded-full hover:bg-ink dark:hover:bg-bone transition-colors duration-200 cursor-pointer whitespace-nowrap">Members</a>
   </nav>
 </header>
 
@@ -199,7 +172,7 @@
     </p>
   </div>
 
-  <a href="#work" data-cursor-hover aria-label="Scroll to work" class="absolute bottom-6 right-6 md:right-12 z-10 flex items-center gap-2 text-bone/80 hover:text-bone transition-colors duration-200 cursor-pointer">
+  <a href="#work" aria-label="Scroll to work" class="absolute bottom-6 right-6 md:right-12 z-10 flex items-center gap-2 text-bone/80 hover:text-bone transition-colors duration-200 cursor-pointer">
     <span class="logline text-xs">SCROLL</span>
     <svg data-scroll-arrow class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
   </a>
@@ -255,7 +228,7 @@
   </div>
 
   <div class="max-w-4xl mx-auto space-y-10 md:space-y-14">
-    <figure data-reveal data-cursor-hover class="reveal-up depth-card relative block w-full md:w-[72%] aspect-[4/5] md:aspect-auto md:h-[58vh] md:mr-auto md:-rotate-1 rounded-2xl overflow-hidden cursor-pointer">
+    <figure data-reveal class="reveal-up depth-card relative block w-full md:w-[72%] aspect-[4/5] md:aspect-auto md:h-[58vh] md:mr-auto md:-rotate-1 rounded-2xl overflow-hidden cursor-pointer">
       <img data-parallax-img src="assets/img/arizona.jpg" alt="Wide desert landscape under a pale sky in Southern Arizona" class="photo-grade w-full h-full object-cover" loading="lazy" />
       <div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"></div>
       <figcaption class="absolute bottom-8 left-6 md:left-10">
@@ -264,7 +237,7 @@
       </figcaption>
     </figure>
 
-    <figure data-reveal data-cursor-hover class="reveal-up depth-card relative block w-full md:w-[72%] aspect-[4/5] md:aspect-auto md:h-[58vh] md:ml-auto md:rotate-1 rounded-2xl overflow-hidden cursor-pointer">
+    <figure data-reveal class="reveal-up depth-card relative block w-full md:w-[72%] aspect-[4/5] md:aspect-auto md:h-[58vh] md:ml-auto md:rotate-1 rounded-2xl overflow-hidden cursor-pointer">
       <img data-parallax-img src="assets/img/bisbee.jpg" alt="Weathered oxide-toned car in Bisbee, Arizona" class="photo-grade w-full h-full object-cover" loading="lazy" />
       <div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"></div>
       <figcaption class="absolute bottom-8 left-6 md:left-10">
@@ -273,7 +246,7 @@
       </figcaption>
     </figure>
 
-    <figure data-reveal data-cursor-hover class="reveal-up depth-card relative block w-full md:w-[54%] aspect-[4/5] md:aspect-auto md:h-[46vh] md:mr-auto md:-rotate-1 rounded-2xl overflow-hidden cursor-pointer">
+    <figure data-reveal class="reveal-up depth-card relative block w-full md:w-[54%] aspect-[4/5] md:aspect-auto md:h-[46vh] md:mr-auto md:-rotate-1 rounded-2xl overflow-hidden cursor-pointer">
       <img src="assets/img/bisbee-portrait.jpg" alt="Yrsa holding a camera outside a weathered building in Bisbee, Arizona" class="photo-grade w-full h-full object-cover object-top" loading="lazy" />
       <div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"></div>
       <figcaption class="absolute bottom-6 left-5 md:left-8">
@@ -282,7 +255,7 @@
       </figcaption>
     </figure>
 
-    <figure data-reveal data-cursor-hover class="reveal-up depth-card relative block w-full md:w-[72%] aspect-[4/5] md:aspect-auto md:h-[58vh] md:ml-auto md:rotate-1 rounded-2xl overflow-hidden cursor-pointer">
+    <figure data-reveal class="reveal-up depth-card relative block w-full md:w-[72%] aspect-[4/5] md:aspect-auto md:h-[58vh] md:ml-auto md:rotate-1 rounded-2xl overflow-hidden cursor-pointer">
       <img data-parallax-img src="assets/img/cabot-trail-1.jpg" alt="Coastal cliffs along the Cabot Trail in Nova Scotia" class="photo-grade w-full h-full object-cover" loading="lazy" />
       <div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"></div>
       <figcaption class="absolute bottom-8 left-6 md:left-10">
@@ -291,7 +264,7 @@
       </figcaption>
     </figure>
 
-    <figure data-reveal data-cursor-hover class="reveal-up depth-card relative block w-full md:w-[54%] aspect-[4/5] md:aspect-auto md:h-[46vh] md:mr-auto md:-rotate-1 rounded-2xl overflow-hidden cursor-pointer">
+    <figure data-reveal class="reveal-up depth-card relative block w-full md:w-[54%] aspect-[4/5] md:aspect-auto md:h-[46vh] md:mr-auto md:-rotate-1 rounded-2xl overflow-hidden cursor-pointer">
       <img data-parallax-img src="assets/img/cabot-trail-2.jpg" alt="Winding coastal road through the Cabot Trail highlands" class="photo-grade w-full h-full object-cover" loading="lazy" />
       <div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"></div>
       <figcaption class="absolute bottom-8 left-6 md:left-10">
@@ -300,7 +273,7 @@
       </figcaption>
     </figure>
 
-    <figure data-reveal data-cursor-hover class="reveal-up depth-card relative block w-full md:w-[72%] aspect-[4/5] md:aspect-auto md:h-[58vh] md:ml-auto md:rotate-1 rounded-2xl overflow-hidden cursor-pointer">
+    <figure data-reveal class="reveal-up depth-card relative block w-full md:w-[72%] aspect-[4/5] md:aspect-auto md:h-[58vh] md:ml-auto md:rotate-1 rounded-2xl overflow-hidden cursor-pointer">
       <img data-parallax-img src="assets/img/florida-hammock.jpg" alt="Yrsa walking a boardwalk through a palm hammock in Florida" class="photo-grade w-full h-full object-cover" loading="lazy" />
       <div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"></div>
       <figcaption class="absolute bottom-8 left-6 md:left-10">
@@ -309,7 +282,7 @@
       </figcaption>
     </figure>
 
-    <figure data-reveal data-cursor-hover class="reveal-up depth-card relative block w-full md:w-[72%] aspect-[4/5] md:aspect-auto md:h-[58vh] md:mr-auto md:-rotate-1 rounded-2xl overflow-hidden cursor-pointer">
+    <figure data-reveal class="reveal-up depth-card relative block w-full md:w-[72%] aspect-[4/5] md:aspect-auto md:h-[58vh] md:mr-auto md:-rotate-1 rounded-2xl overflow-hidden cursor-pointer">
       <img data-parallax-img src="assets/img/peggys-cove.jpg" alt="Rocky coastline at Peggy's Cove, Nova Scotia" class="photo-grade w-full h-full object-cover" loading="lazy" />
       <div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"></div>
       <figcaption class="absolute bottom-8 left-6 md:left-10">
@@ -318,7 +291,7 @@
       </figcaption>
     </figure>
 
-    <figure data-reveal data-cursor-hover class="reveal-up depth-card relative block w-full md:w-[54%] aspect-[4/5] md:aspect-auto md:h-[46vh] md:ml-auto md:rotate-1 rounded-2xl overflow-hidden cursor-pointer">
+    <figure data-reveal class="reveal-up depth-card relative block w-full md:w-[54%] aspect-[4/5] md:aspect-auto md:h-[46vh] md:ml-auto md:rotate-1 rounded-2xl overflow-hidden cursor-pointer">
       <img data-parallax-img src="assets/img/beach.jpg" alt="Yrsa raising an arm to the sky on a white sand Gulf Coast beach, camera in hand" class="photo-grade w-full h-full object-cover" loading="lazy" />
       <div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"></div>
       <figcaption class="absolute bottom-8 left-6 md:left-10">
@@ -334,7 +307,7 @@
   <p data-reveal class="reveal-up logline text-pine dark:text-lavender text-xs mb-4">ON THE MOVE &middot; FIELD CLIPS</p>
   <h2 data-reveal class="font-headline reveal-up text-3xl md:text-5xl font-medium tracking-tight mb-10 max-w-2xl">Motion from the same places.</h2>
   <div class="grid md:grid-cols-3 gap-6">
-    <div data-video-card data-reveal data-cursor-hover role="button" tabindex="0" aria-label="Play field clip video" class="reveal-up depth-card rounded-2xl relative aspect-[4/5] overflow-hidden cursor-pointer group">
+    <div data-video-card data-reveal role="button" tabindex="0" aria-label="Play field clip video" class="reveal-up depth-card rounded-2xl relative aspect-[4/5] overflow-hidden cursor-pointer group">
       <video data-video-el class="photo-grade w-full h-full object-cover" muted loop playsinline poster="assets/video/loop-poster.jpg">
         <source src="assets/video/loop.mp4" type="video/mp4" />
       </video>
@@ -357,15 +330,14 @@
   </div>
 </section>
 
-
 <!-- About -->
 <section id="about" class="max-w-7xl mx-auto px-6 md:px-12 py-24 md:py-32">
   <div class="grid md:grid-cols-12 gap-10 items-center">
     <div class="md:col-span-5 relative pb-8 pr-6 md:pb-10 md:pr-10">
-      <div data-cursor-hover class="reveal-mask depth-card rounded-2xl cursor-pointer">
+      <div class="reveal-mask depth-card rounded-2xl cursor-pointer">
         <img data-parallax-img src="assets/img/camera-portrait.jpg" alt="Yrsa holding a vintage box camera at a wooden table" class="photo-grade w-full h-[420px] object-cover object-top" loading="lazy" />
       </div>
-      <div data-reveal data-cursor-hover class="reveal-up depth-card absolute bottom-0 right-0 w-28 h-28 md:w-36 md:h-36 rounded-xl overflow-hidden border-2 border-lavender rotate-3 z-20 cursor-pointer">
+      <div data-reveal class="reveal-up depth-card absolute bottom-0 right-0 w-28 h-28 md:w-36 md:h-36 rounded-xl overflow-hidden border-2 border-lavender rotate-3 z-20 cursor-pointer">
         <img src="assets/img/camera-portrait.jpg" alt="Detail: Yrsa's hands on the vintage camera" style="object-position: 30% 68%;" class="photo-grade w-full h-full object-cover scale-[1.8]" loading="lazy" />
       </div>
     </div>
@@ -401,7 +373,7 @@
     <form data-reveal action="https://example.us1.list-manage.com/subscribe/post" method="post" class="reveal-up w-full md:w-auto flex flex-col sm:flex-row gap-3">
       <label for="newsletter-email" class="sr-only">Email address</label>
       <input id="newsletter-email" name="EMAIL" type="email" required placeholder="you@email.com" class="w-full sm:w-64 bg-bone border border-ink/20 focus:border-pine outline-none rounded-full px-5 py-3 text-sm text-ink placeholder-ink/40 transition-colors duration-300" />
-      <button type="submit" data-cursor-hover class="bg-pine text-bone dark:bg-bone dark:text-ink font-medium px-7 py-3 rounded-full hover:bg-ink dark:hover:bg-lavender transition-colors duration-200 cursor-pointer whitespace-nowrap">Join the list</button>
+      <button type="submit" class="bg-pine text-bone dark:bg-bone dark:text-ink font-medium px-7 py-3 rounded-full hover:bg-ink dark:hover:bg-lavender transition-colors duration-200 cursor-pointer whitespace-nowrap">Join the list</button>
     </form>
   </div>
 </section>
@@ -440,7 +412,7 @@
             <label for="message" class="logline text-xs text-bone/60 group-focus-within:text-pine-light block mb-2 transition-colors duration-300">MESSAGE</label>
             <textarea id="message" name="message" rows="3" required class="w-full bg-transparent border-b border-bone/30 focus:border-pine-light outline-none py-2 text-base text-bone placeholder-bone/40 transition-colors duration-300 resize-none" placeholder="Tell me about your project"></textarea>
           </div>
-          <button type="submit" data-magnetic data-cursor-hover class="magnetic mt-2 bg-pine text-bone font-medium px-9 py-3.5 rounded-full shadow-lg shadow-ink/30 hover:bg-bone hover:text-ink transition-colors duration-200 cursor-pointer">
+          <button type="submit" data-magnetic class="magnetic mt-2 bg-pine text-bone font-medium px-9 py-3.5 rounded-full shadow-lg shadow-ink/30 hover:bg-bone hover:text-ink transition-colors duration-200 cursor-pointer">
             Send message
           </button>
         </form>
@@ -552,36 +524,6 @@
         }
       },
     });
-  }
-
-  // ---- Custom cursor ----
-  var cursorDot = document.querySelector('[data-cursor-dot]');
-  var cursorRing = document.querySelector('[data-cursor-ring]');
-  if (canHover && cursorDot && cursorRing) {
-    var dotX = gsap.quickTo(cursorDot, 'x', { duration: 0.15, ease: 'power3.out' });
-    var dotY = gsap.quickTo(cursorDot, 'y', { duration: 0.15, ease: 'power3.out' });
-    var ringX = gsap.quickTo(cursorRing, 'x', { duration: 0.45, ease: 'power3.out' });
-    var ringY = gsap.quickTo(cursorRing, 'y', { duration: 0.45, ease: 'power3.out' });
-
-    window.addEventListener('mousemove', function (e) {
-      dotX(e.clientX); dotY(e.clientY);
-      ringX(e.clientX); ringY(e.clientY);
-    });
-
-    document.querySelectorAll('[data-cursor-hover]').forEach(function (el) {
-      el.addEventListener('mouseenter', function () { cursorRing.classList.add('is-hovering'); });
-      el.addEventListener('mouseleave', function () { cursorRing.classList.remove('is-hovering'); });
-    });
-
-    document.getElementById('contact').addEventListener('mouseenter', function () {
-      cursorRing.classList.remove('is-dark');
-    });
-    document.getElementById('contact').addEventListener('mouseleave', function () {
-      cursorRing.classList.add('is-dark');
-    });
-  } else if (cursorDot && cursorRing) {
-    cursorDot.style.display = 'none';
-    cursorRing.style.display = 'none';
   }
 
   // ---- Magnetic buttons ----
