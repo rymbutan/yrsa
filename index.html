@@ -31,12 +31,21 @@
           sans: ['Montserrat', 'sans-serif'],
           mono: ['"IBM Plex Mono"', 'monospace'],
           headline: ['Montserrat', 'sans-serif'],
+          logo: ['Mynerve', 'cursive'],
         },
       },
     },
   };
 </script>
 <style>
+  @font-face {
+    font-family: 'Mynerve';
+    src: url('mynerve/static/mynerve-latin-400-normal.woff2') format('woff2'),
+         url('mynerve/static/mynerve-latin-400-normal.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
   html { scroll-behavior: smooth; }
   html.lenis, html.lenis body { height: auto; }
   body { font-family: 'Montserrat', sans-serif; background: #e3e0d9; color: #2b241f; }
@@ -119,7 +128,7 @@
      purely automatic now). Hides on scroll down, reappears on scroll up. -->
 <header data-nav class="fixed top-4 left-4 right-4 z-50">
   <nav class="max-w-7xl mx-auto flex items-center justify-between px-2 py-1">
-    <a href="#top" data-nav-text class="text-xl font-bold tracking-wide cursor-pointer">YRSA</a>
+    <a href="#top" data-nav-text class="font-logo text-3xl cursor-pointer">Yrsaclicks</a>
     <a href="archive.html" class="members-glow text-xs font-medium bg-pine text-bone px-5 py-2.5 rounded-full hover:bg-ink transition-colors duration-200 cursor-pointer whitespace-nowrap">Members</a>
   </nav>
 </header>
@@ -360,7 +369,7 @@
     </div>
 
     <div class="border-t border-bone/15 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-      <p class="logline text-xs text-bone/60">&copy; 2026 YRSA &middot; FIELD PHOTOGRAPHY</p>
+      <p class="logline text-xs text-bone/60">&copy; 2026 YRSACLICKS &middot; FIELD PHOTOGRAPHY</p>
       <div class="flex gap-4 text-sm text-bone/60">
         <a href="#" class="hover:text-pine-light transition-colors duration-200 cursor-pointer py-2 px-1">Instagram</a>
         <a href="#" class="hover:text-pine-light transition-colors duration-200 cursor-pointer py-2 px-1">Prints</a>

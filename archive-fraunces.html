@@ -28,6 +28,7 @@
           sans: ['Montserrat', 'sans-serif'],
           mono: ['"IBM Plex Mono"', 'monospace'],
           headline: ['Fraunces', 'serif'],
+          logo: ['Mynerve', 'cursive'],
         },
       },
     },
@@ -35,6 +36,14 @@
 </script>
 <style>
   .font-headline { font-optical-sizing: auto; }
+  @font-face {
+    font-family: 'Mynerve';
+    src: url('mynerve/static/mynerve-latin-400-normal.woff2') format('woff2'),
+         url('mynerve/static/mynerve-latin-400-normal.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
   body { font-family: 'Montserrat', sans-serif; background: #2b241f; color: #e3e0d9; }
   .logline { font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.18em; }
   .depth-card {
@@ -53,7 +62,7 @@
 <body class="antialiased min-h-screen flex flex-col">
 
 <header class="px-6 md:px-12 py-6">
-  <a href="index-fraunces.html#top" class="text-xl font-bold tracking-wide text-bone cursor-pointer">YRSA</a>
+  <a href="index-fraunces.html#top" class="font-logo text-3xl text-bone cursor-pointer">Yrsaclicks</a>
 </header>
 
 <main class="flex-1 px-6 py-12 md:py-16">
