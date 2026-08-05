@@ -8,7 +8,7 @@
 <meta name="description" content="Field notes from the road — trip write-ups from Yrsa's travel and adventure archive." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Montserrat:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
@@ -38,7 +38,6 @@
   };
 </script>
 <style>
-  .font-headline { font-optical-sizing: auto; }
   @font-face {
     font-family: 'Mynerve';
     src: url('mynerve/static/mynerve-latin-400-normal.woff2') format('woff2'),
@@ -50,6 +49,7 @@
   html { scroll-behavior: smooth; }
   html.lenis, html.lenis body { height: auto; }
   body { font-family: 'Montserrat', sans-serif; background: #e3e0d9; color: #2b241f; }
+  .font-headline { font-optical-sizing: auto; }
   .logline { font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.18em; }
 
   .js .reveal-up { opacity: 0; transform: translateY(28px); }
@@ -86,7 +86,9 @@
   header[data-nav] [data-nav-text] { color: #2b241f !important; transition: color 0.3s ease; text-shadow: 0 1px 3px rgba(0,0,0,0.35), 0 2px 10px rgba(0,0,0,0.2); }
   header[data-nav].nav-on-dark [data-nav-text] { color: #e3e0d9 !important; text-shadow: 0 1px 3px rgba(0,0,0,0.85), 0 2px 10px rgba(0,0,0,0.55); }
 
-  .members-glow { box-shadow: 0 2px 10px rgba(43,36,31,0.2), 0 0 16px rgba(63,74,61,0.45); }
+  /* Members CTA: ghost outline at rest, fills solid pine on hover. Border/text swap to
+     pine-light over dark backdrops — same adaptive mechanism as the wordmark above. */
+  header[data-nav].nav-on-dark .members-btn:not(:hover) { border-color: #9caf88 !important; color: #9caf88 !important; }
 
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
@@ -102,7 +104,7 @@
 <header data-nav class="fixed top-4 left-4 right-4 z-50">
   <nav class="max-w-7xl mx-auto flex items-center justify-between px-2 py-1">
     <a href="index-fraunces.html#top" data-nav-text class="font-logo text-3xl leading-none py-2.5 cursor-pointer">Yrsaclicks</a>
-    <a href="archive-fraunces.html" class="members-glow text-xs font-medium bg-pine text-bone px-5 py-3.5 rounded-full hover:bg-ink transition-colors duration-200 cursor-pointer whitespace-nowrap">Members</a>
+    <a href="archive-fraunces.html" class="members-btn text-xs font-medium bg-transparent border border-pine text-pine px-5 py-3.5 rounded-full hover:bg-pine hover:text-bone transition-colors duration-200 cursor-pointer whitespace-nowrap">Members</a>
   </nav>
 </header>
 
