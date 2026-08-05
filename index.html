@@ -55,42 +55,35 @@
      so content still shows if JS fails to load. */
   .js .reveal-line { opacity: 0; transform: translateY(100%); }
   .js .reveal-up { opacity: 0; transform: translateY(28px); }
-  .js .reveal-mask { position: relative; overflow: hidden; clip-path: inset(0 0 100% 0); }
-  .js .reveal-mask img { transform: scale(1.12); }
 
   .reveal-line-wrap { overflow: hidden; display: block; }
 
   .magnetic { display: inline-flex; will-change: transform; }
 
-  /* Layered Depth: shared card shell for overlapping "stacked print" elements */
+  /* Layered Depth: shared card shell for overlapping "stacked print" elements.
+     Hover lift is a separate modifier — only genuinely clickable cards get it. */
   .depth-card {
     border: 1px solid rgba(151,149,145,0.35);
     box-shadow: 0 8px 20px -6px rgba(43,36,31,0.35), 0 30px 60px -20px rgba(43,36,31,0.3);
+  }
+  .depth-card--interactive {
+    transform: scale(1) rotate(0deg);
     transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s ease;
   }
   @media (hover: hover) and (pointer: fine) {
-    .depth-card:hover {
-      --tw-rotate: 0deg;
-      --tw-scale-x: 1.03;
-      --tw-scale-y: 1.03;
+    .depth-card--interactive:hover {
+      transform: scale(1.03) rotate(0deg);
       box-shadow: 0 12px 28px -6px rgba(43,36,31,0.4), 0 40px 80px -20px rgba(43,36,31,0.35);
     }
   }
   @media (prefers-reduced-motion: reduce) {
-    .depth-card { transition: none; }
+    .depth-card--interactive { transition: none; }
   }
 
   /* Unifying photo grade — evens out mixed professional/phone photo sources */
   .photo-grade { filter: contrast(1.05) saturate(0.92) brightness(0.98); }
 
   /* Nav */
-  .nav-link { position: relative; }
-  .nav-link::after {
-    content: ''; position: absolute; left: 0; bottom: -3px; width: 100%; height: 1px;
-    background: currentColor; transform: scaleX(0); transform-origin: right;
-    transition: transform 0.3s ease;
-  }
-  .nav-link:hover::after { transform: scaleX(1); transform-origin: left; }
   header[data-nav] nav { transition: padding 0.3s ease; }
   header[data-nav].nav-scrolled nav { padding-top: 0.5rem; padding-bottom: 0.5rem; }
   header[data-nav] { transition: transform 0.4s cubic-bezier(0.22,1,0.36,1); }
@@ -98,8 +91,8 @@
 
   /* Header is bare text/icons now (no glass bar) — adaptive color + a soft text-shadow
      stand in for the old pill's built-in contrast over the hero video and dark Contact section */
-  header[data-nav] [data-nav-text] { color: #2b241f !important; transition: color 0.3s ease; text-shadow: 0 1px 6px rgba(43,36,31,0.12); }
-  header[data-nav].nav-on-dark [data-nav-text] { color: #e3e0d9 !important; text-shadow: 0 1px 8px rgba(43,36,31,0.4); }
+  header[data-nav] [data-nav-text] { color: #2b241f !important; transition: color 0.3s ease; text-shadow: 0 1px 3px rgba(0,0,0,0.35), 0 2px 10px rgba(0,0,0,0.2); }
+  header[data-nav].nav-on-dark [data-nav-text] { color: #e3e0d9 !important; text-shadow: 0 1px 3px rgba(0,0,0,0.85), 0 2px 10px rgba(0,0,0,0.55); }
 
   /* Members CTA: the header's one focal point, given a soft glow so it pops off any background */
   .members-glow { box-shadow: 0 2px 10px rgba(43,36,31,0.2), 0 0 16px rgba(63,74,61,0.45); }
@@ -112,13 +105,10 @@
      shows/hides, instead of the fixed 100vh Tailwind default. */
   @supports (height: 100dvh) {
     .h-screen { height: 100dvh !important; }
-    .min-h-screen { min-height: 100dvh !important; }
   }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .js .reveal-line, .js .reveal-up { opacity: 1; transform: none; }
-    .js .reveal-mask { clip-path: none; }
-    .js .reveal-mask img { transform: none; }
   }
 </style>
 </head>
@@ -128,15 +118,16 @@
      purely automatic now). Hides on scroll down, reappears on scroll up. -->
 <header data-nav class="fixed top-4 left-4 right-4 z-50">
   <nav class="max-w-7xl mx-auto flex items-center justify-between px-2 py-1">
-    <a href="#top" data-nav-text class="font-logo text-3xl cursor-pointer">Yrsaclicks</a>
-    <a href="archive.html" class="members-glow text-xs font-medium bg-pine text-bone px-5 py-2.5 rounded-full hover:bg-ink transition-colors duration-200 cursor-pointer whitespace-nowrap">Members</a>
+    <a href="#top" data-nav-text class="font-logo text-3xl leading-none py-2.5 cursor-pointer">Yrsaclicks</a>
+    <a href="archive.html" class="members-glow text-xs font-medium bg-pine text-bone px-5 py-3.5 rounded-full hover:bg-ink transition-colors duration-200 cursor-pointer whitespace-nowrap">Members</a>
   </nav>
 </header>
 
 <!-- Hero -->
-<section id="top" class="relative h-screen min-h-[600px] w-full overflow-hidden">
+<section id="top" class="relative h-screen min-h-[420px] w-full overflow-hidden">
   <div data-hero-media class="absolute inset-0 w-[100%] h-[112%] -top-[6%]">
     <video
+      data-hero-video
       class="w-full h-full object-cover"
       autoplay muted loop playsinline
       poster="assets/video/loop-poster.jpg"
@@ -156,29 +147,34 @@
     </p>
   </div>
 
-  <a href="#work" aria-label="Scroll to work" class="absolute bottom-6 right-6 md:right-12 z-10 flex items-center gap-2 text-bone/80 hover:text-bone transition-colors duration-200 cursor-pointer">
+  <button type="button" data-hero-video-toggle aria-label="Pause background video" aria-pressed="false" class="absolute bottom-2 left-2 md:left-8 z-10 flex items-center justify-center w-12 h-12 text-bone/80 hover:text-bone transition-colors duration-200 cursor-pointer">
+    <svg data-hero-pause-icon class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+    <svg data-hero-play-icon class="hidden w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+  </button>
+
+  <a href="#work" aria-label="Scroll to work" class="absolute bottom-2 right-2 md:right-8 z-10 flex items-center gap-2 p-4 text-bone/80 hover:text-bone transition-colors duration-200 cursor-pointer">
     <span class="logline text-xs">SCROLL</span>
     <svg data-scroll-arrow class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
   </a>
 
-  <div class="absolute bottom-0 left-0 right-0 h-24 md:h-32 bg-gradient-to-b from-transparent to-bone pointer-events-none z-10"></div>
+  <div class="absolute bottom-0 left-0 right-0 h-24 md:h-32 bg-gradient-to-b from-transparent to-bone pointer-events-none z-[5]"></div>
 </section>
 
 <!-- Gallery: vertical stacked "shot log" — was a pinned horizontal scroll, changed to vertical
      (friction, especially on mobile) while keeping the tilted, overlapping Layered Depth language. -->
 <section id="work" class="relative bg-bone px-6 md:px-16 py-12 md:py-16">
-  <div class="max-w-xl mb-8 md:mb-10">
+  <div class="max-w-xl mx-auto mb-8 md:mb-10">
     <p data-reveal class="reveal-up logline text-oxide text-xs mb-4">SELECTED WORK &middot; SHOT LOG</p>
     <h2 data-reveal class="font-headline reveal-up text-4xl md:text-6xl font-medium tracking-tight leading-tight mb-6">
       Every frame, logged.
     </h2>
-    <div data-reveal class="reveal-up flex gap-3">
-      <div class="w-12 h-12 rounded-lg bg-bone border border-ink/15"></div>
-      <div class="w-12 h-12 rounded-lg bg-lavender"></div>
-      <div class="w-12 h-12 rounded-lg bg-grey"></div>
-      <div class="w-12 h-12 rounded-lg bg-oxide"></div>
-      <div class="w-12 h-12 rounded-lg bg-brass"></div>
-      <div class="w-12 h-12 rounded-lg bg-pine"></div>
+    <div data-reveal class="reveal-up flex flex-wrap gap-3">
+      <div class="w-9 h-9 sm:w-12 sm:h-12 rounded-lg bg-bone border border-ink/15"></div>
+      <div class="w-9 h-9 sm:w-12 sm:h-12 rounded-lg bg-lavender"></div>
+      <div class="w-9 h-9 sm:w-12 sm:h-12 rounded-lg bg-grey"></div>
+      <div class="w-9 h-9 sm:w-12 sm:h-12 rounded-lg bg-oxide"></div>
+      <div class="w-9 h-9 sm:w-12 sm:h-12 rounded-lg bg-brass"></div>
+      <div class="w-9 h-9 sm:w-12 sm:h-12 rounded-lg bg-pine"></div>
     </div>
   </div>
 
@@ -202,7 +198,7 @@
     </figure>
 
     <figure data-reveal class="reveal-up col-span-2 relative block aspect-[16/9] overflow-hidden cursor-pointer">
-      <img data-parallax-img src="assets/img/arizona.jpg" alt="Wide desert landscape under a pale sky in Southern Arizona" class="photo-grade w-full h-full object-cover" loading="lazy" />
+      <img data-parallax-img src="assets/img/arizona.jpg" alt="Wide desert landscape under a pale sky in Southern Arizona" class="photo-grade w-full h-full object-cover scale-110" loading="lazy" />
       <div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"></div>
       <figcaption class="absolute bottom-5 left-5">
         <p class="logline text-bone/80 text-xs mb-1">04&#8209;16 &middot; SOUTHERN ARIZONA &middot; 300MM</p>
@@ -220,7 +216,7 @@
     </figure>
 
     <figure data-reveal class="reveal-up relative block aspect-[4/5] overflow-hidden cursor-pointer">
-      <img data-parallax-img src="assets/img/bisbee.jpg" alt="Weathered oxide-toned car in Bisbee, Arizona" class="photo-grade w-full h-full object-cover" loading="lazy" />
+      <img data-parallax-img src="assets/img/bisbee.jpg" alt="Weathered oxide-toned car in Bisbee, Arizona" class="photo-grade w-full h-full object-cover scale-110" loading="lazy" />
       <div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"></div>
       <figcaption class="absolute bottom-4 left-4">
         <p class="logline text-bone/80 text-xs mb-1">04&#8209;16 &middot; BISBEE, AZ &middot; 90MM</p>
@@ -229,7 +225,7 @@
     </figure>
 
     <figure data-reveal class="reveal-up col-span-2 relative block aspect-[16/9] overflow-hidden cursor-pointer">
-      <img data-parallax-img src="assets/img/cabot-trail-1.jpg" alt="Coastal cliffs along the Cabot Trail in Nova Scotia" class="photo-grade w-full h-full object-cover" loading="lazy" />
+      <img data-parallax-img src="assets/img/cabot-trail-1.jpg" alt="Coastal cliffs along the Cabot Trail in Nova Scotia" class="photo-grade w-full h-full object-cover scale-110" loading="lazy" />
       <div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"></div>
       <figcaption class="absolute bottom-5 left-5">
         <p class="logline text-bone/80 text-xs mb-1">07&#8209;18 &middot; CABOT TRAIL, NS &middot; 35MM</p>
@@ -238,7 +234,7 @@
     </figure>
 
     <figure data-reveal class="reveal-up relative block aspect-[4/5] overflow-hidden cursor-pointer">
-      <img data-parallax-img src="assets/img/cabot-trail-2.jpg" alt="Winding coastal road through the Cabot Trail highlands" class="photo-grade w-full h-full object-cover" loading="lazy" />
+      <img data-parallax-img src="assets/img/cabot-trail-2.jpg" alt="Winding coastal road through the Cabot Trail highlands" class="photo-grade w-full h-full object-cover scale-110" loading="lazy" />
       <div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"></div>
       <figcaption class="absolute bottom-4 left-4">
         <p class="logline text-bone/80 text-xs mb-1">07&#8209;18 &middot; CABOT TRAIL, NS</p>
@@ -247,7 +243,7 @@
     </figure>
 
     <figure data-reveal class="reveal-up relative block aspect-[4/5] overflow-hidden cursor-pointer">
-      <img data-parallax-img src="assets/img/florida-hammock.jpg" alt="Yrsa walking a boardwalk through a palm hammock in Florida" class="photo-grade w-full h-full object-cover" loading="lazy" />
+      <img data-parallax-img src="assets/img/florida-hammock.jpg" alt="Yrsa walking a boardwalk through a palm hammock in Florida" class="photo-grade w-full h-full object-cover scale-110" loading="lazy" />
       <div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"></div>
       <figcaption class="absolute bottom-4 left-4">
         <p class="logline text-bone/80 text-xs mb-1">07&#8209;02 &middot; FLORIDA HAMMOCK</p>
@@ -256,7 +252,7 @@
     </figure>
 
     <figure data-reveal class="reveal-up col-span-2 relative block aspect-[16/9] overflow-hidden cursor-pointer">
-      <img data-parallax-img src="assets/img/peggys-cove.jpg" alt="Rocky coastline at Peggy's Cove, Nova Scotia" class="photo-grade w-full h-full object-cover" loading="lazy" />
+      <img data-parallax-img src="assets/img/peggys-cove.jpg" alt="Rocky coastline at Peggy's Cove, Nova Scotia" class="photo-grade w-full h-full object-cover scale-110" loading="lazy" />
       <div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"></div>
       <figcaption class="absolute bottom-5 left-5">
         <p class="logline text-bone/80 text-xs mb-1">07&#8209;22 &middot; PEGGY'S COVE, NS &middot; 24MM</p>
@@ -265,7 +261,7 @@
     </figure>
 
     <figure data-reveal class="reveal-up col-span-2 relative block aspect-[16/9] overflow-hidden cursor-pointer">
-      <img data-parallax-img src="assets/img/beach.jpg" alt="Yrsa raising an arm to the sky on a white sand Gulf Coast beach, camera in hand" class="photo-grade w-full h-full object-cover" loading="lazy" />
+      <img data-parallax-img src="assets/img/beach.jpg" alt="Yrsa raising an arm to the sky on a white sand Gulf Coast beach, camera in hand" class="photo-grade w-full h-full object-cover scale-110" loading="lazy" />
       <div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"></div>
       <figcaption class="absolute bottom-5 left-5">
         <p class="logline text-bone/80 text-xs mb-1">07&#8209;03 &middot; GULF COAST, FL &middot; 50MM</p>
@@ -276,24 +272,12 @@
 </section>
 
 <!-- Video / Reels showcase -->
-<section id="reels" class="max-w-7xl mx-auto px-6 md:px-16 py-24 md:py-32">
+<section id="reels" class="max-w-7xl mx-auto px-6 md:px-16 pt-16 md:pt-20 pb-24 md:pb-32">
   <p data-reveal class="reveal-up logline text-pine text-xs mb-4">ON THE MOVE &middot; FIELD CLIPS</p>
   <h2 data-reveal class="font-headline reveal-up text-3xl md:text-5xl font-medium tracking-tight mb-10 max-w-2xl">Motion from the same places.</h2>
   <div class="grid md:grid-cols-3 gap-6">
-    <div data-video-card data-reveal role="button" tabindex="0" aria-label="Play field clip video" class="reveal-up depth-card rounded-2xl relative aspect-[4/5] overflow-hidden cursor-pointer group">
-      <video data-video-el class="photo-grade w-full h-full object-cover" muted loop playsinline poster="assets/video/loop-poster.jpg">
-        <source src="assets/video/loop.mp4" type="video/mp4" />
-      </video>
-      <div class="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent"></div>
-      <div class="absolute inset-0 flex items-center justify-center">
-        <span data-video-play aria-hidden="true" class="w-14 h-14 rounded-full bg-bone/85 flex items-center justify-center transition-all duration-300 group-hover:scale-110">
-          <svg class="w-5 h-5 text-ink translate-x-0.5" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-        </span>
-      </div>
-      <p class="logline absolute bottom-5 left-5 text-bone/85 text-xs">04&#8209;16 &middot; SOUTHERN ARIZONA</p>
-    </div>
-    <div data-video-card data-reveal role="button" tabindex="0" aria-label="Play field clip video" class="reveal-up depth-card rounded-2xl relative aspect-[4/5] overflow-hidden cursor-pointer group">
-      <video data-video-el class="photo-grade w-full h-full object-cover" muted loop playsinline poster="assets/video/reel-1-poster.jpg">
+    <div data-video-card data-clip-name="Latest reel from @yrsaclicks" data-reveal role="button" tabindex="0" aria-label="Play latest reel from @yrsaclicks" aria-pressed="false" class="reveal-up depth-card depth-card--interactive rounded-2xl relative aspect-[4/5] overflow-hidden cursor-pointer group">
+      <video data-video-el class="photo-grade w-full h-full object-cover" muted loop playsinline preload="none" poster="assets/video/reel-1-poster.jpg">
         <source src="assets/video/reel-1.mp4" type="video/mp4" />
       </video>
       <div class="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent"></div>
@@ -302,6 +286,11 @@
           <svg class="w-5 h-5 text-ink translate-x-0.5" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
         </span>
       </div>
+      <p class="logline absolute bottom-5 left-5 text-bone/80 text-xs">LATEST &middot; @YRSACLICKS</p>
+    </div>
+    <div data-reveal class="reveal-up depth-card rounded-2xl relative aspect-[4/5] overflow-hidden bg-ink/90 flex flex-col items-center justify-center text-center px-6">
+      <svg aria-hidden="true" class="w-8 h-8 text-bone/40 mb-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 5v14l11-7z"/></svg>
+      <p class="logline text-bone/80 text-xs">NEW CLIP LOGGED SOON</p>
     </div>
     <div data-reveal class="reveal-up depth-card rounded-2xl relative aspect-[4/5] overflow-hidden bg-ink/90 flex flex-col items-center justify-center text-center px-6">
       <svg aria-hidden="true" class="w-8 h-8 text-bone/40 mb-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 5v14l11-7z"/></svg>
@@ -315,14 +304,14 @@
 <section class="max-w-7xl mx-auto px-6 md:px-12 pb-20 md:pb-24">
   <div class="bg-lavender/15 border border-ink/10 rounded-2xl px-8 md:px-14 py-12 md:py-14 flex flex-col md:flex-row items-center justify-between gap-8">
     <div class="max-w-md">
-      <p data-reveal class="reveal-up logline text-pine text-xs mb-3">JOIN THE LIST</p>
+      <p data-reveal class="reveal-up logline text-pine text-xs mb-4">JOIN THE LIST</p>
       <h2 data-reveal class="font-headline reveal-up text-2xl md:text-3xl font-medium tracking-tight mb-2">Trip notes before anyone else sees them.</h2>
       <p data-reveal class="reveal-up text-ink/70 font-light text-sm">One email per new region. No spam.</p>
     </div>
     <form data-reveal action="https://example.us1.list-manage.com/subscribe/post" method="post" class="reveal-up w-full md:w-auto flex flex-col sm:flex-row gap-3">
       <label for="newsletter-email" class="sr-only">Email address</label>
-      <input id="newsletter-email" name="EMAIL" type="email" required placeholder="you@email.com" class="w-full sm:w-64 bg-bone border border-ink/20 focus:border-pine outline-none rounded-full px-5 py-3 text-sm text-ink placeholder-ink/40 transition-colors duration-300" />
-      <button type="submit" class="bg-pine text-bone font-medium px-7 py-3 rounded-full hover:bg-ink transition-colors duration-200 cursor-pointer whitespace-nowrap">Join the list</button>
+      <input id="newsletter-email" name="EMAIL" type="email" required placeholder="you@email.com" class="w-full sm:w-64 bg-bone border border-ink/20 focus:border-pine outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine rounded-full px-5 py-3 text-sm text-ink placeholder-ink/70 transition-colors duration-300" />
+      <button type="submit" class="bg-pine text-bone font-medium px-8 py-3.5 rounded-full hover:bg-ink transition-colors duration-200 cursor-pointer whitespace-nowrap">Join the list</button>
     </form>
   </div>
 </section>
@@ -341,7 +330,7 @@
   <div class="max-w-7xl mx-auto px-6 md:px-12 pt-20 md:pt-24 pb-24 md:pb-32">
     <div class="grid md:grid-cols-12 gap-10">
       <div class="md:col-span-6">
-        <p class="logline text-brass text-xs mb-3">GET IN TOUCH</p>
+        <p class="logline text-pine-light text-xs mb-4">GET IN TOUCH</p>
         <h2 class="font-headline text-3xl md:text-5xl font-medium tracking-tight mb-6">Let's log the next frame.</h2>
         <p class="text-bone/75 font-light leading-relaxed max-w-md">
           Prints, licensing, commissions — reach out and I'll follow up soon.
@@ -351,17 +340,17 @@
         <form class="space-y-5">
           <div class="group">
             <label for="name" class="logline text-xs text-bone/60 group-focus-within:text-pine-light block mb-2 transition-colors duration-300">NAME</label>
-            <input id="name" name="name" type="text" required class="w-full bg-transparent border-b border-bone/30 focus:border-pine-light outline-none py-2 text-base text-bone placeholder-bone/40 transition-colors duration-300" placeholder="Your name" />
+            <input id="name" name="name" type="text" required class="w-full bg-transparent border-b border-bone/30 focus:border-pine-light outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine-light py-3 text-base text-bone placeholder-bone/60 transition-colors duration-300" placeholder="Your name" />
           </div>
           <div class="group">
             <label for="email" class="logline text-xs text-bone/60 group-focus-within:text-pine-light block mb-2 transition-colors duration-300">EMAIL</label>
-            <input id="email" name="email" type="email" required class="w-full bg-transparent border-b border-bone/30 focus:border-pine-light outline-none py-2 text-base text-bone placeholder-bone/40 transition-colors duration-300" placeholder="you@email.com" />
+            <input id="email" name="email" type="email" required class="w-full bg-transparent border-b border-bone/30 focus:border-pine-light outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine-light py-3 text-base text-bone placeholder-bone/60 transition-colors duration-300" placeholder="you@email.com" />
           </div>
           <div class="group">
             <label for="message" class="logline text-xs text-bone/60 group-focus-within:text-pine-light block mb-2 transition-colors duration-300">MESSAGE</label>
-            <textarea id="message" name="message" rows="3" required class="w-full bg-transparent border-b border-bone/30 focus:border-pine-light outline-none py-2 text-base text-bone placeholder-bone/40 transition-colors duration-300 resize-none" placeholder="Tell me about your project"></textarea>
+            <textarea id="message" name="message" rows="3" required class="w-full bg-transparent border-b border-bone/30 focus:border-pine-light outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine-light py-3 text-base text-bone placeholder-bone/60 transition-colors duration-300 resize-none" placeholder="Tell me about your project"></textarea>
           </div>
-          <button type="submit" data-magnetic class="magnetic mt-2 bg-pine text-bone font-medium px-9 py-3.5 rounded-full shadow-lg shadow-ink/30 hover:bg-bone hover:text-ink transition-colors duration-200 cursor-pointer">
+          <button type="submit" data-magnetic class="magnetic mt-2 bg-pine text-bone font-medium px-8 py-3.5 rounded-full shadow-lg shadow-ink/30 hover:bg-bone hover:text-ink transition-colors duration-200 cursor-pointer">
             Send message
           </button>
         </form>
@@ -371,9 +360,9 @@
     <div class="border-t border-bone/15 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
       <p class="logline text-xs text-bone/60">&copy; 2026 YRSACLICKS &middot; FIELD PHOTOGRAPHY</p>
       <div class="flex gap-4 text-sm text-bone/60">
-        <a href="#" class="hover:text-pine-light transition-colors duration-200 cursor-pointer py-2 px-1">Instagram</a>
-        <a href="#" class="hover:text-pine-light transition-colors duration-200 cursor-pointer py-2 px-1">Prints</a>
-        <a href="#top" class="hover:text-pine-light transition-colors duration-200 cursor-pointer py-2 px-1">Back to top</a>
+        <a href="https://instagram.com/yrsaclicks" target="_blank" rel="noopener" class="hover:text-pine-light transition-colors duration-200 cursor-pointer py-3 px-2">Instagram</a>
+        <a href="#contact" class="hover:text-pine-light transition-colors duration-200 cursor-pointer py-3 px-2">Prints</a>
+        <a href="#top" class="hover:text-pine-light transition-colors duration-200 cursor-pointer py-3 px-2">Back to top</a>
       </div>
     </div>
   </div>
@@ -392,7 +381,7 @@
   function update() {
     ticking = false;
     var overHero = heroSection.getBoundingClientRect().bottom > 80;
-    var overContact = contactSection ? contactSection.getBoundingClientRect().top <= 0 : false;
+    var overContact = contactSection ? contactSection.getBoundingClientRect().top <= 80 : false;
     navHeader.classList.toggle('nav-on-dark', overHero || overContact);
   }
   function onScroll() {
@@ -402,12 +391,41 @@
   update();
 })();
 
+// ---- Hero video pause/play control (WCAG 2.2.2 — auto-playing content needs a stop mechanism) ----
+(function () {
+  var video = document.querySelector('[data-hero-video]');
+  var toggle = document.querySelector('[data-hero-video-toggle]');
+  var pauseIcon = document.querySelector('[data-hero-pause-icon]');
+  var playIcon = document.querySelector('[data-hero-play-icon]');
+  if (!video || !toggle) return;
+
+  function sync() {
+    var isPaused = video.paused;
+    if (pauseIcon) pauseIcon.classList.toggle('hidden', isPaused);
+    if (playIcon) playIcon.classList.toggle('hidden', !isPaused);
+    toggle.setAttribute('aria-label', isPaused ? 'Play background video' : 'Pause background video');
+    toggle.setAttribute('aria-pressed', String(!isPaused));
+  }
+
+  // Reduced-motion visitors get the static poster frame by default, not an already-looping video.
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    video.pause();
+  }
+  sync();
+
+  toggle.addEventListener('click', function () {
+    if (video.paused) { video.play(); } else { video.pause(); }
+    sync();
+  });
+})();
+
 // ---- Video card click-to-play (reels showcase) ----
 (function () {
   document.querySelectorAll('[data-video-card]').forEach(function (card) {
     var video = card.querySelector('[data-video-el]');
     var playBtn = card.querySelector('[data-video-play]');
     if (!video || !playBtn) return;
+    var clipName = card.dataset.clipName || 'field clip video';
 
     function toggle() {
       if (video.paused) {
@@ -417,6 +435,8 @@
         video.pause();
         playBtn.classList.remove('opacity-0', 'pointer-events-none');
       }
+      card.setAttribute('aria-pressed', String(!video.paused));
+      card.setAttribute('aria-label', (video.paused ? 'Play ' : 'Pause ') + clipName);
     }
 
     card.addEventListener('click', toggle);
@@ -433,15 +453,22 @@
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-  if (reduceMotion || typeof gsap === 'undefined') return;
+  // If GSAP itself failed to load (CDN blocked/offline), force-show reveal
+  // content instead of leaving it permanently hidden by the .js pre-hide CSS.
+  if (typeof gsap === 'undefined') {
+    document.querySelectorAll('.reveal-up, .reveal-line').forEach(function (el) {
+      el.style.opacity = 1;
+      el.style.transform = 'none';
+    });
+    return;
+  }
+  if (reduceMotion) return;
 
   gsap.registerPlugin(ScrollTrigger);
 
   // ---- Motion tokens (Layered Depth polish pass) ----
   var EASE_REVEAL = 'power3.out';   // content fade/rise-in
   var DUR_REVEAL = 0.85;
-  var EASE_MASK = 'power4.inOut';   // clip-path / mask wipes
-  var DUR_MASK = 1.1;
   var EASE_HOVER = 'power2.out';    // hover / micro-interactions
   var DUR_HOVER = 0.3;
 
@@ -505,21 +532,7 @@
     });
   });
 
-  gsap.utils.toArray('.reveal-mask').forEach(function (el) {
-    var img = el.querySelector('[data-parallax-img], img');
-    gsap.to(el, {
-      clipPath: 'inset(0% 0 0% 0)', duration: DUR_MASK, ease: EASE_MASK,
-      scrollTrigger: { trigger: el, start: 'top 85%' },
-    });
-    if (img) {
-      gsap.to(img, {
-        scale: 1, duration: DUR_MASK, ease: EASE_MASK,
-        scrollTrigger: { trigger: el, start: 'top 85%' },
-      });
-    }
-  });
-
-  // ---- Parallax on large imagery (independent of the reveal-mask scale/clip tween) ----
+  // ---- Parallax on large imagery ----
   gsap.utils.toArray('[data-parallax-img]').forEach(function (img) {
     gsap.fromTo(img, { yPercent: -8 }, {
       yPercent: 8, ease: 'none',
@@ -542,21 +555,6 @@
     gsap.to(arrow, { y: 6, repeat: -1, yoyo: true, duration: 0.9, ease: 'sine.inOut' });
   }
 
-  // ---- Number counters ----
-  gsap.utils.toArray('[data-counter]').forEach(function (el) {
-    var target = parseFloat(el.getAttribute('data-target'));
-    var suffix = el.getAttribute('data-suffix') || '';
-    var obj = { val: 0 };
-    ScrollTrigger.create({
-      trigger: el, start: 'top 90%', once: true,
-      onEnter: function () {
-        gsap.to(obj, {
-          val: target, duration: 1.4, ease: 'power2.out',
-          onUpdate: function () { el.textContent = Math.round(obj.val) + suffix; },
-        });
-      },
-    });
-  });
 })();
 </script>
 

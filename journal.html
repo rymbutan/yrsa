@@ -12,6 +12,7 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
 <script>
   tailwind.config = {
     theme: {
@@ -46,6 +47,7 @@
     font-display: swap;
   }
   html { scroll-behavior: smooth; }
+  html.lenis, html.lenis body { height: auto; }
   body { font-family: 'Montserrat', sans-serif; background: #e3e0d9; color: #2b241f; }
   .logline { font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.18em; }
 
@@ -53,26 +55,35 @@
   .js .reveal-mask { position: relative; overflow: hidden; clip-path: inset(0 0 100% 0); }
   .js .reveal-mask img { transform: scale(1.12); }
 
+  /* Layered Depth: shared card shell. Hover lift is a separate modifier —
+     these article cover images aren't clickable, so none of them use it. */
   .depth-card {
     border: 1px solid rgba(151,149,145,0.35);
     box-shadow: 0 8px 20px -6px rgba(43,36,31,0.35), 0 30px 60px -20px rgba(43,36,31,0.3);
+  }
+  .depth-card--interactive {
+    transform: scale(1) rotate(0deg);
     transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s ease;
   }
   @media (hover: hover) and (pointer: fine) {
-    .depth-card:hover {
-      --tw-rotate: 0deg;
-      --tw-scale-x: 1.02;
-      --tw-scale-y: 1.02;
+    .depth-card--interactive:hover {
+      transform: scale(1.02) rotate(0deg);
       box-shadow: 0 12px 28px -6px rgba(43,36,31,0.4), 0 40px 80px -20px rgba(43,36,31,0.35);
     }
   }
   @media (prefers-reduced-motion: reduce) {
-    .depth-card { transition: none; }
+    .depth-card--interactive { transition: none; }
   }
 
   .photo-grade { filter: contrast(1.05) saturate(0.92) brightness(0.98); }
 
-  header[data-nav] [data-nav-text] { color: #2b241f !important; text-shadow: 0 1px 6px rgba(43,36,31,0.12); }
+  header[data-nav] nav { transition: padding 0.3s ease; }
+  header[data-nav].nav-scrolled nav { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+  header[data-nav] { transition: transform 0.4s cubic-bezier(0.22,1,0.36,1); }
+  header[data-nav].nav-hidden { transform: translateY(-140%); }
+
+  header[data-nav] [data-nav-text] { color: #2b241f !important; transition: color 0.3s ease; text-shadow: 0 1px 3px rgba(0,0,0,0.35), 0 2px 10px rgba(0,0,0,0.2); }
+  header[data-nav].nav-on-dark [data-nav-text] { color: #e3e0d9 !important; text-shadow: 0 1px 3px rgba(0,0,0,0.85), 0 2px 10px rgba(0,0,0,0.55); }
 
   .members-glow { box-shadow: 0 2px 10px rgba(43,36,31,0.2), 0 0 16px rgba(63,74,61,0.45); }
 
@@ -89,16 +100,16 @@
 <!-- Nav: bare wordmark + a single Members CTA — no hamburger, no theme icon -->
 <header data-nav class="fixed top-4 left-4 right-4 z-50">
   <nav class="max-w-7xl mx-auto flex items-center justify-between px-2 py-1">
-    <a href="index.html#top" data-nav-text class="font-logo text-3xl cursor-pointer">Yrsaclicks</a>
-    <a href="archive.html" class="members-glow text-xs font-medium bg-pine text-bone px-5 py-2.5 rounded-full hover:bg-ink transition-colors duration-200 cursor-pointer whitespace-nowrap">Members</a>
+    <a href="index.html#top" data-nav-text class="font-logo text-3xl leading-none py-2.5 cursor-pointer">Yrsaclicks</a>
+    <a href="archive.html" class="members-glow text-xs font-medium bg-pine text-bone px-5 py-3.5 rounded-full hover:bg-ink transition-colors duration-200 cursor-pointer whitespace-nowrap">Members</a>
   </nav>
 </header>
 
 <!-- Page intro -->
 <section class="max-w-3xl mx-auto px-6 md:px-0 pt-40 pb-16 md:pt-48 md:pb-20">
   <p data-reveal class="reveal-up logline text-pine text-xs mb-4">FROM THE JOURNAL</p>
-  <h1 data-reveal class="font-headline reveal-up text-4xl md:text-6xl font-medium tracking-tight leading-tight mb-6">Field notes, not just frames.</h1>
-  <p data-reveal class="reveal-up text-ink/70 font-light leading-relaxed text-lg">
+  <h1 data-reveal class="font-headline reveal-up text-5xl md:text-7xl font-medium tracking-tight leading-tight mb-6">Field notes, not just frames.</h1>
+  <p data-reveal class="reveal-up text-ink/70 font-light leading-relaxed text-lg max-w-2xl">
     The stories behind the shot log — where Yrsa was standing, what the weather was doing, and what
     almost didn't make the frame.
   </p>
@@ -113,11 +124,11 @@
     </div>
     <p data-reveal class="reveal-up logline text-pine text-xs mb-3">04&#8209;16 &middot; SOUTHERN ARIZONA &middot; 300MM</p>
     <h2 data-reveal class="font-headline reveal-up text-2xl md:text-4xl font-medium tracking-tight mb-4">Desert nights run cold</h2>
-    <p data-reveal class="reveal-up text-ink/75 font-light leading-relaxed mb-4">
+    <p data-reveal class="reveal-up text-ink/75 font-light leading-relaxed mb-4 max-w-2xl">
       Nobody warns you how fast the desert gives up its heat once the sun drops. By the time the sky went
       from oxide to ink, I was shooting in two jackets and wishing for a third.
     </p>
-    <p data-reveal class="reveal-up text-ink/75 font-light leading-relaxed">
+    <p data-reveal class="reveal-up text-ink/75 font-light leading-relaxed max-w-2xl">
       Patience is the whole job out here — waiting for the wind to drop, the dust to settle, the last strip
       of light to catch the ridge line. Three hours for four frames. Worth it for the one that logged clean.
     </p>
@@ -129,11 +140,11 @@
     </div>
     <p data-reveal class="reveal-up logline text-pine text-xs mb-3">04&#8209;16 &middot; BISBEE, AZ &middot; 90MM</p>
     <h2 data-reveal class="font-headline reveal-up text-2xl md:text-4xl font-medium tracking-tight mb-4">Bisbee's backroads</h2>
-    <p data-reveal class="reveal-up text-ink/75 font-light leading-relaxed mb-4">
+    <p data-reveal class="reveal-up text-ink/75 font-light leading-relaxed mb-4 max-w-2xl">
       An old copper town built into a canyon, with backroads that switch from pavement to gravel without
       warning. Borrowed a truck with no AC and drove them anyway.
     </p>
-    <p data-reveal class="reveal-up text-ink/75 font-light leading-relaxed">
+    <p data-reveal class="reveal-up text-ink/75 font-light leading-relaxed max-w-2xl">
       The rust and oxide tones that show up across this whole archive started here — mining-town color,
       baked into every wall and fender in town.
     </p>
@@ -145,11 +156,11 @@
     </div>
     <p data-reveal class="reveal-up logline text-pine text-xs mb-3">07&#8209;18 &middot; CABOT TRAIL, NS &middot; 35MM</p>
     <h2 data-reveal class="font-headline reveal-up text-2xl md:text-4xl font-medium tracking-tight mb-4">Fog on the Cabot Trail</h2>
-    <p data-reveal class="reveal-up text-ink/75 font-light leading-relaxed mb-4">
+    <p data-reveal class="reveal-up text-ink/75 font-light leading-relaxed mb-4 max-w-2xl">
       Three days on the highlands, and the fog only broke twice. Learned to keep the camera dry-bagged and
       ready rather than packed away — the gap never lasts more than a few minutes.
     </p>
-    <p data-reveal class="reveal-up text-ink/75 font-light leading-relaxed">
+    <p data-reveal class="reveal-up text-ink/75 font-light leading-relaxed max-w-2xl">
       Green cliff, grey sea, one clean frame. Everything else in the log from that trip is fog.
     </p>
   </article>
@@ -157,23 +168,85 @@
 </div>
 
 <!-- Footer -->
-<section class="bg-ink text-bone">
+<section id="site-footer" class="bg-ink text-bone">
   <div class="max-w-7xl mx-auto px-6 md:px-12 py-12 md:py-16">
     <div class="border-t border-bone/15 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
       <p class="logline text-xs text-bone/60">&copy; 2026 YRSACLICKS &middot; FIELD PHOTOGRAPHY</p>
       <div class="flex gap-4 text-sm text-bone/60">
-        <a href="index.html#contact" class="hover:text-pine-light transition-colors duration-200 cursor-pointer py-2 px-1">Get in touch</a>
-        <a href="index.html#top" class="hover:text-pine-light transition-colors duration-200 cursor-pointer py-2 px-1">Back to home</a>
+        <a href="index.html#contact" class="hover:text-pine-light transition-colors duration-200 cursor-pointer py-3 px-2">Get in touch</a>
+        <a href="index.html#top" class="hover:text-pine-light transition-colors duration-200 cursor-pointer py-3 px-2">Back to home</a>
       </div>
     </div>
   </div>
 </section>
 
 <script>
+// ---- Nav contrast: light text over the dark footer, dark text elsewhere.
+// Runs independent of GSAP/reduced-motion since it's legibility, not decoration. ----
+(function () {
+  var navHeader = document.querySelector('[data-nav]');
+  var footerSection = document.getElementById('site-footer');
+  if (!navHeader || !footerSection) return;
+
+  var ticking = false;
+  function update() {
+    ticking = false;
+    navHeader.classList.toggle('nav-on-dark', footerSection.getBoundingClientRect().top <= 80);
+  }
+  function onScroll() {
+    if (!ticking) { requestAnimationFrame(update); ticking = true; }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  update();
+})();
+
 (function () {
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduceMotion || typeof gsap === 'undefined') return;
+
+  // If GSAP itself failed to load (CDN blocked/offline), force-show reveal
+  // content instead of leaving it permanently hidden by the .js pre-hide CSS.
+  if (typeof gsap === 'undefined') {
+    document.querySelectorAll('.reveal-up').forEach(function (el) {
+      el.style.opacity = 1;
+      el.style.transform = 'none';
+    });
+    document.querySelectorAll('.reveal-mask').forEach(function (el) {
+      el.style.clipPath = 'none';
+      var img = el.querySelector('img');
+      if (img) img.style.transform = 'none';
+    });
+    return;
+  }
+  if (reduceMotion) return;
+
   gsap.registerPlugin(ScrollTrigger);
+
+  // ---- Smooth (inertia) scrolling ----
+  var lenis = new Lenis({ duration: 1.1, smoothWheel: true });
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add(function (time) { lenis.raf(time * 1000); });
+  gsap.ticker.lagSmoothing(0);
+
+  // ---- Nav: scroll-aware shrink + hide-on-scroll-down/reveal-on-scroll-up ----
+  var navHeader = document.querySelector('[data-nav]');
+  if (navHeader) {
+    ScrollTrigger.create({
+      start: 'top -80',
+      end: 99999,
+      toggleClass: { targets: navHeader, className: 'nav-scrolled' },
+    });
+    ScrollTrigger.create({
+      start: 0,
+      end: 99999,
+      onUpdate: function (self) {
+        if (self.direction === 1 && self.scroll() > 120) {
+          navHeader.classList.add('nav-hidden');
+        } else {
+          navHeader.classList.remove('nav-hidden');
+        }
+      },
+    });
+  }
 
   gsap.utils.toArray('[data-reveal]').forEach(function (el) {
     gsap.to(el, {
