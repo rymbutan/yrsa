@@ -1,0 +1,582 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script>document.documentElement.classList.add('js');</script>
+<title>Yrsa — Field Photography</title>
+<meta name="description" content="Yrsa is a landscape and travel photographer working in Southern Arizona, Bisbee, Nova Scotia and beyond. Wild places, patient light." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          bone: '#e3e0d9',
+          lavender: '#c5c3cb',
+          grey: '#979591',
+          ink: '#2b241f',
+          oxide: '#6c3423',
+          brass: '#876330',
+          pine: '#3f4a3d',
+          'pine-light': '#9caf88',
+        },
+        fontFamily: {
+          sans: ['Montserrat', 'sans-serif'],
+          mono: ['"IBM Plex Mono"', 'monospace'],
+          headline: ['Montserrat', 'sans-serif'],
+          logo: ['Mynerve', 'cursive'],
+        },
+      },
+    },
+  };
+</script>
+<style>
+  @font-face {
+    font-family: 'Mynerve';
+    src: url('mynerve/static/mynerve-latin-400-normal.woff2') format('woff2'),
+         url('mynerve/static/mynerve-latin-400-normal.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  html { scroll-behavior: smooth; }
+  html.lenis, html.lenis body { height: auto; }
+  body { font-family: 'Montserrat', sans-serif; background: #e3e0d9; color: #2b241f; }
+  .logline { font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.18em; }
+
+  /* Reveal primitives — GSAP sets final state; this is only the pre-animation hide,
+     so content still shows if JS fails to load. */
+  .js .reveal-line { opacity: 0; transform: translateY(100%); }
+  .js .reveal-up { opacity: 0; transform: translateY(28px); }
+
+  .reveal-line-wrap { overflow: hidden; display: block; }
+
+  .magnetic { display: inline-flex; will-change: transform; }
+
+  /* Layered Depth: shared card shell for overlapping "stacked print" elements.
+     Hover lift is a separate modifier — only genuinely clickable cards get it. */
+  .depth-card {
+    border: 1px solid rgba(151,149,145,0.35);
+    box-shadow: 0 8px 20px -6px rgba(43,36,31,0.35), 0 30px 60px -20px rgba(43,36,31,0.3);
+  }
+  .depth-card--interactive {
+    transform: scale(1) rotate(0deg);
+    transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s ease;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .depth-card--interactive:hover {
+      transform: scale(1.03) rotate(0deg);
+      box-shadow: 0 12px 28px -6px rgba(43,36,31,0.4), 0 40px 80px -20px rgba(43,36,31,0.35);
+    }
+  }
+
+  /* Reels 3-block: heavier border + drop shadow than the base depth-card shell, so the
+     triple layout reads with more dimension than flatter cards elsewhere on the page. */
+  #reels .depth-card {
+    border: 1.5px solid rgba(43,36,31,0.22);
+    box-shadow: 0 16px 34px -8px rgba(43,36,31,0.45), 0 40px 70px -18px rgba(43,36,31,0.4);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .depth-card--interactive { transition: none; }
+  }
+
+  /* Unifying photo grade — evens out mixed professional/phone photo sources */
+  .photo-grade { filter: contrast(1.05) saturate(0.92) brightness(0.98); }
+
+  /* Nav */
+  header[data-nav] nav { transition: padding 0.3s ease; }
+  header[data-nav].nav-scrolled nav { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+
+  /* Header is bare text/icons now (no glass bar) — adaptive color + a soft text-shadow
+     stand in for the old pill's built-in contrast over the hero video and dark Contact section */
+  header[data-nav] [data-nav-text] { color: #2b241f !important; transition: color 0.3s ease; text-shadow: 0 1px 3px rgba(0,0,0,0.35), 0 2px 10px rgba(0,0,0,0.2); }
+  header[data-nav].nav-on-dark [data-nav-text] { color: #e3e0d9 !important; text-shadow: 0 1px 3px rgba(0,0,0,0.85), 0 2px 10px rgba(0,0,0,0.55); }
+
+  /* Members CTA: rounded-rect ghost outline at rest, fills solid pine on hover. A soft
+     frosted-glass backdrop gives it presence against any backdrop without an emitting
+     glow; a quick scale/brightness "bling" confirms clicks. Backdrop + border/text swap
+     for dark sections. */
+  .members-btn { background-color: rgba(43,36,31,0.06); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+  header[data-nav].nav-on-dark .members-btn:not(:hover) { border-color: #9caf88 !important; color: #9caf88 !important; background-color: rgba(255,255,255,0.14); }
+  @keyframes members-bling {
+    0% { transform: scale(1); filter: brightness(1); }
+    45% { transform: scale(1.04); filter: brightness(1.15); }
+    100% { transform: scale(1); filter: brightness(1); }
+  }
+  .members-btn.is-clicking { animation: members-bling 0.3s ease-out; }
+  @media (prefers-reduced-motion: reduce) {
+    .members-btn.is-clicking { animation: none; }
+  }
+
+  /* Section seam divider (About → Contact) */
+  .seam-dot { width: 4px; height: 4px; border-radius: 9999px; background: currentColor; }
+
+  /* Dynamic viewport height: keeps full-height sections filling the actual
+     visible area as mobile browser chrome (address bar, in-app browser UI)
+     shows/hides, instead of the fixed 100vh Tailwind default. */
+  @supports (height: 100dvh) {
+    .h-screen { height: 100dvh !important; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .js .reveal-line, .js .reveal-up { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body class="antialiased">
+
+<!-- Nav: bare wordmark + a single Members CTA — no hamburger, no theme icon (dark mode is
+     purely automatic now). Hides on scroll down, reappears on scroll up. -->
+<header data-nav class="fixed top-4 left-4 right-4 z-50">
+  <nav class="max-w-7xl mx-auto flex items-center justify-between px-2 py-1">
+    <a href="#top" data-nav-text class="font-logo text-3xl leading-none py-2.5 cursor-pointer">Yrsaclicks</a>
+    <a href="archive.html" class="members-btn text-xs font-medium bg-transparent border border-pine text-pine px-5 py-3.5 rounded-lg hover:bg-pine hover:text-bone transition-colors duration-200 cursor-pointer whitespace-nowrap">Members</a>
+  </nav>
+</header>
+
+<!-- Hero -->
+<section id="top" class="relative h-screen min-h-[420px] w-full overflow-hidden">
+  <div data-hero-media class="absolute inset-0 w-[100%] h-[112%] -top-[6%]">
+    <video
+      data-hero-video
+      class="w-full h-full object-cover"
+      autoplay muted loop playsinline
+      poster="assets/video/loop-poster.jpg"
+    >
+      <source src="assets/video/loop.mp4" type="video/mp4" />
+    </video>
+  </div>
+
+  <div class="relative z-10 h-full flex flex-col justify-end px-6 md:px-12 pb-16 max-w-7xl mx-auto">
+    <p data-hero-reveal class="reveal-up logline text-bone/80 text-xs md:text-sm mb-4">04&#8209;16 &middot; SOUTHERN ARIZONA &middot; 300MM</p>
+    <h1 class="font-headline text-bone text-5xl md:text-7xl lg:text-8xl font-semibold tracking-tight leading-[0.95] mb-4">
+      <span class="reveal-line-wrap"><span data-hero-line class="reveal-line block">Wild places,</span></span>
+      <span class="reveal-line-wrap"><span data-hero-line class="reveal-line block">patient light.</span></span>
+    </h1>
+    <p data-hero-reveal class="reveal-up text-bone/85 text-base md:text-lg max-w-xl font-light">
+      By Yrsa — desert Southwest to the Maritimes.
+    </p>
+  </div>
+
+  <button type="button" data-hero-video-toggle aria-label="Pause background video" aria-pressed="false" class="absolute bottom-2 left-2 md:left-8 z-10 flex items-center justify-center w-12 h-12 text-bone/80 hover:text-bone transition-colors duration-200 cursor-pointer">
+    <svg data-hero-pause-icon class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+    <svg data-hero-play-icon class="hidden w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+  </button>
+
+  <a href="#work" aria-label="Scroll to work" class="absolute bottom-2 right-2 md:right-8 z-10 flex items-center gap-2 p-4 text-bone/80 hover:text-bone transition-colors duration-200 cursor-pointer">
+    <span class="logline text-xs">SCROLL</span>
+    <svg data-scroll-arrow class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+  </a>
+
+  <div class="absolute bottom-0 left-0 right-0 h-24 md:h-32 bg-gradient-to-b from-transparent to-bone pointer-events-none z-[5]"></div>
+</section>
+
+<!-- Gallery: vertical stacked "shot log" — was a pinned horizontal scroll, changed to vertical
+     (friction, especially on mobile) while keeping the tilted, overlapping Layered Depth language. -->
+<section id="work" class="relative bg-bone px-6 md:px-16 py-12 md:py-16">
+  <div class="max-w-xl mx-auto mb-8 md:mb-10">
+    <p data-reveal class="reveal-up logline text-oxide text-xs mb-4">SELECTED WORK &middot; SHOT LOG</p>
+    <h2 data-reveal class="font-headline reveal-up text-4xl md:text-6xl font-medium tracking-tight leading-tight mb-6">
+      Every frame, logged.
+    </h2>
+    <div data-reveal class="reveal-up flex flex-wrap gap-3">
+      <div class="w-9 h-9 sm:w-12 sm:h-12 rounded-lg bg-bone border border-ink/15"></div>
+      <div class="w-9 h-9 sm:w-12 sm:h-12 rounded-lg bg-lavender"></div>
+      <div class="w-9 h-9 sm:w-12 sm:h-12 rounded-lg bg-grey"></div>
+      <div class="w-9 h-9 sm:w-12 sm:h-12 rounded-lg bg-oxide"></div>
+      <div class="w-9 h-9 sm:w-12 sm:h-12 rounded-lg bg-brass"></div>
+      <div class="w-9 h-9 sm:w-12 sm:h-12 rounded-lg bg-pine"></div>
+    </div>
+  </div>
+
+  <div class="max-w-5xl mx-auto grid grid-cols-2 gap-3 md:gap-4">
+    <figure data-reveal class="reveal-up depth-card depth-card--interactive rounded-xl relative block aspect-[4/5] overflow-hidden cursor-pointer">
+      <img src="assets/img/camera-portrait.jpg" alt="Yrsa smiling with a camera resting on her shoulder, studio portrait" class="photo-grade w-full h-full object-cover object-top" loading="lazy" />
+      <div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"></div>
+      <figcaption class="absolute bottom-4 left-4">
+        <p class="logline text-bone/80 text-xs mb-1">THE PHOTOGRAPHER</p>
+        <p class="text-bone text-lg font-medium">Behind the lens</p>
+      </figcaption>
+    </figure>
+
+    <figure data-reveal class="reveal-up depth-card depth-card--interactive rounded-xl relative block aspect-[4/5] overflow-hidden cursor-pointer">
+      <img src="assets/img/field-camera.jpg" alt="Yrsa holding a camera with a telephoto lens in an open grassland field" class="photo-grade w-full h-full object-cover" loading="lazy" />
+      <div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"></div>
+      <figcaption class="absolute bottom-4 left-4">
+        <p class="logline text-bone/80 text-xs mb-1">04&#8209;16 &middot; SOUTHERN ARIZONA</p>
+        <p class="text-bone text-lg font-medium">Waiting on the light</p>
+      </figcaption>
+    </figure>
+
+    <figure data-reveal class="reveal-up depth-card depth-card--interactive rounded-xl col-span-2 relative block aspect-[16/9] overflow-hidden cursor-pointer">
+      <img data-parallax-img src="assets/img/arizona.jpg" alt="Wide desert landscape under a pale sky in Southern Arizona" class="photo-grade w-full h-full object-cover scale-110" loading="lazy" />
+      <div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"></div>
+      <figcaption class="absolute bottom-5 left-5">
+        <p class="logline text-bone/80 text-xs mb-1">04&#8209;16 &middot; SOUTHERN ARIZONA &middot; 300MM</p>
+        <p class="text-bone text-xl md:text-2xl font-medium">Desert horizon, lifted sky</p>
+      </figcaption>
+    </figure>
+
+    <figure data-reveal class="reveal-up depth-card depth-card--interactive rounded-xl relative block aspect-[4/5] overflow-hidden cursor-pointer">
+      <img src="assets/img/misty-field.jpg" alt="Yrsa in an olive field jacket at golden hour, camera in hand" class="photo-grade w-full h-full object-cover" loading="lazy" />
+      <div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"></div>
+      <figcaption class="absolute bottom-4 left-4">
+        <p class="logline text-bone/80 text-xs mb-1">04&#8209;17 &middot; SOUTHERN ARIZONA</p>
+        <p class="text-bone text-lg font-medium">Gold before the frost</p>
+      </figcaption>
+    </figure>
+
+    <figure data-reveal class="reveal-up depth-card depth-card--interactive rounded-xl relative block aspect-[4/5] overflow-hidden cursor-pointer">
+      <img data-parallax-img src="assets/img/bisbee.jpg" alt="Weathered oxide-toned car in Bisbee, Arizona" class="photo-grade w-full h-full object-cover scale-110" loading="lazy" />
+      <div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"></div>
+      <figcaption class="absolute bottom-4 left-4">
+        <p class="logline text-bone/80 text-xs mb-1">04&#8209;16 &middot; BISBEE, AZ &middot; 90MM</p>
+        <p class="text-bone text-lg font-medium">Oxide &amp; rust</p>
+      </figcaption>
+    </figure>
+
+    <figure data-reveal class="reveal-up depth-card depth-card--interactive rounded-xl col-span-2 relative block aspect-[16/9] overflow-hidden cursor-pointer">
+      <img data-parallax-img src="assets/img/cabot-trail-1.jpg" alt="Coastal cliffs along the Cabot Trail in Nova Scotia" class="photo-grade w-full h-full object-cover scale-110" loading="lazy" />
+      <div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"></div>
+      <figcaption class="absolute bottom-5 left-5">
+        <p class="logline text-bone/80 text-xs mb-1">07&#8209;18 &middot; CABOT TRAIL, NS &middot; 35MM</p>
+        <p class="text-bone text-xl md:text-2xl font-medium">Green cliff, grey sea</p>
+      </figcaption>
+    </figure>
+
+    <figure data-reveal class="reveal-up depth-card depth-card--interactive rounded-xl relative block aspect-[4/5] overflow-hidden cursor-pointer">
+      <img data-parallax-img src="assets/img/cabot-trail-2.jpg" alt="Winding coastal road through the Cabot Trail highlands" class="photo-grade w-full h-full object-cover scale-110" loading="lazy" />
+      <div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"></div>
+      <figcaption class="absolute bottom-4 left-4">
+        <p class="logline text-bone/80 text-xs mb-1">07&#8209;18 &middot; CABOT TRAIL, NS</p>
+        <p class="text-bone text-lg font-medium">The road, patient</p>
+      </figcaption>
+    </figure>
+
+    <figure data-reveal class="reveal-up depth-card depth-card--interactive rounded-xl relative block aspect-[4/5] overflow-hidden cursor-pointer">
+      <img data-parallax-img src="assets/img/florida-hammock.jpg" alt="Yrsa walking a boardwalk through a palm hammock in Florida" class="photo-grade w-full h-full object-cover scale-110" loading="lazy" />
+      <div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"></div>
+      <figcaption class="absolute bottom-4 left-4">
+        <p class="logline text-bone/80 text-xs mb-1">07&#8209;02 &middot; FLORIDA HAMMOCK</p>
+        <p class="text-bone text-lg font-medium">Palm shade, still water</p>
+      </figcaption>
+    </figure>
+
+    <figure data-reveal class="reveal-up depth-card depth-card--interactive rounded-xl col-span-2 relative block aspect-[16/9] overflow-hidden cursor-pointer">
+      <img data-parallax-img src="assets/img/peggys-cove.jpg" alt="Rocky coastline at Peggy's Cove, Nova Scotia" class="photo-grade w-full h-full object-cover scale-110" loading="lazy" />
+      <div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"></div>
+      <figcaption class="absolute bottom-5 left-5">
+        <p class="logline text-bone/80 text-xs mb-1">07&#8209;22 &middot; PEGGY'S COVE, NS &middot; 24MM</p>
+        <p class="text-bone text-xl md:text-2xl font-medium">Granite line, breaking light</p>
+      </figcaption>
+    </figure>
+
+    <figure data-reveal class="reveal-up depth-card depth-card--interactive rounded-xl col-span-2 relative block aspect-[16/9] overflow-hidden cursor-pointer">
+      <img data-parallax-img src="assets/img/beach.jpg" alt="Yrsa raising an arm to the sky on a white sand Gulf Coast beach, camera in hand" class="photo-grade w-full h-full object-cover scale-110" loading="lazy" />
+      <div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"></div>
+      <figcaption class="absolute bottom-5 left-5">
+        <p class="logline text-bone/80 text-xs mb-1">07&#8209;03 &middot; GULF COAST, FL &middot; 50MM</p>
+        <p class="text-bone text-xl md:text-2xl font-medium">Salt air, bare feet</p>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- Video / Reels showcase -->
+<section id="reels" class="max-w-7xl mx-auto px-6 md:px-16 pt-16 md:pt-20 pb-24 md:pb-32">
+  <p data-reveal class="reveal-up logline text-pine text-xs mb-4">ON THE MOVE &middot; FIELD CLIPS</p>
+  <h2 data-reveal class="font-headline reveal-up text-3xl md:text-5xl font-medium tracking-tight mb-10 max-w-2xl">Motion from the same places.</h2>
+  <div class="grid md:grid-cols-3 gap-6">
+    <div data-video-card data-clip-name="Latest reel from @yrsaclicks" data-reveal role="button" tabindex="0" aria-label="Play latest reel from @yrsaclicks" aria-pressed="false" class="reveal-up depth-card depth-card--interactive rounded-2xl relative aspect-[4/5] overflow-hidden cursor-pointer group">
+      <video data-video-el class="photo-grade w-full h-full object-cover" muted loop playsinline preload="none" poster="assets/video/reel-1-poster.jpg">
+        <source src="assets/video/reel-1.mp4" type="video/mp4" />
+      </video>
+      <div class="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent"></div>
+      <div class="absolute inset-0 flex items-center justify-center">
+        <span data-video-play aria-hidden="true" class="w-14 h-14 rounded-full bg-bone/85 flex items-center justify-center transition-all duration-300 group-hover:scale-110">
+          <svg class="w-5 h-5 text-ink translate-x-0.5" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </span>
+      </div>
+      <p class="logline absolute bottom-5 left-5 text-bone/80 text-xs">LATEST &middot; @YRSACLICKS</p>
+    </div>
+    <div data-reveal class="reveal-up depth-card rounded-2xl relative aspect-[4/5] overflow-hidden bg-ink/90 flex flex-col items-center justify-center text-center px-6">
+      <svg aria-hidden="true" class="w-8 h-8 text-bone/40 mb-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 5v14l11-7z"/></svg>
+      <p class="logline text-bone/80 text-xs">NEW CLIP LOGGED SOON</p>
+    </div>
+    <div data-reveal class="reveal-up depth-card rounded-2xl relative aspect-[4/5] overflow-hidden bg-ink/90 flex flex-col items-center justify-center text-center px-6">
+      <svg aria-hidden="true" class="w-8 h-8 text-bone/40 mb-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 5v14l11-7z"/></svg>
+      <p class="logline text-bone/80 text-xs">NEW CLIP LOGGED SOON</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- Newsletter -->
+<section class="max-w-7xl mx-auto px-6 md:px-12 pb-20 md:pb-24">
+  <div class="bg-lavender/15 border border-ink/10 rounded-2xl px-8 md:px-14 py-12 md:py-14 flex flex-col md:flex-row items-center justify-between gap-8">
+    <div class="max-w-md">
+      <p data-reveal class="reveal-up logline text-pine text-xs mb-4">JOIN THE LIST</p>
+      <h2 data-reveal class="font-headline reveal-up text-2xl md:text-3xl font-medium tracking-tight mb-2">Trip notes before anyone else sees them.</h2>
+      <p data-reveal class="reveal-up text-ink/70 font-light text-sm">One email per new region. No spam.</p>
+    </div>
+    <form data-reveal action="https://example.us1.list-manage.com/subscribe/post" method="post" class="reveal-up w-full md:w-auto flex flex-col sm:flex-row gap-3">
+      <label for="newsletter-email" class="sr-only">Email address</label>
+      <input id="newsletter-email" name="EMAIL" type="email" required placeholder="you@email.com" class="w-full sm:w-64 bg-bone border border-ink/20 focus:border-pine outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine rounded-full px-5 py-3 text-sm text-ink placeholder-ink/70 transition-colors duration-300" />
+      <button type="submit" class="bg-pine text-bone font-medium px-8 py-3.5 rounded-full hover:bg-ink transition-colors duration-200 cursor-pointer whitespace-nowrap">Join the list</button>
+    </form>
+  </div>
+</section>
+
+<!-- Seam: About → Contact -->
+<div class="relative h-20 md:h-28 bg-gradient-to-b from-bone to-ink" aria-hidden="true">
+  <div class="absolute inset-0 flex items-center justify-center gap-3 text-grey">
+    <span class="seam-dot"></span>
+    <span class="seam-dot"></span>
+    <span class="seam-dot"></span>
+  </div>
+</div>
+
+<!-- Contact -->
+<section id="contact" class="bg-ink text-bone">
+  <div class="max-w-7xl mx-auto px-6 md:px-12 pt-20 md:pt-24 pb-24 md:pb-32">
+    <div class="grid md:grid-cols-12 gap-10">
+      <div class="md:col-span-6">
+        <p class="logline text-pine-light text-xs mb-4">GET IN TOUCH</p>
+        <h2 class="font-headline text-3xl md:text-5xl font-medium tracking-tight mb-6">Let's log the next frame.</h2>
+        <p class="text-bone/75 font-light leading-relaxed max-w-md">
+          Prints, licensing, commissions — reach out and I'll follow up soon.
+        </p>
+      </div>
+      <div class="md:col-span-6">
+        <form class="space-y-5">
+          <div class="group">
+            <label for="name" class="logline text-xs text-bone/60 group-focus-within:text-pine-light block mb-2 transition-colors duration-300">NAME</label>
+            <input id="name" name="name" type="text" required class="w-full bg-transparent border-b border-bone/30 focus:border-pine-light outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine-light py-3 text-base text-bone placeholder-bone/60 transition-colors duration-300" placeholder="Your name" />
+          </div>
+          <div class="group">
+            <label for="email" class="logline text-xs text-bone/60 group-focus-within:text-pine-light block mb-2 transition-colors duration-300">EMAIL</label>
+            <input id="email" name="email" type="email" required class="w-full bg-transparent border-b border-bone/30 focus:border-pine-light outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine-light py-3 text-base text-bone placeholder-bone/60 transition-colors duration-300" placeholder="you@email.com" />
+          </div>
+          <div class="group">
+            <label for="message" class="logline text-xs text-bone/60 group-focus-within:text-pine-light block mb-2 transition-colors duration-300">MESSAGE</label>
+            <textarea id="message" name="message" rows="3" required class="w-full bg-transparent border-b border-bone/30 focus:border-pine-light outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine-light py-3 text-base text-bone placeholder-bone/60 transition-colors duration-300 resize-none" placeholder="Tell me about your project"></textarea>
+          </div>
+          <button type="submit" data-magnetic class="magnetic mt-2 bg-pine text-bone font-medium px-8 py-3.5 rounded-full shadow-lg shadow-ink/30 hover:bg-bone hover:text-ink transition-colors duration-200 cursor-pointer">
+            Send message
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="border-t border-bone/15 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+      <p class="logline text-xs text-bone/60">&copy; 2026 YRSACLICKS &middot; FIELD PHOTOGRAPHY</p>
+      <div class="flex gap-4 text-sm text-bone/60">
+        <a href="https://instagram.com/yrsaclicks" target="_blank" rel="noopener" class="hover:text-pine-light transition-colors duration-200 cursor-pointer py-3 px-2">Instagram</a>
+        <a href="#contact" class="hover:text-pine-light transition-colors duration-200 cursor-pointer py-3 px-2">Prints</a>
+        <a href="#top" class="hover:text-pine-light transition-colors duration-200 cursor-pointer py-3 px-2">Back to top</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+// ---- Nav contrast: light text over the hero video and dark Contact section, dark text
+// elsewhere. Runs independent of GSAP/reduced-motion since it's legibility, not decoration. ----
+(function () {
+  var navHeader = document.querySelector('[data-nav]');
+  var heroSection = document.getElementById('top');
+  var contactSection = document.getElementById('contact');
+  if (!navHeader || !heroSection) return;
+
+  var ticking = false;
+  function update() {
+    ticking = false;
+    var overHero = heroSection.getBoundingClientRect().bottom > 80;
+    var overContact = contactSection ? contactSection.getBoundingClientRect().top <= 80 : false;
+    navHeader.classList.toggle('nav-on-dark', overHero || overContact);
+  }
+  function onScroll() {
+    if (!ticking) { requestAnimationFrame(update); ticking = true; }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  update();
+})();
+
+// ---- Hero video pause/play control (WCAG 2.2.2 — auto-playing content needs a stop mechanism) ----
+(function () {
+  var video = document.querySelector('[data-hero-video]');
+  var toggle = document.querySelector('[data-hero-video-toggle]');
+  var pauseIcon = document.querySelector('[data-hero-pause-icon]');
+  var playIcon = document.querySelector('[data-hero-play-icon]');
+  if (!video || !toggle) return;
+
+  function sync() {
+    var isPaused = video.paused;
+    if (pauseIcon) pauseIcon.classList.toggle('hidden', isPaused);
+    if (playIcon) playIcon.classList.toggle('hidden', !isPaused);
+    toggle.setAttribute('aria-label', isPaused ? 'Play background video' : 'Pause background video');
+    toggle.setAttribute('aria-pressed', String(!isPaused));
+  }
+
+  // Reduced-motion visitors get the static poster frame by default, not an already-looping video.
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    video.pause();
+  }
+  sync();
+
+  toggle.addEventListener('click', function () {
+    if (video.paused) { video.play(); } else { video.pause(); }
+    sync();
+  });
+})();
+
+// ---- Video card click-to-play (reels showcase) ----
+(function () {
+  document.querySelectorAll('[data-video-card]').forEach(function (card) {
+    var video = card.querySelector('[data-video-el]');
+    var playBtn = card.querySelector('[data-video-play]');
+    if (!video || !playBtn) return;
+    var clipName = card.dataset.clipName || 'field clip video';
+
+    function toggle() {
+      if (video.paused) {
+        video.play();
+        playBtn.classList.add('opacity-0', 'pointer-events-none');
+      } else {
+        video.pause();
+        playBtn.classList.remove('opacity-0', 'pointer-events-none');
+      }
+      card.setAttribute('aria-pressed', String(!video.paused));
+      card.setAttribute('aria-label', (video.paused ? 'Play ' : 'Pause ') + clipName);
+    }
+
+    card.addEventListener('click', toggle);
+    card.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+        e.preventDefault();
+        toggle();
+      }
+    });
+  });
+})();
+
+(function () {
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  // If GSAP itself failed to load (CDN blocked/offline), force-show reveal
+  // content instead of leaving it permanently hidden by the .js pre-hide CSS.
+  if (typeof gsap === 'undefined') {
+    document.querySelectorAll('.reveal-up, .reveal-line').forEach(function (el) {
+      el.style.opacity = 1;
+      el.style.transform = 'none';
+    });
+    return;
+  }
+  if (reduceMotion) return;
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // ---- Motion tokens (Layered Depth polish pass) ----
+  var EASE_REVEAL = 'power3.out';   // content fade/rise-in
+  var DUR_REVEAL = 0.85;
+  var EASE_HOVER = 'power2.out';    // hover / micro-interactions
+  var DUR_HOVER = 0.3;
+
+  // ---- Smooth (inertia) scrolling ----
+  var lenis = null;
+  if (typeof Lenis !== 'undefined') {
+    lenis = new Lenis({ duration: 1.1, smoothWheel: true });
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(function (time) { lenis.raf(time * 1000); });
+    gsap.ticker.lagSmoothing(0);
+  }
+
+  // ---- Nav: scroll-aware shrink (stays pinned at top, no hide-on-scroll) ----
+  var navHeader = document.querySelector('[data-nav]');
+  if (navHeader) {
+    ScrollTrigger.create({
+      start: 'top -80',
+      end: 99999,
+      toggleClass: { targets: navHeader, className: 'nav-scrolled' },
+    });
+  }
+
+  // ---- Members CTA: quick "bling" flash confirms the click before navigating ----
+  var membersBtn = document.querySelector('.members-btn');
+  if (membersBtn) {
+    membersBtn.addEventListener('click', function (e) {
+      if (reduceMotion || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      if (this.classList.contains('is-clicking')) return;
+      e.preventDefault();
+      var href = this.getAttribute('href');
+      this.classList.add('is-clicking');
+      setTimeout(function () { window.location.href = href; }, 300);
+    });
+  }
+
+  // ---- Magnetic buttons ----
+  if (canHover) {
+    document.querySelectorAll('[data-magnetic]').forEach(function (el) {
+      var strength = 0.35;
+      el.addEventListener('mousemove', function (e) {
+        var rect = el.getBoundingClientRect();
+        var relX = e.clientX - (rect.left + rect.width / 2);
+        var relY = e.clientY - (rect.top + rect.height / 2);
+        gsap.to(el, { x: relX * strength, y: relY * strength, duration: DUR_HOVER, ease: EASE_HOVER });
+      });
+      el.addEventListener('mouseleave', function () {
+        gsap.to(el, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1, 0.4)' });
+      });
+    });
+  }
+
+  // ---- Hero entrance ----
+  var heroTl = gsap.timeline({ delay: 0.15 });
+  heroTl
+    .to('[data-hero-line]', { opacity: 1, y: 0, duration: DUR_REVEAL, ease: EASE_REVEAL, stagger: 0.12 })
+    .to('[data-hero-reveal]', { opacity: 1, y: 0, duration: DUR_REVEAL, ease: EASE_REVEAL, stagger: 0.1 }, '-=0.55');
+
+  // ---- Scroll reveals ----
+  gsap.utils.toArray('[data-reveal]').forEach(function (el) {
+    gsap.to(el, {
+      opacity: 1, y: 0, duration: DUR_REVEAL, ease: EASE_REVEAL,
+      scrollTrigger: { trigger: el, start: 'top 85%' },
+    });
+  });
+
+  // ---- Parallax on large imagery ----
+  gsap.utils.toArray('[data-parallax-img]').forEach(function (img) {
+    gsap.fromTo(img, { yPercent: -8 }, {
+      yPercent: 8, ease: 'none',
+      scrollTrigger: { trigger: img.closest('figure, div'), start: 'top bottom', end: 'bottom top', scrub: 0.6 },
+    });
+  });
+
+  // ---- Hero media parallax ----
+  var heroMedia = document.querySelector('[data-hero-media]');
+  if (heroMedia) {
+    gsap.to(heroMedia, {
+      yPercent: 10, ease: 'none',
+      scrollTrigger: { trigger: '#top', start: 'top top', end: 'bottom top', scrub: 0.6 },
+    });
+  }
+
+  // ---- Scroll indicator fade ----
+  var arrow = document.querySelector('[data-scroll-arrow]');
+  if (arrow) {
+    gsap.to(arrow, { y: 6, repeat: -1, yoyo: true, duration: 0.9, ease: 'sine.inOut' });
+  }
+
+})();
+</script>
+
+</body>
+</html>

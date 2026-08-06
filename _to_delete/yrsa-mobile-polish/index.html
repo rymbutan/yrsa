@@ -1,0 +1,898 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<script>document.documentElement.classList.add('js');</script>
+<title>Yrsa — Field Photography</title>
+<meta name="description" content="Yrsa is a landscape and travel photographer working in Southern Arizona, Bisbee, Nova Scotia and beyond. Wild places, patient light." />
+<meta name="theme-color" content="#e3e0d9" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#2b241f" media="(prefers-color-scheme: dark)" />
+
+<!-- ============================================================================
+     FONTS — self-hosted (was Google Fonts). Removes two third-party DNS+TLS
+     round-trips from the critical path, which is the slowest part of a cold
+     load inside the Instagram in-app browser.
+     ============================================================================ -->
+<link rel="preload" href="assets/fonts/montserrat-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="assets/fonts/ibm-plex-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+
+<!-- ============================================================================
+     STYLES — Tailwind is COMPILED AND INLINED below (see tailwind.build.js).
+     The old `cdn.tailwindcss.com` script was ~120 KB of render-blocking JS that
+     compiled your classes in the browser on every visit. Inlined CSS paints
+     immediately with zero requests.
+
+     WHILE DESIGNING: uncomment the two lines below to get live class compiling
+     again, then re-run `node tailwind.build.js` before you ship.
+
+     <script src="https://cdn.tailwindcss.com"></script>
+     <script src="tailwind.config.js"></script>
+     ============================================================================ -->
+<style>/*!TAILWIND!*/
+*,:after,:before{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/*! tailwindcss v3.4.19 | MIT License | https://tailwindcss.com*/*,:after,:before{box-sizing:border-box;border:0 solid #e5e7eb}:after,:before{--tw-content:""}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;-o-tab-size:4;tab-size:4;font-family:Montserrat,sans-serif;font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:IBM Plex Mono,monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0}fieldset,legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::-moz-placeholder,textarea::-moz-placeholder{opacity:1;color:#9ca3af}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border-width:0}.pointer-events-none{pointer-events:none}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.sticky{position:sticky}.inset-0{inset:0}.-top-\[4\%\]{top:-4%}.bottom-0{bottom:0}.bottom-4{bottom:1rem}.left-0{left:0}.left-2{left:.5rem}.left-4{left:1rem}.right-0{right:0}.right-2{right:.5rem}.right-4{right:1rem}.z-10{z-index:10}.z-\[2\]{z-index:2}.z-\[5\]{z-index:5}.col-span-2{grid-column:span 2/span 2}.mx-auto{margin-left:auto;margin-right:auto}.-mt-1{margin-top:-.25rem}.mb-1{margin-bottom:.25rem}.mb-1\.5{margin-bottom:.375rem}.mb-2{margin-bottom:.5rem}.mb-3{margin-bottom:.75rem}.mb-4{margin-bottom:1rem}.mb-5{margin-bottom:1.25rem}.mb-7{margin-bottom:1.75rem}.mt-12{margin-top:3rem}.mt-2{margin-top:.5rem}.mt-3{margin-top:.75rem}.block{display:block}.flex{display:flex}.table{display:table}.grid{display:grid}.hidden{display:none}.aspect-\[16\/9\]{aspect-ratio:16/9}.aspect-\[3\/2\]{aspect-ratio:3/2}.aspect-\[4\/5\]{aspect-ratio:4/5}.h-12{height:3rem}.h-14{height:3.5rem}.h-16{height:4rem}.h-28{height:7rem}.h-4{height:1rem}.h-5{height:1.25rem}.h-8{height:2rem}.h-\[108\%\]{height:108%}.h-full{height:100%}.w-12{width:3rem}.w-14{width:3.5rem}.w-4{width:1rem}.w-5{width:1.25rem}.w-8{width:2rem}.w-full{width:100%}.max-w-2xl{max-width:42rem}.max-w-5xl{max-width:64rem}.max-w-7xl{max-width:80rem}.max-w-md{max-width:28rem}.max-w-xl{max-width:36rem}.translate-x-0{--tw-translate-x:0px}.translate-x-0,.translate-x-0\.5{transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.translate-x-0\.5{--tw-translate-x:0.125rem}.scale-105{--tw-scale-x:1.05;--tw-scale-y:1.05}.scale-105,.transform{transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.cursor-pointer{cursor:pointer}.resize-none{resize:none}.resize{resize:both}.grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.items-center{align-items:center}.justify-end{justify-content:flex-end}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-2{gap:.5rem}.gap-3{gap:.75rem}.gap-4{gap:1rem}.gap-7{gap:1.75rem}.gap-9{gap:2.25rem}.space-y-5>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1.25rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1.25rem*var(--tw-space-y-reverse))}.overflow-hidden{overflow:hidden}.text-ellipsis{text-overflow:ellipsis}.whitespace-nowrap{white-space:nowrap}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:.5rem}.border{border-width:1px}.border-b{border-bottom-width:1px}.border-t{border-top-width:1px}.border-bone{--tw-border-opacity:1;border-color:rgb(227 224 217/var(--tw-border-opacity,1))}.border-bone\/15{border-color:hsla(42,15%,87%,.15)}.border-bone\/30{border-color:hsla(42,15%,87%,.3)}.border-ink{--tw-border-opacity:1;border-color:rgb(43 36 31/var(--tw-border-opacity,1))}.border-ink\/15{border-color:rgba(43,36,31,.15)}.border-ink\/20{border-color:rgba(43,36,31,.2)}.bg-bone{--tw-bg-opacity:1;background-color:rgb(227 224 217/var(--tw-bg-opacity,1))}.bg-bone\/90{background-color:hsla(42,15%,87%,.9)}.bg-brass{--tw-bg-opacity:1;background-color:rgb(135 99 48/var(--tw-bg-opacity,1))}.bg-grey{--tw-bg-opacity:1;background-color:rgb(151 149 145/var(--tw-bg-opacity,1))}.bg-ink{--tw-bg-opacity:1;background-color:rgb(43 36 31/var(--tw-bg-opacity,1))}.bg-ink\/90{background-color:rgba(43,36,31,.9)}.bg-lavender{--tw-bg-opacity:1;background-color:rgb(197 195 203/var(--tw-bg-opacity,1))}.bg-oxide{--tw-bg-opacity:1;background-color:rgb(108 52 35/var(--tw-bg-opacity,1))}.bg-pine{--tw-bg-opacity:1;background-color:rgb(63 74 61/var(--tw-bg-opacity,1))}.bg-transparent{background-color:transparent}.bg-gradient-to-b{background-image:linear-gradient(to bottom,var(--tw-gradient-stops))}.bg-gradient-to-t{background-image:linear-gradient(to top,var(--tw-gradient-stops))}.from-ink{--tw-gradient-from:#2b241f var(--tw-gradient-from-position);--tw-gradient-to:rgba(43,36,31,0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)}.from-ink\/70{--tw-gradient-from:rgba(43,36,31,.7) var(--tw-gradient-from-position);--tw-gradient-to:rgba(43,36,31,0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)}.from-transparent{--tw-gradient-from:transparent var(--tw-gradient-from-position);--tw-gradient-to:transparent var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)}.via-transparent{--tw-gradient-to:transparent var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),transparent var(--tw-gradient-via-position),var(--tw-gradient-to)}.to-bone{--tw-gradient-to:#e3e0d9 var(--tw-gradient-to-position)}.to-transparent{--tw-gradient-to:transparent var(--tw-gradient-to-position)}.object-cover{-o-object-fit:cover;object-fit:cover}.object-top{-o-object-position:top;object-position:top}.px-3{padding-left:.75rem;padding-right:.75rem}.px-4{padding-left:1rem;padding-right:1rem}.px-5{padding-left:1.25rem;padding-right:1.25rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.px-8{padding-left:2rem;padding-right:2rem}.py-2{padding-top:.5rem;padding-bottom:.5rem}.py-2\.5{padding-top:.625rem;padding-bottom:.625rem}.py-3{padding-top:.75rem;padding-bottom:.75rem}.py-3\.5{padding-top:.875rem;padding-bottom:.875rem}.py-4{padding-top:1rem;padding-bottom:1rem}.py-9{padding-top:2.25rem;padding-bottom:2.25rem}.pb-14{padding-bottom:3.5rem}.pb-16{padding-bottom:4rem}.pb-20{padding-bottom:5rem}.pr-2{padding-right:.5rem}.pt-10{padding-top:2.5rem}.pt-14{padding-top:3.5rem}.pt-6{padding-top:1.5rem}.text-center{text-align:center}.font-headline{font-family:Montserrat,sans-serif}.font-logo{font-family:Mynerve,cursive}.text-\[1\.6rem\]{font-size:1.6rem}.text-\[1\.9rem\]{font-size:1.9rem}.text-\[10px\]{font-size:10px}.text-\[11px\]{font-size:11px}.text-\[15px\]{font-size:15px}.text-\[2\.1rem\]{font-size:2.1rem}.text-\[26px\]{font-size:26px}.text-\[2rem\]{font-size:2rem}.text-\[3\.1rem\]{font-size:3.1rem}.text-\[9px\]{font-size:9px}.text-sm{font-size:.875rem;line-height:1.25rem}.font-light{font-weight:300}.font-medium{font-weight:500}.font-semibold{font-weight:600}.leading-\[0\.94\]{line-height:.94}.leading-\[1\.08\]{line-height:1.08}.leading-\[1\.15\]{line-height:1.15}.leading-\[1\.1\]{line-height:1.1}.leading-none{line-height:1}.leading-relaxed{line-height:1.625}.leading-tight{line-height:1.25}.tracking-tight{letter-spacing:-.025em}.tracking-wide{letter-spacing:.025em}.text-bone{--tw-text-opacity:1;color:rgb(227 224 217/var(--tw-text-opacity,1))}.text-bone\/55{color:hsla(42,15%,87%,.55)}.text-bone\/60{color:hsla(42,15%,87%,.6)}.text-bone\/65{color:hsla(42,15%,87%,.65)}.text-bone\/75{color:hsla(42,15%,87%,.75)}.text-bone\/80{color:hsla(42,15%,87%,.8)}.text-bone\/85{color:hsla(42,15%,87%,.85)}.text-grey{--tw-text-opacity:1;color:rgb(151 149 145/var(--tw-text-opacity,1))}.text-ink{--tw-text-opacity:1;color:rgb(43 36 31/var(--tw-text-opacity,1))}.text-ink\/70{color:rgba(43,36,31,.7)}.text-oxide{--tw-text-opacity:1;color:rgb(108 52 35/var(--tw-text-opacity,1))}.text-pine{--tw-text-opacity:1;color:rgb(63 74 61/var(--tw-text-opacity,1))}.text-pine-light{--tw-text-opacity:1;color:rgb(156 175 136/var(--tw-text-opacity,1))}.antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.placeholder-bone::-moz-placeholder{--tw-placeholder-opacity:1;color:rgb(227 224 217/var(--tw-placeholder-opacity,1))}.placeholder-bone::placeholder{--tw-placeholder-opacity:1;color:rgb(227 224 217/var(--tw-placeholder-opacity,1))}.placeholder-bone\/60::-moz-placeholder{color:hsla(42,15%,87%,.6)}.placeholder-bone\/60::placeholder{color:hsla(42,15%,87%,.6)}.placeholder-ink::-moz-placeholder{--tw-placeholder-opacity:1;color:rgb(43 36 31/var(--tw-placeholder-opacity,1))}.placeholder-ink::placeholder{--tw-placeholder-opacity:1;color:rgb(43 36 31/var(--tw-placeholder-opacity,1))}.placeholder-ink\/70::-moz-placeholder{color:rgba(43,36,31,.7)}.placeholder-ink\/70::placeholder{color:rgba(43,36,31,.7)}.opacity-0{opacity:0}.shadow-lg{--tw-shadow:0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -4px rgba(0,0,0,.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color),0 4px 6px -4px var(--tw-shadow-color)}.shadow-lg,.shadow-md{box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow)}.shadow-md{--tw-shadow:0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -2px rgba(0,0,0,.1);--tw-shadow-colored:0 4px 6px -1px var(--tw-shadow-color),0 2px 4px -2px var(--tw-shadow-color)}.shadow-ink{--tw-shadow-color:#2b241f;--tw-shadow:var(--tw-shadow-colored)}.shadow-ink\/20{--tw-shadow-color:rgba(43,36,31,.2);--tw-shadow:var(--tw-shadow-colored)}.shadow-ink\/40{--tw-shadow-color:rgba(43,36,31,.4);--tw-shadow:var(--tw-shadow-colored)}.outline-none{outline:2px solid transparent;outline-offset:2px}.outline{outline-style:solid}.blur{--tw-blur:blur(8px);filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.backdrop-filter{-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.transition-colors{transition-property:color,background-color,border-color,text-decoration-color,fill,stroke;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.duration-200{transition-duration:.2s}.duration-300{transition-duration:.3s}.hover\:bg-bone:hover{--tw-bg-opacity:1;background-color:rgb(227 224 217/var(--tw-bg-opacity,1))}.hover\:bg-ink:hover{--tw-bg-opacity:1;background-color:rgb(43 36 31/var(--tw-bg-opacity,1))}.hover\:text-ink:hover{--tw-text-opacity:1;color:rgb(43 36 31/var(--tw-text-opacity,1))}.hover\:text-pine-light:hover{--tw-text-opacity:1;color:rgb(156 175 136/var(--tw-text-opacity,1))}.focus\:border-pine:focus{--tw-border-opacity:1;border-color:rgb(63 74 61/var(--tw-border-opacity,1))}.focus\:border-pine-light:focus{--tw-border-opacity:1;border-color:rgb(156 175 136/var(--tw-border-opacity,1))}.focus-visible\:outline:focus-visible{outline-style:solid}.focus-visible\:outline-2:focus-visible{outline-width:2px}.focus-visible\:outline-offset-2:focus-visible{outline-offset:2px}.focus-visible\:outline-pine:focus-visible{outline-color:#3f4a3d}.focus-visible\:outline-pine-light:focus-visible{outline-color:#9caf88}.group:focus-within .group-focus-within\:text-pine-light{--tw-text-opacity:1;color:rgb(156 175 136/var(--tw-text-opacity,1))}.group:hover .group-hover\:scale-110{--tw-scale-x:1.1;--tw-scale-y:1.1;transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}@media (min-width:640px){.sm\:h-11{height:2.75rem}.sm\:w-11{width:2.75rem}.sm\:w-64{width:16rem}.sm\:w-auto{width:auto}.sm\:flex-row{flex-direction:row}.sm\:gap-3{gap:.75rem}}@media (min-width:768px){.md\:left-8{left:2rem}.md\:right-8{right:2rem}.md\:col-span-6{grid-column:span 6/span 6}.md\:mb-10{margin-bottom:2.5rem}.md\:mb-3{margin-bottom:.75rem}.md\:mb-4{margin-bottom:1rem}.md\:mb-6{margin-bottom:1.5rem}.md\:mt-16{margin-top:4rem}.md\:grid{display:grid}.md\:contents{display:contents}.md\:hidden{display:none}.md\:aspect-\[4\/5\]{aspect-ratio:4/5}.md\:h-28{height:7rem}.md\:h-32{height:8rem}.md\:h-8{height:2rem}.md\:w-8{width:2rem}.md\:w-auto{width:auto}.md\:grid-cols-12{grid-template-columns:repeat(12,minmax(0,1fr))}.md\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}.md\:flex-row{flex-direction:row}.md\:items-center{align-items:center}.md\:justify-between{justify-content:space-between}.md\:gap-10{gap:2.5rem}.md\:gap-4{gap:1rem}.md\:gap-6{gap:1.5rem}.md\:gap-8{gap:2rem}.md\:px-12{padding-left:3rem;padding-right:3rem}.md\:px-14{padding-left:3.5rem;padding-right:3.5rem}.md\:px-16{padding-left:4rem;padding-right:4rem}.md\:px-5{padding-left:1.25rem;padding-right:1.25rem}.md\:px-8{padding-left:2rem;padding-right:2rem}.md\:py-14{padding-top:3.5rem;padding-bottom:3.5rem}.md\:py-16{padding-top:4rem;padding-bottom:4rem}.md\:py-3{padding-top:.75rem;padding-bottom:.75rem}.md\:pb-16{padding-bottom:4rem}.md\:pb-24{padding-bottom:6rem}.md\:pb-32{padding-bottom:8rem}.md\:pt-20{padding-top:5rem}.md\:pt-24{padding-top:6rem}.md\:pt-8{padding-top:2rem}.md\:text-3xl{font-size:1.875rem;line-height:2.25rem}.md\:text-5xl{font-size:3rem;line-height:1}.md\:text-6xl{font-size:3.75rem;line-height:1}.md\:text-7xl{font-size:4.5rem;line-height:1}.md\:text-\[11px\]{font-size:11px}.md\:text-base{font-size:1rem;line-height:1.5rem}.md\:text-lg{font-size:1.125rem;line-height:1.75rem}.md\:text-sm{font-size:.875rem;line-height:1.25rem}.md\:text-xs{font-size:.75rem;line-height:1rem}}@media (min-width:1024px){.lg\:text-8xl{font-size:6rem;line-height:1}}
+</style>
+
+<style>
+  /* ---- Self-hosted webfonts ---- */
+  @font-face { font-family:'Montserrat'; font-style:normal; font-weight:300; font-display:swap; src:url('assets/fonts/montserrat-latin-300-normal.woff2') format('woff2'); }
+  @font-face { font-family:'Montserrat'; font-style:normal; font-weight:400; font-display:swap; src:url('assets/fonts/montserrat-latin-400-normal.woff2') format('woff2'); }
+  @font-face { font-family:'Montserrat'; font-style:normal; font-weight:500; font-display:swap; src:url('assets/fonts/montserrat-latin-500-normal.woff2') format('woff2'); }
+  @font-face { font-family:'Montserrat'; font-style:normal; font-weight:600; font-display:swap; src:url('assets/fonts/montserrat-latin-600-normal.woff2') format('woff2'); }
+  @font-face { font-family:'IBM Plex Mono'; font-style:normal; font-weight:400; font-display:swap; src:url('assets/fonts/ibm-plex-mono-latin-400-normal.woff2') format('woff2'); }
+  /* Mynerve subset to just the wordmark glyphs: 60 KB -> 3.5 KB */
+  @font-face { font-family:'Mynerve'; font-style:normal; font-weight:400; font-display:swap; src:url('assets/fonts/mynerve-wordmark.woff2') format('woff2'); }
+
+  /* ============================================================================
+     DESIGN TOKENS
+     ============================================================================ */
+  :root {
+    --bone:#e3e0d9;
+    --bone-lift:#eae7e0;   /* one step up from bone — separates stacked sections */
+    --bone-sink:#dcd8d0;   /* one step down — recessed surfaces */
+    --ink:#2b241f;
+    --pine:#3f4a3d;
+
+    /* Layered-depth shadows. Warm ink-tinted, two-stop (contact + ambient) so
+       cards read as resting above the page rather than pasted onto it. */
+    --sh-rest:
+      0 1px 2px rgba(43,36,31,.10),
+      0 6px 14px -6px rgba(43,36,31,.24),
+      0 22px 42px -22px rgba(43,36,31,.30);
+    --sh-raise:
+      0 2px 4px rgba(43,36,31,.12),
+      0 12px 24px -8px rgba(43,36,31,.32),
+      0 36px 64px -28px rgba(43,36,31,.38);
+    /* Inner top highlight — the thing that makes a rectangle read as a physical
+       print catching light rather than a flat colour block. */
+    --sh-lip: inset 0 1px 0 rgba(255,255,255,.30);
+
+    --r-card: 14px;
+    --nav-h: 60px;
+  }
+  @media (min-width:768px){ :root { --r-card:18px; --nav-h:72px; } }
+
+  /* ============================================================================
+     BASE
+     ============================================================================ */
+  html {
+    scroll-behavior:smooth;
+    -webkit-text-size-adjust:100%;   /* stop iOS inflating body copy in landscape */
+    text-size-adjust:100%;
+  }
+  html.lenis, html.lenis body { height:auto; }
+  body {
+    font-family:'Montserrat', sans-serif;
+    background:var(--bone);
+    color:var(--ink);
+    -webkit-tap-highlight-color:transparent;
+  }
+  a, button, [role="button"], input, textarea, summary { touch-action:manipulation; }
+  .logline { font-family:'IBM Plex Mono', monospace; letter-spacing:.16em; }
+
+  /* Anchor targets clear the fixed bar */
+  [id] { scroll-margin-top:calc(var(--nav-h) + 12px); }
+
+  /* ---- Reveal primitives — GSAP sets the final state; this is only the
+         pre-animation hide, so content still shows if JS fails to load. ---- */
+  .js .reveal-line { opacity:0; transform:translateY(100%); }
+  .js .reveal-up   { opacity:0; transform:translateY(22px); }
+  .reveal-line-wrap { overflow:hidden; display:block; }
+  .magnetic { display:inline-flex; will-change:transform; }
+
+  /* ============================================================================
+     LAYERED DEPTH — shared card shell
+     ============================================================================ */
+  .depth-card {
+    border-radius:var(--r-card);
+    background:var(--bone-sink);
+    border:1px solid rgba(43,36,31,.10);
+    box-shadow:var(--sh-rest), var(--sh-lip);
+    /* Clip children to the radius without an extra stacking-context repaint */
+    overflow:hidden;
+    isolation:isolate;
+  }
+  .depth-card--interactive { transition:transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s ease; }
+  @media (hover:hover) and (pointer:fine) {
+    .depth-card--interactive:hover { transform:translateY(-3px); box-shadow:var(--sh-raise), var(--sh-lip); }
+  }
+  /* Touch feedback — the mobile equivalent of a hover lift */
+  .depth-card--interactive:active { transform:scale(.985); }
+  @media (prefers-reduced-motion:reduce) {
+    .depth-card--interactive { transition:none; }
+    .depth-card--interactive:active { transform:none; }
+  }
+
+  /* Reels read one layer above the gallery */
+  #reels .depth-card { box-shadow:var(--sh-raise), var(--sh-lip); }
+
+  /* Empty "coming soon" tile. Declared here rather than as a bg-ink/90 utility
+     because .depth-card sets its own background and this stylesheet loads after
+     the Tailwind block, so the utility would lose on source order. */
+  .tile-empty { background:linear-gradient(165deg, #352d27, #241e1a); }
+  .tile-empty .tile-icon { color:rgba(227,224,217,.30); }
+  .tile-empty .tile-label { color:rgba(227,224,217,.62); }
+
+  /* Unifying photo grade — evens out mixed professional / phone photo sources */
+  .photo-grade { filter:contrast(1.05) saturate(.92) brightness(.98); }
+
+  /* ============================================================================
+     CAPTIONS
+     The old version pinned captions with `bottom-4 left-4` and no right edge,
+     so titles ran straight off the card and the mono eyebrow wrapped onto three
+     lines inside the 165px-wide 2-up cards. Captions are now a full-width block
+     with their own scrim, an ellipsised eyebrow, and a 2-line title clamp.
+     ============================================================================ */
+  .cap {
+    position:absolute; inset-inline:0; bottom:0; z-index:2;
+    padding:2.25rem .75rem .75rem;
+    background:linear-gradient(to top,
+      rgba(20,16,13,.88) 0%,
+      rgba(20,16,13,.62) 38%,
+      rgba(20,16,13,.22) 70%,
+      rgba(20,16,13,0)  100%);
+  }
+  /* Wraps to at most two lines rather than truncating — on a 165px-wide 2-up
+     card the full "04-16 · SOUTHERN ARIZONA" doesn't fit on one line, and the
+     location is the point of a shot log. Because .cap is a flow block now
+     (it used to be an absolutely-positioned island), a second line just makes
+     the caption taller instead of colliding with the title. */
+  .cap-eyebrow {
+    font-family:'IBM Plex Mono', monospace;
+    font-size:.5625rem; letter-spacing:.12em; line-height:1.25;
+    color:rgba(227,224,217,.86);
+    margin-bottom:.25rem;
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+  }
+  .cap--wide .cap-eyebrow { -webkit-line-clamp:1; }
+  .cap-title {
+    color:#f2efe9; font-weight:500; font-size:.9375rem; line-height:1.25;
+    letter-spacing:-.01em;
+    text-wrap:balance;
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+  }
+  .cap--wide { padding:2.75rem 1rem 1rem; }
+  .cap--wide .cap-eyebrow { font-size:.625rem; letter-spacing:.14em; }
+  .cap--wide .cap-title { font-size:1.125rem; }
+  @media (min-width:640px){
+    .cap { padding:2.5rem 1rem 1rem; }
+    .cap-eyebrow { font-size:.625rem; letter-spacing:.14em; }
+    .cap-title { font-size:1.0625rem; }
+    .cap--wide .cap-title { font-size:1.375rem; }
+  }
+  @media (min-width:1024px){
+    .cap--wide { padding:3.5rem 1.5rem 1.375rem; }
+    .cap--wide .cap-title { font-size:1.625rem; }
+  }
+
+  /* ============================================================================
+     NAV
+     Was a bare wordmark floating over whatever happened to be behind it — over
+     the gallery photos the dark ink text sat on dark imagery and disappeared.
+     Now: transparent with a soft scrim over the hero, then a solid bar with a
+     hairline rule once you're past it. No backdrop-filter — a blurred fixed
+     layer over scrolling content is one of the most expensive things you can
+     ask an iOS webview to composite every frame.
+     ============================================================================ */
+  header[data-nav] {
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    padding-top:env(safe-area-inset-top);
+    transform:translateZ(0);            /* own compositor layer, no repaint churn */
+    transition:background-color .3s ease, box-shadow .3s ease, border-color .3s ease;
+    background-color:transparent;
+    border-bottom:1px solid transparent;
+  }
+  header[data-nav] nav {
+    height:var(--nav-h);
+    transition:height .3s ease;
+  }
+  /* Scrim behind the bar while it's transparent over the hero */
+  header[data-nav]::before {
+    content:''; position:absolute; inset:0; z-index:-1; pointer-events:none;
+    background:linear-gradient(to bottom, rgba(20,16,13,.55), rgba(20,16,13,0));
+    opacity:1; transition:opacity .3s ease;
+  }
+  header[data-nav].nav-solid::before { opacity:0; }
+  header[data-nav].nav-solid {
+    background-color:rgba(227,224,217,.97);
+    border-bottom-color:rgba(43,36,31,.10);
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset, 0 6px 18px -10px rgba(43,36,31,.35);
+  }
+  header[data-nav].nav-solid nav { height:calc(var(--nav-h) - 8px); }
+
+  header[data-nav] [data-nav-text] { color:#f2efe9; transition:color .3s ease; }
+  header[data-nav].nav-solid [data-nav-text] { color:var(--ink); }
+
+  /* Members CTA — ghost outline that fills pine. Solid tints only, no blur. */
+  .members-btn {
+    /* 44px floor — Apple HIG / WCAG 2.5.8 minimum tap target */
+    min-height:44px; display:inline-flex; align-items:center; justify-content:center;
+    border:1px solid rgba(242,239,233,.55);
+    color:#f2efe9;
+    background-color:rgba(20,16,13,.28);
+    transition:background-color .2s ease, color .2s ease, border-color .2s ease, transform .2s ease;
+  }
+  header[data-nav].nav-solid .members-btn {
+    border-color:var(--pine); color:var(--pine); background-color:rgba(63,74,61,.06);
+  }
+  @media (hover:hover) and (pointer:fine) {
+    .members-btn:hover { background-color:var(--pine); color:#e3e0d9; border-color:var(--pine); }
+  }
+  .members-btn:active { transform:scale(.96); }
+  @keyframes members-bling { 0%{transform:scale(1);filter:brightness(1)} 45%{transform:scale(1.04);filter:brightness(1.15)} 100%{transform:scale(1);filter:brightness(1)} }
+  .members-btn.is-clicking { animation:members-bling .3s ease-out; }
+  @media (prefers-reduced-motion:reduce) { .members-btn.is-clicking { animation:none; } }
+
+  /* ============================================================================
+     HERO
+     ============================================================================ */
+  .hero { height:100svh; min-height:480px; }
+  @supports not (height:100svh) { .hero { height:100vh; } }
+
+  /* Poster is a CSS background so the correct crop can be chosen per breakpoint
+     (the `poster` attribute can't be media-conditional) and so there's no
+     framing jump when the video's first frame paints over it. */
+  .hero-media {
+    background-image:url('assets/video/loop-poster-mobile.jpg');
+    background-image:image-set(url('assets/video/loop-poster-mobile.webp') type('image/webp'),
+                               url('assets/video/loop-poster-mobile.jpg')  type('image/jpeg'));
+    background-size:cover; background-position:center;
+    background-color:#3a3630;
+  }
+  @media (min-width:768px){
+    .hero-media {
+      background-image:url('assets/video/loop-poster-wide.jpg');
+      background-image:image-set(url('assets/video/loop-poster-wide.webp') type('image/webp'),
+                                 url('assets/video/loop-poster-wide.jpg')  type('image/jpeg'));
+    }
+  }
+  .hero-media video { background:transparent; }
+
+  /* Bottom controls clear the iOS home indicator and Instagram's bottom chrome */
+  .hero-controls { bottom:calc(.25rem + env(safe-area-inset-bottom)); }
+
+  /* ============================================================================
+     SECTION SURFACES — tonal steps give the page depth without extra ink
+     ============================================================================ */
+  .surface-base { background:var(--bone); }
+  .surface-lift { background:var(--bone-lift); }
+  .seam-dot { width:4px; height:4px; border-radius:9999px; background:currentColor; }
+
+  /* Newsletter panel — was bg-lavender/15, which read as nothing */
+  .panel {
+    background:linear-gradient(162deg, rgba(190,187,199,.52) 0%, rgba(197,195,203,.24) 48%, rgba(220,216,208,.42) 100%);
+    border:1px solid rgba(43,36,31,.12);
+    border-radius:var(--r-card);
+    box-shadow:var(--sh-rest), var(--sh-lip);
+  }
+
+  /* Inputs at 16px+ — anything smaller makes iOS zoom the page on focus, which
+     is the single most jarring bit of friction on a mobile form. */
+  input, textarea, select { font-size:16px; }
+
+  /* Colour-swatch strip */
+  .swatch { box-shadow:0 1px 2px rgba(43,36,31,.16), inset 0 1px 0 rgba(255,255,255,.22); }
+
+  /* ============================================================================
+     REDUCED MOTION
+     ============================================================================ */
+  @media (prefers-reduced-motion:reduce) {
+    html { scroll-behavior:auto; }
+    .js .reveal-line, .js .reveal-up { opacity:1; transform:none; }
+    header[data-nav], header[data-nav] nav, header[data-nav]::before { transition:none; }
+  }
+</style>
+</head>
+<body class="antialiased">
+
+<!-- ============================================================================
+     NAV
+     ============================================================================ -->
+<header data-nav>
+  <nav class="max-w-7xl mx-auto flex items-center justify-between gap-4 px-5 md:px-8 h-full">
+    <a href="#top" data-nav-text class="font-logo text-[26px] md:text-3xl leading-none -mt-1 pr-2 py-2">Yrsaclicks</a>
+    <a href="archive.html" class="members-btn text-[11px] md:text-xs font-medium tracking-wide px-4 py-2.5 md:px-5 md:py-3 rounded-lg whitespace-nowrap">Members</a>
+  </nav>
+</header>
+
+<!-- ============================================================================
+     HERO
+     ============================================================================ -->
+<section id="top" class="hero relative w-full overflow-hidden">
+  <div data-hero-media class="hero-media absolute inset-0 w-full h-[108%] -top-[4%]">
+    <video
+      data-hero-video
+      class="w-full h-full object-cover"
+      autoplay muted loop playsinline preload="metadata"
+      aria-label="Background clip: Yrsa in the field"
+    >
+      <!-- Portrait crop for phones: 720x1280 @ 1.2 MB, down from a single
+           1920x1080 9.7 MB file that was 74% cropped away on a phone anyway. -->
+      <source media="(max-width: 767px)" src="assets/video/loop-mobile.mp4" type="video/mp4" />
+      <source src="assets/video/loop-desktop.mp4" type="video/mp4" />
+    </video>
+  </div>
+
+  <div class="relative z-10 h-full flex flex-col justify-end px-6 md:px-12 pb-20 md:pb-16 max-w-7xl mx-auto">
+    <p data-hero-reveal class="reveal-up logline text-bone/80 text-[11px] md:text-sm mb-3 md:mb-4">04&#8209;16 &middot; SOUTHERN ARIZONA &middot; 300MM</p>
+    <h1 class="font-headline text-bone text-[3.1rem] leading-[0.94] md:text-7xl lg:text-8xl font-semibold tracking-tight mb-4" style="text-shadow:0 2px 18px rgba(20,16,13,.4)">
+      <span class="reveal-line-wrap"><span data-hero-line class="reveal-line block">Wild places,</span></span>
+      <span class="reveal-line-wrap"><span data-hero-line class="reveal-line block">patient light.</span></span>
+    </h1>
+    <p data-hero-reveal class="reveal-up text-bone/85 text-[15px] md:text-lg max-w-xl font-light" style="text-shadow:0 1px 10px rgba(20,16,13,.5)">
+      By Yrsa — desert Southwest to the Maritimes.
+    </p>
+  </div>
+
+  <button type="button" data-hero-video-toggle aria-label="Pause background video" aria-pressed="false"
+          class="hero-controls absolute left-2 md:left-8 z-10 flex items-center justify-center w-12 h-12 text-ink/70 hover:text-ink transition-colors duration-200">
+    <svg data-hero-pause-icon class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+    <svg data-hero-play-icon class="hidden w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+  </button>
+
+  <a href="#work" aria-label="Scroll to work"
+     class="hero-controls absolute right-2 md:right-8 z-10 flex items-center gap-2 px-3 h-12 text-ink/70 hover:text-ink transition-colors duration-200">
+    <span class="logline text-[10px] md:text-xs">SCROLL</span>
+    <svg data-scroll-arrow class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+  </a>
+
+  <div class="absolute bottom-0 left-0 right-0 h-28 md:h-32 bg-gradient-to-b from-transparent to-bone pointer-events-none z-[5]"></div>
+</section>
+
+<!-- ============================================================================
+     GALLERY — vertical "shot log"
+     ============================================================================ -->
+<section id="work" class="surface-base relative px-6 md:px-16 pt-10 pb-14 md:py-16">
+  <div class="max-w-xl mx-auto mb-7 md:mb-10">
+    <p data-reveal class="reveal-up logline text-oxide text-[11px] md:text-xs mb-3">SELECTED WORK &middot; SHOT LOG</p>
+    <h2 data-reveal class="font-headline reveal-up text-[2.1rem] md:text-6xl font-medium tracking-tight leading-[1.08] mb-5">
+      Every frame, logged.
+    </h2>
+    <div data-reveal class="reveal-up flex flex-wrap gap-2 sm:gap-3">
+      <div class="swatch w-8 h-8 sm:w-11 sm:h-11 rounded-lg bg-bone border border-ink/15"></div>
+      <div class="swatch w-8 h-8 sm:w-11 sm:h-11 rounded-lg bg-lavender"></div>
+      <div class="swatch w-8 h-8 sm:w-11 sm:h-11 rounded-lg bg-grey"></div>
+      <div class="swatch w-8 h-8 sm:w-11 sm:h-11 rounded-lg bg-oxide"></div>
+      <div class="swatch w-8 h-8 sm:w-11 sm:h-11 rounded-lg bg-brass"></div>
+      <div class="swatch w-8 h-8 sm:w-11 sm:h-11 rounded-lg bg-pine"></div>
+    </div>
+  </div>
+
+  <div class="max-w-5xl mx-auto grid grid-cols-2 gap-3 md:gap-4">
+
+    <figure data-reveal class="reveal-up depth-card depth-card--interactive relative block aspect-[4/5]">
+      <picture>
+        <source type="image/webp" sizes="(min-width:1024px) 504px, (min-width:768px) calc((100vw - 144px)/2), calc((100vw - 60px)/2)"
+                srcset="assets/img/opt/camera-portrait-340.webp 340w, assets/img/opt/camera-portrait-520.webp 520w, assets/img/opt/camera-portrait-1024.webp 1024w" />
+        <img src="assets/img/opt/camera-portrait-520.jpg" width="520" height="780" alt="Yrsa smiling with a camera resting on her shoulder, studio portrait" class="photo-grade w-full h-full object-cover object-top" loading="lazy" decoding="async" />
+      </picture>
+      <figcaption class="cap">
+        <p class="cap-eyebrow">THE PHOTOGRAPHER</p>
+        <p class="cap-title">Behind the lens</p>
+      </figcaption>
+    </figure>
+
+    <figure data-reveal class="reveal-up depth-card depth-card--interactive relative block aspect-[4/5]">
+      <picture>
+        <source type="image/webp" sizes="(min-width:1024px) 504px, (min-width:768px) calc((100vw - 144px)/2), calc((100vw - 60px)/2)"
+                srcset="assets/img/opt/field-camera-340.webp 340w, assets/img/opt/field-camera-520.webp 520w, assets/img/opt/field-camera-1024.webp 1024w" />
+        <img src="assets/img/opt/field-camera-520.jpg" width="520" height="346" alt="Yrsa holding a camera with a telephoto lens in an open grassland field" class="photo-grade w-full h-full object-cover" loading="lazy" decoding="async" />
+      </picture>
+      <figcaption class="cap">
+        <p class="cap-eyebrow">04&#8209;16 &middot; SOUTHERN ARIZONA</p>
+        <p class="cap-title">Waiting on the light</p>
+      </figcaption>
+    </figure>
+
+    <figure data-reveal class="reveal-up depth-card depth-card--interactive col-span-2 relative block aspect-[16/9]">
+      <picture>
+        <source type="image/webp" sizes="(min-width:1024px) 1024px, calc(100vw - 48px)"
+                srcset="assets/img/opt/arizona-420.webp 420w, assets/img/opt/arizona-760.webp 760w, assets/img/opt/arizona-1280.webp 1280w" />
+        <img data-parallax-img src="assets/img/opt/arizona-760.jpg" width="760" height="507" alt="Wide desert landscape under a pale sky in Southern Arizona" class="photo-grade w-full h-full object-cover scale-105" loading="lazy" decoding="async" />
+      </picture>
+      <figcaption class="cap cap--wide">
+        <p class="cap-eyebrow">04&#8209;16 &middot; SOUTHERN ARIZONA &middot; 300MM</p>
+        <p class="cap-title">Desert horizon, lifted sky</p>
+      </figcaption>
+    </figure>
+
+    <figure data-reveal class="reveal-up depth-card depth-card--interactive relative block aspect-[4/5]">
+      <picture>
+        <source type="image/webp" sizes="(min-width:1024px) 504px, (min-width:768px) calc((100vw - 144px)/2), calc((100vw - 60px)/2)"
+                srcset="assets/img/opt/misty-field-340.webp 340w, assets/img/opt/misty-field-520.webp 520w, assets/img/opt/misty-field-1024.webp 1024w" />
+        <img src="assets/img/opt/misty-field-520.jpg" width="520" height="780" alt="Yrsa in an olive field jacket at golden hour, camera in hand" class="photo-grade w-full h-full object-cover" loading="lazy" decoding="async" />
+      </picture>
+      <figcaption class="cap">
+        <p class="cap-eyebrow">04&#8209;17 &middot; SOUTHERN ARIZONA</p>
+        <p class="cap-title">Gold before the frost</p>
+      </figcaption>
+    </figure>
+
+    <figure data-reveal class="reveal-up depth-card depth-card--interactive relative block aspect-[4/5]">
+      <picture>
+        <source type="image/webp" sizes="(min-width:1024px) 504px, (min-width:768px) calc((100vw - 144px)/2), calc((100vw - 60px)/2)"
+                srcset="assets/img/opt/bisbee-340.webp 340w, assets/img/opt/bisbee-520.webp 520w, assets/img/opt/bisbee-1024.webp 1024w" />
+        <img src="assets/img/opt/bisbee-520.jpg" width="520" height="347" alt="Weathered oxide-toned car in Bisbee, Arizona" class="photo-grade w-full h-full object-cover" loading="lazy" decoding="async" />
+      </picture>
+      <figcaption class="cap">
+        <p class="cap-eyebrow">04&#8209;16 &middot; BISBEE, AZ &middot; 90MM</p>
+        <p class="cap-title">Oxide &amp; rust</p>
+      </figcaption>
+    </figure>
+
+    <figure data-reveal class="reveal-up depth-card depth-card--interactive col-span-2 relative block aspect-[16/9]">
+      <picture>
+        <source type="image/webp" sizes="(min-width:1024px) 1024px, calc(100vw - 48px)"
+                srcset="assets/img/opt/cabot-trail-1-420.webp 420w, assets/img/opt/cabot-trail-1-760.webp 760w, assets/img/opt/cabot-trail-1-1280.webp 1280w" />
+        <img data-parallax-img src="assets/img/opt/cabot-trail-1-760.jpg" width="760" height="507" alt="Coastal cliffs along the Cabot Trail in Nova Scotia" class="photo-grade w-full h-full object-cover scale-105" loading="lazy" decoding="async" />
+      </picture>
+      <figcaption class="cap cap--wide">
+        <p class="cap-eyebrow">07&#8209;18 &middot; CABOT TRAIL, NS &middot; 35MM</p>
+        <p class="cap-title">Green cliff, grey sea</p>
+      </figcaption>
+    </figure>
+
+    <figure data-reveal class="reveal-up depth-card depth-card--interactive relative block aspect-[4/5]">
+      <picture>
+        <source type="image/webp" sizes="(min-width:1024px) 504px, (min-width:768px) calc((100vw - 144px)/2), calc((100vw - 60px)/2)"
+                srcset="assets/img/opt/cabot-trail-2-340.webp 340w, assets/img/opt/cabot-trail-2-520.webp 520w, assets/img/opt/cabot-trail-2-1024.webp 1024w" />
+        <img src="assets/img/opt/cabot-trail-2-520.jpg" width="520" height="347" alt="Winding coastal road through the Cabot Trail highlands" class="photo-grade w-full h-full object-cover" loading="lazy" decoding="async" />
+      </picture>
+      <figcaption class="cap">
+        <p class="cap-eyebrow">07&#8209;18 &middot; CABOT TRAIL, NS</p>
+        <p class="cap-title">The road, patient</p>
+      </figcaption>
+    </figure>
+
+    <figure data-reveal class="reveal-up depth-card depth-card--interactive relative block aspect-[4/5]">
+      <picture>
+        <source type="image/webp" sizes="(min-width:1024px) 504px, (min-width:768px) calc((100vw - 144px)/2), calc((100vw - 60px)/2)"
+                srcset="assets/img/opt/florida-hammock-340.webp 340w, assets/img/opt/florida-hammock-520.webp 520w, assets/img/opt/florida-hammock-1024.webp 1024w" />
+        <img src="assets/img/opt/florida-hammock-520.jpg" width="520" height="780" alt="Yrsa walking a boardwalk through a palm hammock in Florida" class="photo-grade w-full h-full object-cover" loading="lazy" decoding="async" />
+      </picture>
+      <figcaption class="cap">
+        <p class="cap-eyebrow">07&#8209;02 &middot; FLORIDA HAMMOCK</p>
+        <p class="cap-title">Palm shade, still water</p>
+      </figcaption>
+    </figure>
+
+    <figure data-reveal class="reveal-up depth-card depth-card--interactive col-span-2 relative block aspect-[16/9]">
+      <picture>
+        <source type="image/webp" sizes="(min-width:1024px) 1024px, calc(100vw - 48px)"
+                srcset="assets/img/opt/peggys-cove-420.webp 420w, assets/img/opt/peggys-cove-760.webp 760w, assets/img/opt/peggys-cove-1280.webp 1280w" />
+        <img data-parallax-img src="assets/img/opt/peggys-cove-760.jpg" width="760" height="507" alt="Rocky coastline at Peggy's Cove, Nova Scotia" class="photo-grade w-full h-full object-cover scale-105" loading="lazy" decoding="async" />
+      </picture>
+      <figcaption class="cap cap--wide">
+        <p class="cap-eyebrow">07&#8209;22 &middot; PEGGY'S COVE, NS &middot; 24MM</p>
+        <p class="cap-title">Granite line, breaking light</p>
+      </figcaption>
+    </figure>
+
+    <figure data-reveal class="reveal-up depth-card depth-card--interactive col-span-2 relative block aspect-[16/9]">
+      <picture>
+        <source type="image/webp" sizes="(min-width:1024px) 1024px, calc(100vw - 48px)"
+                srcset="assets/img/opt/beach-420.webp 420w, assets/img/opt/beach-760.webp 760w, assets/img/opt/beach-1280.webp 1280w" />
+        <img data-parallax-img src="assets/img/opt/beach-760.jpg" width="760" height="506" alt="Yrsa raising an arm to the sky on a white sand Gulf Coast beach, camera in hand" class="photo-grade w-full h-full object-cover scale-105" loading="lazy" decoding="async" />
+      </picture>
+      <figcaption class="cap cap--wide">
+        <p class="cap-eyebrow">07&#8209;03 &middot; GULF COAST, FL &middot; 50MM</p>
+        <p class="cap-title">Salt air, bare feet</p>
+      </figcaption>
+    </figure>
+
+  </div>
+</section>
+
+<!-- ============================================================================
+     REELS
+     The two "coming soon" cards used to be full-width 4:5 blocks — roughly
+     1,600 px of empty brown rectangle to scroll past on a phone. They're now a
+     compact 2-up row: same honest placeholder, ~180 px of scroll.
+     ============================================================================ -->
+<section id="reels" class="surface-lift">
+  <div class="max-w-7xl mx-auto px-6 md:px-16 pt-14 md:pt-20 pb-16 md:pb-24">
+    <p data-reveal class="reveal-up logline text-pine text-[11px] md:text-xs mb-3">ON THE MOVE &middot; FIELD CLIPS</p>
+    <h2 data-reveal class="font-headline reveal-up text-[1.9rem] md:text-5xl font-medium tracking-tight leading-[1.1] mb-7 md:mb-10 max-w-2xl">Motion from the same places.</h2>
+
+    <div class="md:grid md:grid-cols-3 md:gap-6">
+      <div data-video-card data-clip-name="Latest reel from @yrsaclicks" data-reveal role="button" tabindex="0"
+           aria-label="Play latest reel from @yrsaclicks" aria-pressed="false"
+           class="reveal-up depth-card depth-card--interactive relative aspect-[4/5] cursor-pointer group">
+        <video data-video-el class="photo-grade w-full h-full object-cover" muted loop playsinline preload="none" poster="assets/video/reel-1-poster.jpg"></video>
+        <div class="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent pointer-events-none"></div>
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <span data-video-play aria-hidden="true" class="w-14 h-14 rounded-full bg-bone/90 flex items-center justify-center shadow-lg transition-all duration-300 group-hover:scale-110">
+            <svg class="w-5 h-5 text-ink translate-x-0.5" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </span>
+        </div>
+        <p class="logline absolute bottom-4 left-4 right-4 text-bone/85 text-[10px] md:text-[11px] whitespace-nowrap overflow-hidden text-ellipsis z-[2]">LATEST &middot; @YRSACLICKS</p>
+      </div>
+
+      <!-- Compact placeholders (2-up on mobile, full cards from md up) -->
+      <div class="grid grid-cols-2 gap-3 mt-3 md:contents">
+        <div data-reveal class="reveal-up depth-card tile-empty relative aspect-[3/2] md:aspect-[4/5] flex flex-col items-center justify-center text-center px-3">
+          <svg aria-hidden="true" class="tile-icon w-5 h-5 md:w-8 md:h-8 mb-2 md:mb-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 5v14l11-7z"/></svg>
+          <p class="logline tile-label text-[9px] md:text-xs leading-tight">NEW CLIP<br class="md:hidden" /> LOGGED SOON</p>
+        </div>
+        <div data-reveal class="reveal-up depth-card tile-empty relative aspect-[3/2] md:aspect-[4/5] flex flex-col items-center justify-center text-center px-3">
+          <svg aria-hidden="true" class="tile-icon w-5 h-5 md:w-8 md:h-8 mb-2 md:mb-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 5v14l11-7z"/></svg>
+          <p class="logline tile-label text-[9px] md:text-xs leading-tight">NEW CLIP<br class="md:hidden" /> LOGGED SOON</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================================
+     NEWSLETTER
+     ============================================================================ -->
+<section class="surface-lift">
+  <div class="max-w-7xl mx-auto px-6 md:px-12 pb-16 md:pb-24">
+    <div class="panel px-6 py-9 md:px-14 md:py-14 flex flex-col md:flex-row md:items-center md:justify-between gap-7 md:gap-8">
+      <div class="max-w-md">
+        <p data-reveal class="reveal-up logline text-pine text-[11px] md:text-xs mb-3">JOIN THE LIST</p>
+        <h2 data-reveal class="font-headline reveal-up text-[1.6rem] md:text-3xl font-medium tracking-tight leading-[1.15] mb-2">Trip notes before anyone else sees them.</h2>
+        <p data-reveal class="reveal-up text-ink/70 font-light text-sm">One email per new region. No spam.</p>
+      </div>
+      <form data-reveal action="https://example.us1.list-manage.com/subscribe/post" method="post" class="reveal-up w-full md:w-auto flex flex-col sm:flex-row gap-3">
+        <label for="newsletter-email" class="sr-only">Email address</label>
+        <input id="newsletter-email" name="EMAIL" type="email" required autocomplete="email" inputmode="email" placeholder="you@email.com"
+               class="w-full sm:w-64 bg-bone border border-ink/20 focus:border-pine outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine rounded-full px-5 py-3.5 text-ink placeholder-ink/70 transition-colors duration-300" />
+        <button type="submit" class="bg-pine text-bone font-medium px-8 py-3.5 rounded-full shadow-md shadow-ink/20 hover:bg-ink transition-colors duration-200 whitespace-nowrap">Join the list</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Seam: bone → ink -->
+<div class="relative h-16 md:h-28" style="background:linear-gradient(to bottom, var(--bone-lift), var(--ink))" aria-hidden="true">
+  <div class="absolute inset-0 flex items-center justify-center gap-3 text-grey">
+    <span class="seam-dot"></span><span class="seam-dot"></span><span class="seam-dot"></span>
+  </div>
+</div>
+
+<!-- ============================================================================
+     CONTACT
+     ============================================================================ -->
+<section id="contact" class="bg-ink text-bone">
+  <div class="max-w-7xl mx-auto px-6 md:px-12 pt-14 md:pt-24 pb-16 md:pb-32">
+    <div class="grid md:grid-cols-12 gap-9 md:gap-10">
+      <div class="md:col-span-6">
+        <p class="logline text-pine-light text-[11px] md:text-xs mb-3">GET IN TOUCH</p>
+        <h2 class="font-headline text-[2rem] md:text-5xl font-medium tracking-tight leading-[1.1] mb-4 md:mb-6">Let's log the next frame.</h2>
+        <p class="text-bone/75 font-light leading-relaxed max-w-md text-[15px] md:text-base">
+          Prints, licensing, commissions — reach out and I'll follow up soon.
+        </p>
+      </div>
+      <div class="md:col-span-6">
+        <form class="space-y-5">
+          <div class="group">
+            <label for="name" class="logline text-[10px] md:text-xs text-bone/60 group-focus-within:text-pine-light block mb-1.5 transition-colors duration-300">NAME</label>
+            <input id="name" name="name" type="text" required autocomplete="name" class="w-full bg-transparent border-b border-bone/30 focus:border-pine-light outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine-light py-3 text-bone placeholder-bone/60 transition-colors duration-300" placeholder="Your name" />
+          </div>
+          <div class="group">
+            <label for="email" class="logline text-[10px] md:text-xs text-bone/60 group-focus-within:text-pine-light block mb-1.5 transition-colors duration-300">EMAIL</label>
+            <input id="email" name="email" type="email" required autocomplete="email" inputmode="email" class="w-full bg-transparent border-b border-bone/30 focus:border-pine-light outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine-light py-3 text-bone placeholder-bone/60 transition-colors duration-300" placeholder="you@email.com" />
+          </div>
+          <div class="group">
+            <label for="message" class="logline text-[10px] md:text-xs text-bone/60 group-focus-within:text-pine-light block mb-1.5 transition-colors duration-300">MESSAGE</label>
+            <textarea id="message" name="message" rows="3" required class="w-full bg-transparent border-b border-bone/30 focus:border-pine-light outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine-light py-3 text-bone placeholder-bone/60 transition-colors duration-300 resize-none" placeholder="Tell me about your project"></textarea>
+          </div>
+          <button type="submit" data-magnetic class="magnetic mt-2 w-full sm:w-auto justify-center bg-pine text-bone font-medium px-8 py-4 rounded-full shadow-lg shadow-ink/40 hover:bg-bone hover:text-ink transition-colors duration-200">
+            Send message
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="border-t border-bone/15 mt-12 md:mt-16 pt-6 md:pt-8 flex flex-col md:flex-row justify-between items-center gap-2 md:gap-4">
+      <p class="logline text-[10px] md:text-xs text-bone/55 text-center">&copy; 2026 YRSACLICKS &middot; FIELD PHOTOGRAPHY</p>
+      <div class="flex gap-2 text-sm text-bone/65">
+        <a href="https://instagram.com/yrsaclicks" target="_blank" rel="noopener" class="hover:text-pine-light transition-colors duration-200 py-3 px-3">Instagram</a>
+        <a href="#contact" class="hover:text-pine-light transition-colors duration-200 py-3 px-3">Prints</a>
+        <a href="#top" class="hover:text-pine-light transition-colors duration-200 py-3 px-3">Back to top</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+
+<script>
+/* ============================================================================
+   0. REVEAL SAFETY NET
+   The pre-animation hide (.js .reveal-up / .reveal-line) is CSS, so if GSAP
+   never arrives the page stays blank. A `load`-time check isn't enough: a
+   request that hangs rather than fails keeps `load` pending indefinitely, and
+   deferred scripts push it out anyway. This timer is independent of both.
+   ============================================================================ */
+window.__revealAll = function () {
+  document.querySelectorAll('.reveal-up, .reveal-line').forEach(function (el) {
+    el.style.opacity = 1; el.style.transform = 'none';
+  });
+};
+setTimeout(function () {
+  if (typeof gsap === 'undefined') window.__revealAll();
+}, 2200);
+
+/* ============================================================================
+   1. NAV SURFACE — transparent over the hero, solid everywhere else.
+   Runs off a passive scroll listener with rAF coalescing, independent of GSAP,
+   because this is legibility rather than decoration.
+   ============================================================================ */
+(function () {
+  var header = document.querySelector('[data-nav]');
+  var hero = document.getElementById('top');
+  if (!header || !hero) return;
+  var ticking = false;
+  function update() {
+    ticking = false;
+    var navH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h'), 10) || 60;
+    header.classList.toggle('nav-solid', hero.getBoundingClientRect().bottom <= navH + 28);
+  }
+  window.addEventListener('scroll', function () {
+    if (!ticking) { requestAnimationFrame(update); ticking = true; }
+  }, { passive: true });
+  window.addEventListener('resize', update, { passive: true });
+  update();
+})();
+
+/* ============================================================================
+   2. HERO VIDEO — pause/play (WCAG 2.2.2) + battery/data hygiene.
+   Also pauses when the hero scrolls out of view and when the tab is hidden;
+   an off-screen decoding video is pure cost inside an in-app browser.
+   ============================================================================ */
+(function () {
+  var video = document.querySelector('[data-hero-video]');
+  var toggle = document.querySelector('[data-hero-video-toggle]');
+  var pauseIcon = document.querySelector('[data-hero-pause-icon]');
+  var playIcon = document.querySelector('[data-hero-play-icon]');
+  if (!video || !toggle) return;
+
+  var userPaused = false;
+  var inView = true;          // must be true AND !userPaused for the clip to run
+  function shouldPlay() { return !userPaused && inView; }
+
+  function sync() {
+    var isPaused = video.paused;
+    if (pauseIcon) pauseIcon.classList.toggle('hidden', isPaused);
+    if (playIcon) playIcon.classList.toggle('hidden', !isPaused);
+    toggle.setAttribute('aria-label', isPaused ? 'Play background video' : 'Pause background video');
+    toggle.setAttribute('aria-pressed', String(!isPaused));
+  }
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    userPaused = true;
+    video.removeAttribute('autoplay');
+    video.pause();
+  }
+  sync();
+
+  toggle.addEventListener('click', function () {
+    userPaused = !video.paused;
+    if (shouldPlay()) video.play().catch(function(){}); else video.pause();
+    sync();
+  });
+
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        inView = e.isIntersecting;
+        if (shouldPlay()) video.play().catch(function(){}); else video.pause();
+        sync();
+      });
+    }, { threshold: 0.05 }).observe(video);
+  }
+
+  // Returning to the tab must not resurrect a clip that scrolled out of view —
+  // an off-screen decoding video is pure battery and data cost.
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) video.pause();
+    else if (shouldPlay()) video.play().catch(function(){});
+    sync();
+  });
+})();
+
+/* ============================================================================
+   3. REELS — click to play. The <source> is attached on first interaction so
+   the clip costs nothing until someone actually asks for it.
+   ============================================================================ */
+(function () {
+  document.querySelectorAll('[data-video-card]').forEach(function (card) {
+    var video = card.querySelector('[data-video-el]');
+    var playBtn = card.querySelector('[data-video-play]');
+    if (!video || !playBtn) return;
+    var clipName = card.dataset.clipName || 'field clip video';
+    var loaded = false;
+
+    function ensureSource() {
+      if (loaded) return;
+      loaded = true;
+      var s = document.createElement('source');
+      s.src = 'assets/video/reel-1.mp4';
+      s.type = 'video/mp4';
+      video.appendChild(s);
+      video.load();
+    }
+
+    function toggle() {
+      ensureSource();
+      if (video.paused) {
+        video.play().catch(function(){});
+        playBtn.classList.add('opacity-0');
+      } else {
+        video.pause();
+        playBtn.classList.remove('opacity-0');
+      }
+      card.setAttribute('aria-pressed', String(!video.paused));
+      card.setAttribute('aria-label', (video.paused ? 'Play ' : 'Pause ') + clipName);
+    }
+
+    card.addEventListener('click', toggle);
+    card.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') { e.preventDefault(); toggle(); }
+    });
+  });
+})();
+
+/* ============================================================================
+   4. MOTION
+   Scroll cost is budgeted by input type. On a coarse pointer (every phone,
+   including the Instagram webview) the per-frame scrubbed parallax on nine
+   images and the Lenis inertia layer are both switched off — those were the
+   two things fighting the OS's native momentum scrolling. Reveals stay,
+   because they fire once and then stop costing anything.
+   ============================================================================ */
+window.addEventListener('load', function () {
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var finePointer  = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  // GSAP blocked or offline: force-show everything the pre-hide CSS is holding.
+  if (typeof gsap === 'undefined') { window.__revealAll(); return; }
+  if (reduceMotion) return;
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  var EASE_REVEAL = 'power3.out', DUR_REVEAL = 0.8;
+  var EASE_HOVER  = 'power2.out', DUR_HOVER  = 0.3;
+
+  /* ---- Smooth scroll: desktop pointers only. On touch this competed with
+     native momentum and produced the "sticky" feel in the IG browser. ---- */
+  var lenis = null;
+  if (finePointer && typeof Lenis !== 'undefined') {
+    lenis = new Lenis({ duration: 1.1, smoothWheel: true, syncTouch: false });
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
+    gsap.ticker.lagSmoothing(0);
+  }
+
+  /* ---- Members CTA click flash ---- */
+  var membersBtn = document.querySelector('.members-btn');
+  if (membersBtn) {
+    membersBtn.addEventListener('click', function (e) {
+      if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      if (this.classList.contains('is-clicking')) return;
+      e.preventDefault();
+      var href = this.getAttribute('href');
+      this.classList.add('is-clicking');
+      setTimeout(function () { window.location.href = href; }, 260);
+    });
+  }
+
+  /* ---- Magnetic buttons (fine pointer only) ---- */
+  if (finePointer) {
+    document.querySelectorAll('[data-magnetic]').forEach(function (el) {
+      el.addEventListener('mousemove', function (e) {
+        var r = el.getBoundingClientRect();
+        gsap.to(el, {
+          x: (e.clientX - (r.left + r.width / 2)) * 0.35,
+          y: (e.clientY - (r.top + r.height / 2)) * 0.35,
+          duration: DUR_HOVER, ease: EASE_HOVER
+        });
+      });
+      el.addEventListener('mouseleave', function () {
+        gsap.to(el, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1, 0.4)' });
+      });
+    });
+  }
+
+  /* ---- Hero entrance ---- */
+  gsap.timeline({ delay: 0.1 })
+    .to('[data-hero-line]',   { opacity: 1, y: 0, duration: DUR_REVEAL, ease: EASE_REVEAL, stagger: 0.1 })
+    .to('[data-hero-reveal]', { opacity: 1, y: 0, duration: DUR_REVEAL, ease: EASE_REVEAL, stagger: 0.09 }, '-=0.55');
+
+  /* ---- Scroll reveals: batched into one ScrollTrigger callback rather than
+     one trigger per element, and killed once played. ---- */
+  ScrollTrigger.batch('[data-reveal]', {
+    start: 'top 88%',
+    once: true,
+    onEnter: function (batch) {
+      gsap.to(batch, { opacity: 1, y: 0, duration: DUR_REVEAL, ease: EASE_REVEAL, stagger: 0.07, overwrite: true });
+    }
+  });
+
+  /* ---- Parallax: fine pointers only ---- */
+  if (finePointer) {
+    gsap.utils.toArray('[data-parallax-img]').forEach(function (img) {
+      gsap.fromTo(img, { yPercent: -5 }, {
+        yPercent: 5, ease: 'none',
+        scrollTrigger: { trigger: img.closest('figure'), start: 'top bottom', end: 'bottom top', scrub: 0.5 }
+      });
+    });
+    var heroMedia = document.querySelector('[data-hero-media]');
+    if (heroMedia) {
+      gsap.to(heroMedia, {
+        yPercent: 8, ease: 'none',
+        scrollTrigger: { trigger: '#top', start: 'top top', end: 'bottom top', scrub: 0.5 }
+      });
+    }
+  }
+
+  /* ---- Scroll cue ---- */
+  var arrow = document.querySelector('[data-scroll-arrow]');
+  if (arrow) gsap.to(arrow, { y: 5, repeat: -1, yoyo: true, duration: 0.9, ease: 'sine.inOut' });
+
+  /* ---- Deep links (archive.html links back to index.html#contact) ----
+     ScrollTrigger's first refresh runs after the browser's fragment scroll and
+     cancels it, dumping the visitor at the top of the page. Re-apply the hash
+     once the triggers have settled. ---- */
+  if (location.hash && location.hash.length > 1) {
+    var target = null;
+    try { target = document.querySelector(location.hash); } catch (e) {}
+    if (target) {
+      var navH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h'), 10) || 60;
+      // Measured once. Lenis applies its scroll a frame late, so re-measuring
+      // on each re-assert would compound the error instead of correcting it.
+      var hashY = Math.max(0,
+        target.getBoundingClientRect().top + (window.scrollY || window.pageYOffset || 0) - (navH + 12));
+      var goToHash = function () {
+        // Lenis owns the scroll position on desktop, so a window-level scroll
+        // gets clobbered on its next frame — go through Lenis when it's running.
+        if (lenis) lenis.scrollTo(hashY, { immediate: true, force: true });
+        else window.scrollTo({ top: hashY, behavior: 'auto' });
+      };
+      // Re-asserted a few times inside the first ~150 ms: ScrollTrigger's
+      // refresh and the first lazy-image paints can each land after the jump.
+      ScrollTrigger.refresh();
+      goToHash();
+      requestAnimationFrame(goToHash);
+      setTimeout(goToHash, 60);
+      setTimeout(goToHash, 150);
+    }
+  }
+});
+
+/* Lenis is desktop-only, so it's fetched only on a fine pointer. */
+(function () {
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var s = document.createElement('script');
+  s.src = 'https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js';
+  s.defer = true;
+  document.head.appendChild(s);
+})();
+</script>
+
+</body>
+</html>
