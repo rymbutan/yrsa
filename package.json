@@ -1,0 +1,11 @@
+{
+  "name": "yrsaclicks-site",
+  "private": true,
+  "description": "Static site for yrsaclicks.com — no framework, no bundler.",
+  "scripts": {
+    "css": "node tailwind.build.js"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.19"
+  }
+}
