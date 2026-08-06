@@ -11,7 +11,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script>
   tailwind.config = {
     theme: {
@@ -47,85 +46,176 @@
   }
   body { font-family: 'Montserrat', sans-serif; background: #2b241f; color: #e3e0d9; }
   .logline { font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.18em; }
-  .js .reveal-up { opacity: 0; transform: translateY(28px); }
   .depth-card {
     border: 1px solid rgba(151,149,145,0.35);
     box-shadow: 0 8px 20px -6px rgba(0,0,0,0.4), 0 30px 60px -20px rgba(0,0,0,0.35);
   }
-  .photo-grade { filter: contrast(1.05) saturate(0.92) brightness(0.98); }
-  @media (prefers-reduced-motion: reduce) {
-    .js .reveal-up { opacity: 1 !important; transform: none !important; }
-  }
+  /* Darker/more contrast-y grade than the public site's .photo-grade — the archive
+     teaser wants a moodier, "held back" feel and needs to hold light text over it. */
+  .photo-grade-dark { filter: contrast(1.1) saturate(0.85) brightness(0.6); }
   @supports (height: 100dvh) {
     .min-h-screen { min-height: 100dvh !important; }
+    .h-full-view { height: 100dvh !important; }
   }
+  /* View-switching: JS toggles the `hidden` attribute; opacity fade is layered on
+     top via GSAP when available, so content is still correct with no JS/GSAP.
+     Tailwind's `flex` utility on these same elements sets display:flex at equal
+     specificity to the browser's default [hidden]{display:none} rule, and author
+     styles win that tie — so [hidden] alone does nothing here without this override. */
+  [hidden] { display: none !important; }
+  /* Views fill <main> exactly. Header is fixed/out of flow (matches index.html's
+     bare-header-floats-over-full-bleed-media pattern), so main starts at the very
+     top of the viewport and the Immerse photo runs edge-to-edge behind the header. */
+  [data-view] { position: absolute; inset: 0; }
+  /* Header sits directly on the photo/dark background here (no light section to
+     contrast against, unlike index.html's scroll-aware nav) — shadow keeps it legible. */
+  .nav-text-shadow { text-shadow: 0 1px 3px rgba(0,0,0,0.85), 0 2px 10px rgba(0,0,0,0.55); }
 </style>
 </head>
-<body class="antialiased min-h-screen flex flex-col">
+<body class="antialiased min-h-screen">
 
-<header class="px-6 md:px-12 py-6">
-  <a href="index.html#top" class="font-logo text-3xl leading-none py-2.5 text-bone cursor-pointer">Yrsaclicks</a>
+<header class="fixed top-4 left-4 right-4 z-[60] flex items-center justify-between px-2 py-1">
+  <a href="index.html#top" class="nav-text-shadow font-logo text-3xl leading-none py-2.5 text-bone cursor-pointer">Yrsaclicks</a>
+  <a href="index.html#top" data-not-now class="nav-text-shadow logline text-xs text-bone/80 hover:text-pine-light transition-colors duration-200 cursor-pointer py-3 px-2">&larr; BACK</a>
 </header>
 
-<main class="flex-1 px-6 py-12 md:py-16">
-  <!-- Hook: the personal side, held back from the public site to give members a reason to join -->
-  <section class="max-w-6xl mx-auto grid md:grid-cols-12 gap-10 md:gap-14 items-center mb-20 md:mb-28">
-    <div class="md:col-span-7 relative pb-8 pr-6 md:pb-10 md:pr-10">
-      <div data-reveal class="reveal-up depth-card rounded-2xl overflow-hidden">
-        <img src="assets/img/personal-portrait.jpg" alt="Yrsa off-duty, seated, between shoots" class="photo-grade w-full h-[380px] sm:h-[480px] md:h-[580px] object-cover object-top" loading="lazy" />
-      </div>
-      <div data-reveal class="reveal-up depth-card absolute bottom-0 right-0 w-32 h-32 md:w-44 md:h-44 rounded-xl overflow-hidden border-2 border-lavender rotate-3">
-        <img src="assets/img/personal-detail.jpg" alt="Close-up of Yrsa's hands adjusting her shirt cuff, seated" class="photo-grade w-full h-full object-cover" loading="lazy" />
-      </div>
+<main class="relative min-h-screen">
+
+  <!-- Immerse: the members-only teaser. Full-bleed photo, dark grade, bottom-anchored copy. -->
+  <section data-view="immerse" class="flex flex-col justify-end px-6 md:px-12 pb-16 md:pb-20">
+    <div class="absolute inset-0 -z-10 overflow-hidden">
+      <img src="assets/img/personal-portrait.jpg" alt="" class="photo-grade-dark w-full h-full object-cover object-top" loading="lazy" />
+      <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/50 to-ink/10"></div>
     </div>
-    <div class="md:col-span-5">
-      <p data-reveal class="reveal-up logline text-pine-light text-xs mb-4">THE PERSONAL SIDE</p>
-      <h1 data-reveal class="reveal-up font-headline text-3xl md:text-5xl font-medium tracking-tight mb-6">Yrsa shoots the in-between hours.</h1>
-      <p data-reveal class="reveal-up text-bone/75 font-light leading-relaxed max-w-sm">
-        Unreleased sets, uncut film, frames that never make it to the public page.
+    <div class="relative max-w-xl">
+      <p class="logline text-pine-light text-xs mb-4">THE PRIVATE ARCHIVE</p>
+      <h1 class="font-headline text-4xl md:text-6xl font-medium tracking-tight mb-5">Members Only</h1>
+      <p class="text-bone/75 font-light leading-relaxed max-w-sm mb-8">
+        Unreleased sets, uncut film, and the frames that never make it to the public page. Nothing here is indexed or shared.
       </p>
+      <button type="button" data-enter class="inline-block bg-brass text-bone font-medium px-8 py-3.5 rounded-full hover:bg-bone hover:text-ink transition-colors duration-200 cursor-pointer">
+        Enter
+      </button>
     </div>
   </section>
 
-  <div class="max-w-lg mx-auto text-center">
-    <p data-reveal class="reveal-up logline text-pine-light text-xs mb-4">PRIVATE ARCHIVE</p>
-    <h2 data-reveal class="reveal-up font-headline text-3xl md:text-5xl font-medium tracking-tight mb-5">Member access is coming soon.</h2>
-    <p data-reveal class="reveal-up text-bone/70 font-light leading-relaxed mb-8">
-      The Private Archive will hold the unlogged frames, longer trip cuts, and early access to new
-      regions before they reach the public journal. Not open yet — check back soon.
-    </p>
-    <a data-reveal href="index.html#contact" class="reveal-up inline-block bg-pine text-bone font-medium px-8 py-3.5 rounded-full hover:bg-bone hover:text-ink transition-colors duration-200 cursor-pointer">
-      Get notified
-    </a>
-  </div>
+  <!-- Coming-soon: existing placeholder content, now gated behind the age check. -->
+  <section data-view="coming-soon" hidden class="flex items-center justify-center px-6 py-16">
+    <div class="max-w-lg mx-auto text-center">
+      <p class="logline text-pine-light text-xs mb-4">PRIVATE ARCHIVE</p>
+      <h2 class="font-headline text-3xl md:text-5xl font-medium tracking-tight mb-5">Member access is coming soon.</h2>
+      <p class="text-bone/70 font-light leading-relaxed mb-8">
+        The Private Archive will hold the unlogged frames, longer trip cuts, and early access to new
+        regions before they reach the public journal. Not open yet — check back soon.
+      </p>
+      <a href="index.html#contact" class="inline-block bg-pine text-bone font-medium px-8 py-3.5 rounded-full hover:bg-bone hover:text-ink transition-colors duration-200 cursor-pointer">
+        Get notified
+      </a>
+    </div>
+  </section>
+
 </main>
 
-<footer class="px-6 md:px-12 py-8 text-center">
-  <a href="index.html#top" class="logline text-xs text-bone/70 hover:text-pine-light transition-colors duration-200 cursor-pointer py-3 px-2">&larr; BACK TO HOME</a>
-</footer>
+<!-- Age-gate modal: self-declared confirmation, no ID/data collected. -->
+<div data-age-gate hidden role="dialog" aria-modal="true" aria-labelledby="age-gate-heading" class="fixed inset-0 z-50 flex items-center justify-center px-6 bg-ink/95">
+  <div class="depth-card rounded-2xl p-8 md:p-10 max-w-sm w-full text-center">
+    <p class="logline text-pine-light text-xs mb-4">AGE VERIFICATION</p>
+    <h2 id="age-gate-heading" class="font-headline text-2xl md:text-3xl font-medium tracking-tight mb-4">You must be 18 or older</h2>
+    <p class="text-bone/70 font-light leading-relaxed text-sm mb-6">
+      This area contains adult material. By continuing you confirm you are of legal age and that viewing is lawful where you are.
+    </p>
+    <label class="flex items-start gap-3 text-left text-sm text-bone/85 mb-6 cursor-pointer">
+      <input type="checkbox" data-age-checkbox class="mt-0.5 w-4 h-4 accent-pine-light cursor-pointer" />
+      I confirm I am 18 or older.
+    </label>
+    <button type="button" data-continue disabled class="w-full bg-brass text-bone font-medium px-8 py-3.5 rounded-full hover:bg-bone hover:text-ink transition-colors duration-200 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-brass disabled:hover:text-bone mb-3">
+      Continue
+    </button>
+    <a href="index.html#top" data-not-now class="logline block text-xs text-bone/60 hover:text-pine-light transition-colors duration-200 cursor-pointer py-2">
+      Not now
+    </a>
+    <p class="text-bone/40 text-xs font-light leading-relaxed mt-6">
+      Age verification is self-declared — no identifying information is collected or stored.
+    </p>
+  </div>
+</div>
 
 <script>
 (function () {
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hasGsap = typeof gsap !== 'undefined';
+  var EASE_REVEAL = 'power3.out';
+  var DUR_REVEAL = 0.85;
 
-  // If GSAP itself failed to load (CDN blocked/offline), force-show reveal
-  // content instead of leaving it permanently hidden by the .js pre-hide CSS.
-  if (typeof gsap === 'undefined') {
-    document.querySelectorAll('.reveal-up').forEach(function (el) {
-      el.style.opacity = 1;
-      el.style.transform = 'none';
+  var views = document.querySelectorAll('[data-view]');
+  var ageGate = document.querySelector('[data-age-gate]');
+  var enterBtn = document.querySelector('[data-enter]');
+  var checkbox = document.querySelector('[data-age-checkbox]');
+  var continueBtn = document.querySelector('[data-continue]');
+  var notNowLinks = document.querySelectorAll('[data-not-now]');
+  var STORAGE_KEY = 'yrsa_age_verified';
+
+  function activateView(name) {
+    views.forEach(function (view) {
+      if (view.dataset.view === name) {
+        view.hidden = false;
+        if (!reduceMotion && hasGsap) {
+          gsap.fromTo(view, { opacity: 0 }, { opacity: 1, duration: DUR_REVEAL, ease: EASE_REVEAL });
+        }
+      } else {
+        view.hidden = true;
+      }
     });
-    return;
   }
-  if (reduceMotion) return;
 
-  gsap.registerPlugin(ScrollTrigger);
+  function openAgeGate() {
+    ageGate.hidden = false;
+    if (!reduceMotion && hasGsap) {
+      gsap.fromTo(ageGate, { opacity: 0 }, { opacity: 1, duration: DUR_REVEAL, ease: EASE_REVEAL });
+    }
+    if (checkbox) checkbox.focus();
+  }
 
-  gsap.utils.toArray('[data-reveal]').forEach(function (el) {
-    gsap.to(el, {
-      opacity: 1, y: 0, duration: 0.85, ease: 'power3.out',
-      scrollTrigger: { trigger: el, start: 'top 88%' },
+  function closeAgeGate(onComplete) {
+    if (!reduceMotion && hasGsap) {
+      gsap.to(ageGate, {
+        opacity: 0, duration: 0.3, ease: 'power2.out',
+        onComplete: function () { ageGate.hidden = true; if (onComplete) onComplete(); },
+      });
+    } else {
+      ageGate.hidden = true;
+      if (onComplete) onComplete();
+    }
+  }
+
+  if (enterBtn) {
+    enterBtn.addEventListener('click', function () {
+      if (window.localStorage.getItem(STORAGE_KEY) === '1') {
+        activateView('coming-soon');
+      } else {
+        openAgeGate();
+      }
     });
+  }
+
+  if (checkbox && continueBtn) {
+    checkbox.addEventListener('change', function () {
+      continueBtn.disabled = !checkbox.checked;
+    });
+  }
+
+  if (continueBtn) {
+    continueBtn.addEventListener('click', function () {
+      if (continueBtn.disabled) return;
+      window.localStorage.setItem(STORAGE_KEY, '1');
+      closeAgeGate(function () { activateView('coming-soon'); });
+    });
+  }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && ageGate && !ageGate.hidden) {
+      window.location.href = 'index.html#top';
+    }
   });
 })();
 </script>
