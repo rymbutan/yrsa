@@ -195,33 +195,21 @@
      ask an iOS webview to composite every frame.
      ============================================================================ */
   header[data-nav] {
-    position:fixed; top:0; left:0; right:0; z-index:50;
+    position:absolute; top:0; left:0; right:0; z-index:50;
     padding-top:env(safe-area-inset-top);
-    transform:translateZ(0);            /* own compositor layer, no repaint churn */
-    transition:background-color .3s ease, box-shadow .3s ease, border-color .3s ease;
     background-color:transparent;
     border-bottom:1px solid transparent;
   }
   header[data-nav] nav {
     height:var(--nav-h);
-    transition:height .3s ease;
   }
-  /* Scrim behind the bar while it's transparent over the hero */
+  /* Scrim behind the bar so it reads over the hero video/photo */
   header[data-nav]::before {
     content:''; position:absolute; inset:0; z-index:-1; pointer-events:none;
     background:linear-gradient(to bottom, rgba(20,16,13,.55), rgba(20,16,13,0));
-    opacity:1; transition:opacity .3s ease;
   }
-  header[data-nav].nav-solid::before { opacity:0; }
-  header[data-nav].nav-solid {
-    background-color:rgba(227,224,217,.97);
-    border-bottom-color:rgba(43,36,31,.10);
-    box-shadow:0 1px 0 rgba(255,255,255,.5) inset, 0 6px 18px -10px rgba(43,36,31,.35);
-  }
-  header[data-nav].nav-solid nav { height:calc(var(--nav-h) - 8px); }
 
-  header[data-nav] [data-nav-text] { color:#f2efe9; transition:color .3s ease; }
-  header[data-nav].nav-solid [data-nav-text] { color:var(--ink); }
+  header[data-nav] [data-nav-text] { color:#f2efe9; }
 
   /* Members CTA — ghost outline that fills pine. Solid tints only, no blur. */
   .members-btn {
@@ -231,9 +219,6 @@
     color:#f2efe9;
     background-color:rgba(20,16,13,.28);
     transition:background-color .2s ease, color .2s ease, border-color .2s ease, transform .2s ease;
-  }
-  header[data-nav].nav-solid .members-btn {
-    border-color:var(--pine); color:var(--pine); background-color:rgba(63,74,61,.06);
   }
   @media (hover:hover) and (pointer:fine) {
     .members-btn:hover { background-color:var(--pine); color:#e3e0d9; border-color:var(--pine); }
@@ -299,7 +284,6 @@
   @media (prefers-reduced-motion:reduce) {
     html { scroll-behavior:auto; }
     .js .reveal-line, .js .reveal-up { opacity:1; transform:none; }
-    header[data-nav], header[data-nav] nav, header[data-nav]::before { transition:none; }
   }
 </style>
 </head>
@@ -635,28 +619,6 @@ window.__revealAll = function () {
 setTimeout(function () {
   if (typeof gsap === 'undefined') window.__revealAll();
 }, 2200);
-
-/* ============================================================================
-   1. NAV SURFACE — transparent over the hero, solid everywhere else.
-   Runs off a passive scroll listener with rAF coalescing, independent of GSAP,
-   because this is legibility rather than decoration.
-   ============================================================================ */
-(function () {
-  var header = document.querySelector('[data-nav]');
-  var hero = document.getElementById('top');
-  if (!header || !hero) return;
-  var ticking = false;
-  function update() {
-    ticking = false;
-    var navH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h'), 10) || 60;
-    header.classList.toggle('nav-solid', hero.getBoundingClientRect().bottom <= navH + 28);
-  }
-  window.addEventListener('scroll', function () {
-    if (!ticking) { requestAnimationFrame(update); ticking = true; }
-  }, { passive: true });
-  window.addEventListener('resize', update, { passive: true });
-  update();
-})();
 
 /* ============================================================================
    2. HERO VIDEO — pause/play (WCAG 2.2.2) + battery/data hygiene.
