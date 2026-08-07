@@ -70,6 +70,22 @@
   /* Header sits directly on the photo/dark background here (no light section to
      contrast against, unlike index.html's scroll-aware nav) — shadow keeps it legible. */
   .nav-text-shadow { text-shadow: 0 1px 3px rgba(0,0,0,0.85), 0 2px 10px rgba(0,0,0,0.55); }
+  /* BRASS CTA — the site's one "members" button component. Identical to the
+     class of the same name on index.html (homepage ENTER card): flat brass
+     fill, bone text, soft glow. Used here for WELCOME and Continue so both
+     pages' members-themed buttons read as the same component. */
+  .brass-btn {
+    background-color: #876330; color: #e3e0d9;
+    box-shadow: 0 0 14px 2px rgba(196,154,108,.35), 0 0 4px rgba(255,255,255,.18);
+    transition: background-color .2s ease, color .2s ease, box-shadow .2s ease, transform .2s ease;
+  }
+  .brass-btn:hover {
+    background-color: #e3e0d9; color: #2b241f;
+    box-shadow: 0 0 18px 3px rgba(196,154,108,.45);
+  }
+  .brass-btn:active { transform: scale(.97); }
+  .brass-btn:disabled { opacity: .4; cursor: not-allowed; box-shadow: none; }
+  .brass-btn:disabled:hover { background-color: #876330; color: #e3e0d9; }
 </style>
 </head>
 <body class="antialiased min-h-screen">
@@ -84,17 +100,17 @@
   <!-- Immerse: the members-only teaser. Full-bleed photo, dark grade, bottom-anchored copy. -->
   <section data-view="immerse" class="flex flex-col justify-end px-6 md:px-12 pb-16 md:pb-20">
     <div class="absolute inset-0 -z-10 overflow-hidden">
-      <img src="assets/img/personal-portrait.jpg" alt="" class="photo-grade-dark w-full h-full object-cover object-top" loading="lazy" />
+      <img src="assets/img/archive-entrance.jpg" alt="" class="photo-grade-dark w-full h-full object-cover object-top" loading="lazy" />
       <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/50 to-ink/10"></div>
     </div>
     <div class="relative max-w-xl">
       <p class="logline text-pine-light text-xs mb-4">THE PRIVATE ARCHIVE</p>
-      <h1 class="font-headline text-4xl md:text-6xl font-medium tracking-tight mb-5">Members Only</h1>
+      <h1 class="font-headline text-4xl md:text-6xl font-extrabold tracking-tight leading-[1] mb-5">Members Only</h1>
       <p class="text-bone/75 font-light leading-relaxed max-w-sm mb-8">
-        Unreleased sets, uncut film, and the frames that never make it to the public page. Nothing here is indexed or shared.
+        Unreleased sets, uncut film and the frames that never make the public page.
       </p>
-      <button type="button" data-enter class="inline-block bg-brass text-bone font-medium px-8 py-3.5 rounded-full hover:bg-bone hover:text-ink transition-colors duration-200 cursor-pointer">
-        Enter
+      <button type="button" data-enter class="brass-btn inline-block font-semibold text-xs tracking-[0.2em] px-8 py-4 rounded-lg cursor-pointer">
+        WELCOME
       </button>
     </div>
   </section>
@@ -108,7 +124,7 @@
         The Private Archive will hold the unlogged frames, longer trip cuts, and early access to new
         regions before they reach the public journal. Not open yet — check back soon.
       </p>
-      <a href="index.html#contact" class="inline-block bg-pine text-bone font-medium px-8 py-3.5 rounded-full hover:bg-bone hover:text-ink transition-colors duration-200 cursor-pointer">
+      <a href="index.html#contact" class="inline-block bg-pine text-bone font-medium px-8 py-3.5 rounded-lg hover:bg-bone hover:text-ink transition-colors duration-200 cursor-pointer">
         Get notified
       </a>
     </div>
@@ -128,7 +144,7 @@
       <input type="checkbox" data-age-checkbox class="mt-0.5 w-4 h-4 accent-pine-light cursor-pointer" />
       I confirm I am 18 or older.
     </label>
-    <button type="button" data-continue disabled class="w-full bg-brass text-bone font-medium px-8 py-3.5 rounded-full hover:bg-bone hover:text-ink transition-colors duration-200 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-brass disabled:hover:text-bone mb-3">
+    <button type="button" data-continue disabled class="brass-btn w-full font-medium px-8 py-3.5 rounded-lg cursor-pointer mb-3">
       Continue
     </button>
     <a href="index.html#top" data-not-now class="logline block text-xs text-bone/60 hover:text-pine-light transition-colors duration-200 cursor-pointer py-2">
